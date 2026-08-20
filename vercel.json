@@ -19,6 +19,10 @@
       "dest": "/loading.html"
     },
     {
+      "src": "^/website%20file\\.html$",
+      "dest": "/api/website"
+    },
+    {
       "handle": "filesystem"
     }
   ]
