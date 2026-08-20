@@ -9,9 +9,10 @@ module.exports = (req, res) => {
     const patch = `
 <style id="page-by-page-patch">
 html,body{height:100%;overflow:hidden}
+#viewStory,#viewLetters{height:100svh;overflow:auto}
 #world{height:100svh!important}
 #world>section.page-hidden{display:none!important}
-#world>section.page-active{display:grid!important;min-height:100svh;height:100svh;overflow:auto;animation:pageEnter .72s cubic-bezier(.22,.8,.2,1) both}
+#world>section.page-active{min-height:100svh;height:100svh;overflow:auto;animation:pageEnter .72s cubic-bezier(.22,.8,.2,1) both}
 @keyframes pageEnter{from{opacity:0;transform:translateY(18px) scale(.985);filter:blur(8px)}to{opacity:1;transform:none;filter:blur(0)}}
 .page-back,.page-next{position:fixed;z-index:99990;border:0;border-radius:999px;cursor:pointer;font-family:Inter,system-ui,sans-serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s ease;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
 .page-back{top:14px;left:14px;padding:11px 17px;color:#5a3540;background:rgba(255,250,247,.88);border:1px solid rgba(167,108,120,.28);box-shadow:0 10px 28px rgba(99,59,71,.13);animation:navEnter .5s ease both}
@@ -75,7 +76,7 @@ html,body{height:100%;overflow:hidden}
       var replay=event.target.closest('.replay');
       if(replay){event.preventDefault();event.stopImmediatePropagation();showPage(0,true);}
     },true);
-    showPage(location.hash?findPage(location.hash.replace(/^#/,' ' ).trim()):0,false);
+    showPage(location.hash?findPage(location.hash.replace(/^#/,'').trim()):0,false);
     world.dataset.pageRouter='ready';
     return true;
   }
