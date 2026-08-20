@@ -1,0 +1,19 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/assets/bhavanika.jpg",
+      "destination": "/assets/IMG_20260818_203948.jpg?loader=v2",
+      "permanent": false
+    }
+  ],
+  "routes": [
+    {
+      "src": "^/$",
+      "dest": "/loading.html"
+    },
+    {
+      "handle": "filesystem"
+    }
+  ]
+}
