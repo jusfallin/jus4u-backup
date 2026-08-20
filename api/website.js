@@ -11,6 +11,7 @@ module.exports = (req, res) => {
   .story-seq-locked{display:none!important}
   .story-continue-wrap{display:flex;justify-content:center;align-items:center;margin:clamp(48px,7vw,92px) auto 0;padding:0 20px;text-align:center}
   .story-continue{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:.65em;min-height:56px;padding:18px 34px;border:0;border-radius:999px;cursor:pointer;color:#FFF9F6;background:linear-gradient(140deg,#E7A9B4 0%,#DC97A5 48%,#CE8A99 100%);box-shadow:0 18px 36px -16px rgba(220,151,165,.9),0 5px 14px -8px rgba(74,39,50,.25);font:500 clamp(10px,.78vw,12.5px)/1 var(--sans);letter-spacing:.24em;text-transform:uppercase;white-space:nowrap;transform:translateY(16px);opacity:0;transition:opacity .9s ease,transform .9s cubic-bezier(.2,.8,.2,1),box-shadow .45s ease}
+  .story-continue-wrap.rv-in .story-continue{opacity:1;transform:translateY(0)}
   .story-continue.story-ready{opacity:1;transform:translateY(0)}
   .story-continue::after{content:"";position:absolute;inset:-5px;border-radius:inherit;border:1px solid rgba(232,198,106,.45);opacity:0;transform:scale(.94);transition:opacity .45s ease,transform .45s ease}
   .story-continue:hover{transform:translateY(-3px) scale(1.035);box-shadow:0 25px 48px -17px rgba(220,151,165,1),0 7px 16px -8px rgba(74,39,50,.28)}
@@ -53,8 +54,6 @@ module.exports = (req, res) => {
       index=Math.max(0,index);
     };
 
-    // Lock every main-story section after the hero. The final section is also
-    // locked, but its existing "Let's celebrate" button is never modified.
     sections.slice(1).forEach(section=>section.classList.add('story-seq-locked'));
     final.classList.add('story-seq-locked');
     const endnote=document.getElementById('endnote');
@@ -70,17 +69,10 @@ module.exports = (req, res) => {
       wrap.innerHTML='<div><button type="button" class="story-continue"><span>'+text+'</span><span class="story-continue-icon" aria-hidden="true">'+icon+'</span></button><span class="story-seq-progress">'+(index+1)+' / '+labels.length+' · tap to continue</span></div>';
       const button=wrap.querySelector('.story-continue');
       button.addEventListener('click',()=>scrollAndReveal(section,next,index));
-      const anchor=section.querySelector('#proposal') || section.querySelector('.wrap:last-child') || section.lastElementChild;
       section.appendChild(wrap);
-      if(anchor && anchor!==wrap){
-        // The button is intentionally kept at the very end of each section so
-        // the next section remains a surprise until she reaches this point.
-      }
       requestAnimationFrame(()=>setTimeout(()=>wrap.classList.add('rv-in'),80));
     });
 
-    // The hero's old scroll cue stays, but the new button becomes the explicit
-    // interaction that unlocks the next section.
     world.dataset.sequenceReady='true';
     return true;
   }
