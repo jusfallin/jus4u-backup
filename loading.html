@@ -32,13 +32,10 @@
    bar.style.width='100%';pct.textContent='100%';
    await new Promise(r=>setTimeout(r,reduce?120:520));
    try{
-     /* /website file.html is rewritten to /api/website, which serves the real
-        birthday page plus the sequential-reveal interaction patch. */
-     const res=await fetch('/website%20file.html?loader_bypass='+Date.now(),{cache:'no-store'});
+     const res=await fetch('/main-v5.html?loader_bypass='+Date.now(),{cache:'no-store'});
      if(!res.ok) throw new Error('Birthday page request failed: '+res.status);
      const html=await res.text();
      const doc=new DOMParser().parseFromString(html,'text/html');
-     if(!doc.getElementById('world')) throw new Error('Birthday page was not returned');
      loader.style.opacity='0';
      await new Promise(r=>setTimeout(r,650));
      document.open();
@@ -46,7 +43,7 @@
      document.close();
    }catch(e){
      console.error(e);
-     location.replace('/website%20file.html?from_loader='+Date.now());
+     location.replace('/main-v5.html?from_loader='+Date.now());
    }
  }
  requestAnimationFrame(tick);
