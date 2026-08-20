@@ -32,7 +32,7 @@
    bar.style.width='100%';pct.textContent='100%';
    await new Promise(r=>setTimeout(r,reduce?120:520));
    try{
-     const res=await fetch('/main-v5.html?loader_bypass='+Date.now(),{cache:'no-store'});
+     const res=await fetch('/main-final.html?loader_bypass='+Date.now(),{cache:'no-store'});
      if(!res.ok) throw new Error('Birthday page request failed: '+res.status);
      const html=await res.text();
      const doc=new DOMParser().parseFromString(html,'text/html');
@@ -43,7 +43,7 @@
      document.close();
    }catch(e){
      console.error(e);
-     location.replace('/main-v5.html?from_loader='+Date.now());
+     location.replace('/main-final.html?from_loader='+Date.now());
    }
  }
  requestAnimationFrame(tick);
