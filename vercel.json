@@ -16,7 +16,7 @@
   "routes": [
     {
       "src": "^/$",
-      "dest": "/main-final.html"
+      "dest": "/main-v5.html"
     },
     {
       "src": "^/website%20file\\.html$",
