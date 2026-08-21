@@ -8,7 +8,204 @@ module.exports = (req, res) => {
       return originalSend(body);
     }
 
-    const fixScript = String.raw`<script id="myyellow-gift-sequence-fix">
+    const fixScript = String.raw`<style id="myyellow-smooth-animations">
+@media (prefers-reduced-motion: no-preference) {
+  #world > section {
+    will-change: opacity, transform;
+  }
+
+  #world > section.my-page-active {
+    animation: myYellowSectionEnter 900ms cubic-bezier(.16,1,.3,1) both;
+  }
+
+  #world > section.my-page-active .wrap,
+  #world > section.my-page-active > .wrap {
+    animation: myYellowContentEnter 850ms cubic-bezier(.16,1,.3,1) 70ms both;
+  }
+
+  #world > section.my-page-active .eyebrow,
+  #world > section.my-page-active .kicker,
+  #world > section.my-page-active .signature {
+    animation: myYellowFadeUp 700ms cubic-bezier(.16,1,.3,1) 100ms both;
+  }
+
+  #world > section.my-page-active h1,
+  #world > section.my-page-active h2,
+  #world > section.my-page-active h3,
+  #world > section.my-page-active .h-serif,
+  #world > section.my-page-active .q-script,
+  #world > section.my-page-active .gold-script,
+  #world > section.my-page-active .title,
+  #world > section.my-page-active .name {
+    animation: myYellowTextReveal 950ms cubic-bezier(.16,1,.3,1) 150ms both;
+  }
+
+  #world > section.my-page-active .body-copy,
+  #world > section.my-page-active .pull-quote,
+  #world > section.my-page-active .message {
+    animation: myYellowFadeUp 850ms cubic-bezier(.16,1,.3,1) 260ms both;
+  }
+
+  #world > section.my-page-active .art-card,
+  #world > section.my-page-active .memory-card,
+  #world > section.my-page-active .memory-wrap,
+  #world > section.my-page-active .art-frame,
+  #world > section.my-page-active .photo-card,
+  #world > section.my-page-active #giftStage,
+  #world > section.my-page-active #gift {
+    animation: myYellowVisualReveal 1050ms cubic-bezier(.16,1,.3,1) 180ms both;
+  }
+
+  #world > section.my-page-active .my-page-next,
+  #world > section.my-page-active .enter,
+  #world > section.my-page-active button,
+  #world > section.my-page-active a[role="button"] {
+    transition: transform 420ms cubic-bezier(.16,1,.3,1), box-shadow 420ms cubic-bezier(.16,1,.3,1), filter 420ms ease;
+  }
+
+  #world > section.my-page-active .my-page-next:hover,
+  #world > section.my-page-active .enter:hover,
+  #world > section.my-page-active button:hover,
+  #world > section.my-page-active a[role="button"]:hover {
+    transform: translateY(-4px) scale(1.035);
+    filter: brightness(1.035);
+  }
+
+  #world > section.my-page-active .my-page-next:active,
+  #world > section.my-page-active .enter:active,
+  #world > section.my-page-active button:active,
+  #world > section.my-page-active a[role="button"]:active {
+    transform: translateY(-1px) scale(.975);
+  }
+
+  #world > section.my-page-active .art-card,
+  #world > section.my-page-active .memory-card,
+  #world > section.my-page-active .memory-wrap {
+    transition: transform 700ms cubic-bezier(.16,1,.3,1), box-shadow 700ms cubic-bezier(.16,1,.3,1), filter 500ms ease;
+  }
+
+  #world > section.my-page-active .art-card:hover,
+  #world > section.my-page-active .memory-card:hover,
+  #world > section.my-page-active .memory-wrap:hover {
+    transform: translateY(-7px) scale(1.012);
+    filter: saturate(1.035);
+  }
+
+  #world > section.my-page-active .art-card img,
+  #world > section.my-page-active .memory-card img,
+  #world > section.my-page-active .art-frame img,
+  #world > section.my-page-active .memory-frame img {
+    transition: transform 900ms cubic-bezier(.16,1,.3,1), filter 700ms ease;
+  }
+
+  #world > section.my-page-active .art-card:hover img,
+  #world > section.my-page-active .memory-card:hover img,
+  #world > section.my-page-active .art-frame:hover img,
+  #world > section.my-page-active .memory-frame:hover img {
+    transform: scale(1.025);
+    filter: saturate(1.045) contrast(1.01);
+  }
+
+  /* Gift: preserve the existing sequence while making each state glide in/out. */
+  #giftBlock, #memory, #proposal, #yesCard, #cat {
+    will-change: opacity, transform, filter;
+  }
+
+  #giftSection .gift {
+    transition: transform 850ms cubic-bezier(.16,1,.3,1), filter 600ms ease;
+  }
+
+  #giftSection #memory .memory-card {
+    transition: transform 700ms cubic-bezier(.16,1,.3,1), box-shadow 700ms cubic-bezier(.16,1,.3,1);
+  }
+
+  #giftSection #memory .memory-card:hover {
+    transform: translateY(-8px) scale(1.012) rotate(0deg);
+  }
+
+  #giftSection #proposal .q-script {
+    animation: myYellowProposalText 900ms cubic-bezier(.16,1,.3,1) both;
+  }
+
+  #giftSection #proposal .slot {
+    transition: transform 420ms cubic-bezier(.16,1,.3,1), filter 420ms ease;
+  }
+
+  #giftSection #proposal .slot:hover {
+    transform: translateY(-5px) scale(1.04) !important;
+    filter: brightness(1.04);
+  }
+
+  /* Final section: subtle floating celebration energy without moving the layout. */
+  #final.my-page-active .my-page-next,
+  #final.my-page-active .enter {
+    animation: myYellowButtonReveal 800ms cubic-bezier(.16,1,.3,1) 420ms both;
+  }
+
+  #final.my-page-active::after {
+    content: "";
+    position: absolute;
+    inset: 12% 18%;
+    pointer-events: none;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,.18), transparent 68%);
+    animation: myYellowGlow 5s ease-in-out 1.2s infinite;
+  }
+}
+
+@keyframes myYellowSectionEnter {
+  from { opacity: 0; transform: translate3d(0, 22px, 0); filter: blur(5px); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
+}
+
+@keyframes myYellowContentEnter {
+  from { opacity: 0; transform: translate3d(0, 16px, 0) scale(.992); filter: blur(4px); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); filter: blur(0); }
+}
+
+@keyframes myYellowFadeUp {
+  from { opacity: 0; transform: translate3d(0, 17px, 0); filter: blur(4px); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); filter: blur(0); }
+}
+
+@keyframes myYellowTextReveal {
+  from { opacity: 0; transform: translate3d(0, 24px, 0) scale(.985); filter: blur(7px); }
+  70% { opacity: 1; transform: translate3d(0, -2px, 0) scale(1.005); filter: blur(0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); filter: blur(0); }
+}
+
+@keyframes myYellowVisualReveal {
+  from { opacity: 0; transform: translate3d(0, 26px, 0) scale(.965); filter: blur(5px); }
+  72% { opacity: 1; transform: translate3d(0, -3px, 0) scale(1.008); filter: blur(0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); filter: blur(0); }
+}
+
+@keyframes myYellowProposalText {
+  from { opacity: 0; transform: translate3d(0, 20px, 0) scale(.985); filter: blur(7px); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); filter: blur(0); }
+}
+
+@keyframes myYellowButtonReveal {
+  from { opacity: 0; transform: translate3d(0, 18px, 0) scale(.94); }
+  70% { opacity: 1; transform: translate3d(0, -2px, 0) scale(1.02); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@keyframes myYellowGlow {
+  0%, 100% { opacity: .18; transform: scale(.96); }
+  50% { opacity: .42; transform: scale(1.04); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #world > section,
+  #world > section * {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style><script id="myyellow-gift-sequence-fix">
 (function(){
   'use strict';
   function setup(){
