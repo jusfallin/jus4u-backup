@@ -7,6 +7,26 @@
       "permanent": false
     }
   ],
+  "headers": [
+    {
+      "source": "/",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "</assets/gift-page-overrides.css>; rel=stylesheet"
+        }
+      ]
+    },
+    {
+      "source": "/website%20file.html",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "</assets/gift-page-overrides.css>; rel=stylesheet"
+        }
+      ]
+    }
+  ],
   "routes": [
     {
       "src": "^/$",
