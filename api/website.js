@@ -37,13 +37,16 @@ body.my-page-flow #my-page-gift #gift{transform:scale(1.15)!important}
 body.my-page-flow #my-page-gift #memory{width:100%!important;margin-top:48px!important;padding-top:38px!important;border-top:1px solid rgba(220,151,165,.22)!important}
 body.my-page-flow #my-page-gift .memory-wrap{width:min(90vw,520px)!important;margin:18px auto 0!important}
 body.my-page-flow #my-page-gift .memory-card{width:100%!important;padding:15px 15px 22px!important}
-body.my-page-flow #my-page-gift .memory-frame{width:100%!important;aspect-ratio:auto!important;overflow:hidden!important}
-body.my-page-flow #my-page-gift #my-scratch-photo{display:block!important;width:100%!important;height:auto!important;max-height:none!important;object-fit:contain!important;border-radius:5px!important}
+body.my-page-flow #my-page-gift .memory-frame{width:100%!important;aspect-ratio:auto!important;overflow:hidden!important;cursor:pointer!important;touch-action:manipulation!important}
+body.my-page-flow #my-page-gift #my-scratch-photo{display:block!important;width:100%!important;height:auto!important;max-height:none!important;object-fit:contain!important;border-radius:5px!important;cursor:pointer!important;pointer-events:auto!important}
 body.my-page-flow #my-page-gift #proposal{width:100%!important;margin-top:48px!important;padding-top:38px!important;border-top:1px solid rgba(220,151,165,.22)!important}
 body.my-page-flow #my-page-gift #proposal .q-script{font-size:clamp(46px,8vw,94px)!important}
 body.my-page-flow #my-page-gift #proposal .arena{height:auto!important;min-height:180px!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:22px!important;margin:24px auto 0!important}
 body.my-page-flow #my-page-gift #proposal .slot{position:static!important;transform:none!important;margin:0!important}
 body.my-page-flow #my-page-gift #proposal .btn{font-size:13px!important;padding:17px 30px!important}
+body.my-page-flow #my-page-gift #proposal.my-proposal-hidden{display:none!important}
+body.my-page-flow #my-page-gift #proposal.my-proposal-revealed{display:block!important;animation:giftProposalReveal .75s ease both}
+@keyframes giftProposalReveal{from{opacity:0;transform:translateY(28px);filter:blur(7px)}to{opacity:1;transform:none;filter:none}}
 body.my-page-flow #my-page-quote .split{display:flex!important;flex-direction:column!important;align-items:center!important;gap:28px!important}
 body.my-page-flow #my-page-quote .art-col{width:min(88vw,430px)!important;margin:0 auto!important}
 body.my-page-flow #my-page-quote .art-card{width:100%!important;padding:12px 12px 18px!important}
@@ -99,7 +102,6 @@ body.my-page-flow #my-page-final .h-serif{font-size:clamp(40px,8vw,94px)!importa
   var cue=heroInner.querySelector('.scroll-cue');if(cue)cue.remove();
   var divider=heroInner.querySelector('.hero-divider');if(divider)divider.remove();
 
-  /* LOVE PAGE: use the requested repository scratch-card image in the card. */
   var loveFrame=loveInner.querySelector('.art-frame');
   if(loveFrame){
     loveFrame.querySelectorAll('svg').forEach(function(n){n.remove()});
@@ -110,7 +112,6 @@ body.my-page-flow #my-page-final .h-serif{font-size:clamp(40px,8vw,94px)!importa
     img.draggable=false;
   }
 
-  /* Keep gift, memory and proposal together on the GIFT page. */
   var giftBlock=document.getElementById('giftBlock');
   var memory=document.getElementById('memory');
   var proposal=document.getElementById('proposal');
@@ -121,17 +122,47 @@ body.my-page-flow #my-page-final .h-serif{font-size:clamp(40px,8vw,94px)!importa
     if(proposal)giftWrap.appendChild(proposal);
   }
 
-  /* The gift-page image card also uses the same repository image. */
+  var memoryFrame=null;
+  var memoryPhoto=null;
   if(memory){
-    var memoryFrame=memory.querySelector('.memory-frame');
+    memoryFrame=memory.querySelector('.memory-frame');
     if(memoryFrame){
       memoryFrame.querySelectorAll('svg').forEach(function(n){n.remove()});
-      var oldPhoto=memoryFrame.querySelector('#my-scratch-photo');
-      if(!oldPhoto){oldPhoto=document.createElement('img');oldPhoto.id='my-scratch-photo';memoryFrame.appendChild(oldPhoto)}
-      oldPhoto.src='/assets/scratch-photo.jpg';
-      oldPhoto.alt='Our special memory';
-      oldPhoto.draggable=false;
+      memoryPhoto=memoryFrame.querySelector('#my-scratch-photo');
+      if(!memoryPhoto){memoryPhoto=document.createElement('img');memoryPhoto.id='my-scratch-photo';memoryFrame.appendChild(memoryPhoto)}
+      memoryPhoto.src='/assets/scratch-photo.jpg';
+      memoryPhoto.alt='Our special memory';
+      memoryPhoto.draggable=false;
     }
+  }
+
+  /* The proposal is the next part of the gift sequence. It stays hidden until
+     the revealed memory image is tapped/clicked, so the gift interaction has
+     one clear progression: open box -> image -> tap image -> proposal. */
+  if(proposal)proposal.classList.add('my-proposal-hidden');
+  var proposalShown=false;
+  function revealProposal(){
+    if(!proposal||proposalShown)return;
+    proposalShown=true;
+    proposal.classList.remove('my-proposal-hidden');
+    proposal.classList.add('my-proposal-revealed');
+    requestAnimationFrame(function(){
+      proposal.scrollIntoView({behavior:'smooth',block:'center'});
+    });
+  }
+  if(memoryFrame){
+    memoryFrame.addEventListener('click',function(e){
+      if(e.target.closest('button,a'))return;
+      revealProposal();
+    });
+    memoryFrame.addEventListener('touchend',function(e){
+      if(e.target.closest('button,a'))return;
+      revealProposal();
+    },{passive:true});
+  }
+  if(memoryPhoto){
+    memoryPhoto.addEventListener('click',revealProposal);
+    memoryPhoto.addEventListener('touchend',revealProposal,{passive:true});
   }
 
   var stages=[hero,love,giftSection,quote,deep,final];
