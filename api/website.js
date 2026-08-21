@@ -6,216 +6,174 @@ module.exports = (req, res) => {
     const file = path.join(process.cwd(), 'website file.html');
     let html = fs.readFileSync(file, 'utf8');
 
-    const css = String.raw`<style id="myyellow-flow-fix">
+    const css = String.raw`<style id="myyellow-page-flow">
 html,body{background:#FADED2!important;overflow-x:hidden!important}
-body.my-flow-fix{overflow-y:auto!important}
-body.my-flow-fix #world>section{display:none!important}
-body.my-flow-fix #world>section.my-fix-active{display:flex!important;min-height:100svh!important;height:auto!important;align-items:flex-start!important;justify-content:center!important;padding:30px 0 90px!important}
-/* Opening screen only: center the birthday content in the full viewport. */
-body.my-flow-fix #world>section#hero.my-fix-active{align-items:center!important;justify-content:center!important;min-height:100svh!important;height:100svh!important;padding:0!important}
-body.my-flow-fix #my-fix-hero{position:relative;isolation:isolate;width:min(92vw,900px);min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:28px 20px 34px!important;overflow:hidden}
-body.my-flow-fix #my-fix-hero .content{position:relative;z-index:5}
-/* Soft interactive atmosphere in the empty space of the opening only. */
-body.my-flow-fix #my-fix-hero:before{content:"";position:absolute;z-index:0;width:58vw;height:58vw;max-width:560px;max-height:560px;min-width:280px;min-height:280px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.38) 0%,rgba(255,222,230,.2) 38%,rgba(220,151,165,0) 72%);filter:blur(2px);animation:heroGlow 6s ease-in-out infinite;pointer-events:none}
-body.my-flow-fix #my-fix-hero:after{content:"✦  ♡  ✦  ♡  ✦";position:absolute;z-index:1;left:50%;bottom:8%;transform:translateX(-50%);font-size:clamp(12px,2vw,18px);letter-spacing:.8em;color:rgba(150,80,95,.28);white-space:nowrap;animation:heroDrift 4s ease-in-out infinite;pointer-events:none}
-.my-fix-inner{width:min(92vw,900px);margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center}
-.my-fix-inner>*{margin-left:auto!important;margin-right:auto!important}
-.my-fix-back,.my-fix-next{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:999px;cursor:pointer;min-height:50px;padding:14px 28px;font:500 10.5px var(--sans);letter-spacing:.22em;text-transform:uppercase;transition:transform .25s ease,box-shadow .25s ease}
-.my-fix-back{order:0;align-self:center!important;margin:0 0 30px!important;color:#96505F;background:rgba(255,249,246,.78);border:1px solid rgba(150,80,95,.25);box-shadow:0 10px 25px -18px rgba(74,39,50,.45)}
-.my-fix-back:hover{transform:translateX(-3px)}
-.my-fix-next{order:99;margin-top:46px!important;color:#FFF9F6;background:linear-gradient(140deg,#E7A9B4,#DC97A5 48%,#CE8A99);box-shadow:0 18px 38px -16px rgba(220,151,165,.95);animation:myFixPulse 2.2s ease-in-out infinite}
-.my-fix-next:hover{transform:translateY(-2px) scale(1.025)}
-@keyframes myFixPulse{0%,100%{box-shadow:0 18px 38px -16px rgba(220,151,165,.95)}50%{box-shadow:0 24px 48px -14px rgba(220,151,165,1),0 0 0 9px rgba(220,151,165,.08)}}
-@keyframes heroGlow{0%,100%{transform:scale(.92);opacity:.65}50%{transform:scale(1.08);opacity:1}}
-@keyframes heroDrift{0%,100%{opacity:.2;transform:translateX(-50%) translateY(0)}50%{opacity:.5;transform:translateX(-50%) translateY(-7px)}}
-
-/* The first love story, giftbox, revealed image and proposal are ONE part. */
-body.my-flow-fix #my-fix-love .split{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:flex-start!important;width:100%!important;gap:28px!important}
-body.my-flow-fix #my-fix-love .art-col{order:1!important;width:min(88vw,430px)!important;margin:0 auto!important}
-body.my-flow-fix #my-fix-love .art-card{width:100%!important;padding:12px 12px 18px!important}
-body.my-flow-fix #my-fix-love .art-frame{aspect-ratio:291/348!important}
-body.my-flow-fix #my-fix-love .art-frame img{display:block!important;width:100%!important;height:100%!important;object-fit:cover!important;border-radius:4px!important}
-body.my-flow-fix #my-fix-love .stack{order:2!important;width:100%!important;max-width:760px!important;text-align:center!important;margin:0 auto!important}
-body.my-flow-fix .body-copy{font-size:clamp(16px,1.25vw,20px)!important;line-height:1.82!important;max-width:62ch!important}
-body.my-flow-fix #my-fix-love .h-serif{font-size:clamp(30px,5.4vw,58px)!important;line-height:1.18!important}
-body.my-flow-fix #my-fix-love .pull-quote{font-size:clamp(16px,1.35vw,21px)!important;line-height:1.7!important;border-left:0!important;border-top:2px solid var(--pink)!important;padding:20px 0 0!important;margin-top:8px!important}
-
-/* Giftbox comes immediately after the love message. */
-body.my-flow-fix #my-fix-love #giftBlock{width:100%!important;margin-top:76px!important;padding-top:48px!important;border-top:1px solid rgba(220,151,165,.22)!important}
-body.my-flow-fix #my-fix-love #giftStage{height:clamp(330px,45vh,480px)!important}
-body.my-flow-fix #my-fix-love #gift{transform:scale(1.12)!important}
-
-/* After the gift is opened, the repository image appears in the same part. */
-body.my-flow-fix #my-fix-love #memory{width:100%!important;margin-top:76px!important;padding-top:48px!important;border-top:1px solid rgba(220,151,165,.22)!important}
-body.my-flow-fix #my-fix-love .memory-wrap{width:min(90vw,520px)!important;margin:20px auto 0!important}
-body.my-flow-fix #my-fix-love .memory-card{width:100%!important;padding:15px 15px 22px!important}
-body.my-flow-fix #my-fix-love .memory-frame{width:100%!important;aspect-ratio:auto!important;overflow:hidden!important}
-body.my-flow-fix #my-fix-love #my-scratch-photo{display:block!important;width:100%!important;height:auto!important;max-height:none!important;object-fit:contain!important;border-radius:5px!important}
-
-/* Then the do-you-love-me question continues directly below it. */
-body.my-flow-fix #my-fix-love #proposal{width:100%!important;margin-top:76px!important;padding-top:48px!important;border-top:1px solid rgba(220,151,165,.22)!important}
-body.my-flow-fix #my-fix-love #proposal .q-script{font-size:clamp(46px,8vw,94px)!important}
-body.my-flow-fix #my-fix-love #proposal .arena{height:auto!important;min-height:180px!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:22px!important;margin:24px auto 0!important}
-body.my-flow-fix #my-fix-love #proposal .slot{position:static!important;transform:none!important;margin:0!important}
-body.my-flow-fix #my-fix-love #proposal .btn{font-size:13px!important;padding:17px 30px!important}
-
-/* Remove all old per-subpart navigation; only the combined part has controls. */
-body.my-flow-fix #my-fix-love .my-fix-state-controls{display:none!important}
-body.my-flow-fix #my-fix-gift{display:none!important}
-
-/* Quote / deep / final screens remain separate. */
-body.my-flow-fix #my-fix-quote .split{display:flex!important;flex-direction:column!important;align-items:center!important;gap:28px!important}
-body.my-flow-fix #my-fix-quote .art-col{width:min(88vw,430px)!important;margin:0 auto!important}
-body.my-flow-fix #my-fix-quote .art-card{width:100%!important;padding:12px 12px 18px!important}
-body.my-flow-fix #my-fix-quote .art-frame{aspect-ratio:291/348!important}
-body.my-flow-fix #my-fix-quote .art-frame img{display:block!important;width:100%!important;height:100%!important;object-fit:cover!important;border-radius:4px!important}
-body.my-flow-fix #my-fix-quote .stack{width:100%!important;max-width:760px!important;text-align:center!important}
-body.my-flow-fix #my-fix-quote .big-quote{font-size:clamp(34px,6vw,64px)!important;line-height:1.25!important}
-body.my-flow-fix #my-fix-deep .h-serif{font-size:clamp(34px,6vw,64px)!important}
-body.my-flow-fix #my-fix-deep .body-copy,body.my-flow-fix #my-fix-final .body-copy{font-size:clamp(16px,1.25vw,20px)!important}
-body.my-flow-fix #my-fix-final .h-serif{font-size:clamp(40px,8vw,94px)!important}
-
+body.my-page-flow{overflow-y:auto!important}
+body.my-page-flow #world>section{display:none!important}
+body.my-page-flow #world>section.my-page-active{display:flex!important;min-height:100svh!important;height:auto!important;align-items:flex-start!important;justify-content:center!important;padding:28px 0 92px!important}
+body.my-page-flow #world>section#hero.my-page-active{align-items:center!important;min-height:100svh!important;height:100svh!important;padding:0!important}
+.my-page-inner{width:min(92vw,900px);margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center}
+.my-page-inner>*{margin-left:auto!important;margin-right:auto!important}
+.my-page-back,.my-page-next{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;cursor:pointer;min-height:50px;padding:14px 29px;font:500 10.5px var(--sans);letter-spacing:.22em;text-transform:uppercase;transition:transform .25s ease,box-shadow .25s ease}
+.my-page-back{align-self:center!important;margin:0 0 28px!important;color:#96505F;background:rgba(255,249,246,.82);border:1px solid rgba(150,80,95,.25);box-shadow:0 10px 25px -18px rgba(74,39,50,.45)}
+.my-page-next{margin-top:42px!important;color:#FFF9F6;background:linear-gradient(140deg,#E7A9B4,#DC97A5 48%,#CE8A99);border:0;box-shadow:0 18px 38px -16px rgba(220,151,165,.95);animation:myPagePulse 2.2s ease-in-out infinite}
+.my-page-back:hover{transform:translateX(-3px)}
+.my-page-next:hover{transform:translateY(-2px) scale(1.025)}
+@keyframes myPagePulse{0%,100%{box-shadow:0 18px 38px -16px rgba(220,151,165,.95)}50%{box-shadow:0 24px 48px -14px rgba(220,151,165,1),0 0 0 9px rgba(220,151,165,.08)}}
+body.my-page-flow #my-page-love .split{display:flex!important;flex-direction:column!important;align-items:center!important;gap:28px!important;width:100%!important}
+body.my-page-flow #my-page-love .art-col{width:min(88vw,430px)!important;margin:0 auto!important;order:1!important}
+body.my-page-flow #my-page-love .art-card{width:100%!important;padding:12px 12px 18px!important}
+body.my-page-flow #my-page-love .art-frame{aspect-ratio:291/348!important;overflow:hidden!important}
+body.my-page-flow #my-page-love .art-frame img{display:block!important;width:100%!important;height:100%!important;object-fit:cover!important;border-radius:5px!important}
+body.my-page-flow #my-page-love .stack{width:100%!important;max-width:760px!important;order:2!important;text-align:center!important;margin:0 auto!important}
+body.my-page-flow .body-copy{font-size:clamp(16px,1.25vw,20px)!important;line-height:1.82!important;max-width:62ch!important}
+body.my-page-flow #my-page-love .h-serif{font-size:clamp(30px,5.4vw,58px)!important;line-height:1.18!important}
+body.my-page-flow #my-page-love .pull-quote{font-size:clamp(16px,1.35vw,21px)!important;line-height:1.7!important;border-left:0!important;border-top:2px solid var(--pink)!important;padding:20px 0 0!important;margin-top:8px!important}
+body.my-page-flow #my-page-love .my-page-next{margin-top:42px!important}
+body.my-page-flow #my-page-gift .wrap{width:100%!important}
+body.my-page-flow #my-page-gift #giftBlock{width:100%!important;margin:0 auto!important;padding-top:12px!important}
+body.my-page-flow #my-page-gift #giftStage{height:clamp(330px,48vh,500px)!important}
+body.my-page-flow #my-page-gift #gift{transform:scale(1.15)!important}
+body.my-page-flow #my-page-gift #memory{width:100%!important;margin-top:48px!important;padding-top:38px!important;border-top:1px solid rgba(220,151,165,.22)!important}
+body.my-page-flow #my-page-gift .memory-wrap{width:min(90vw,520px)!important;margin:18px auto 0!important}
+body.my-page-flow #my-page-gift .memory-card{width:100%!important;padding:15px 15px 22px!important}
+body.my-page-flow #my-page-gift .memory-frame{width:100%!important;aspect-ratio:auto!important;overflow:hidden!important}
+body.my-page-flow #my-page-gift #my-scratch-photo{display:block!important;width:100%!important;height:auto!important;max-height:none!important;object-fit:contain!important;border-radius:5px!important}
+body.my-page-flow #my-page-gift #proposal{width:100%!important;margin-top:48px!important;padding-top:38px!important;border-top:1px solid rgba(220,151,165,.22)!important}
+body.my-page-flow #my-page-gift #proposal .q-script{font-size:clamp(46px,8vw,94px)!important}
+body.my-page-flow #my-page-gift #proposal .arena{height:auto!important;min-height:180px!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:22px!important;margin:24px auto 0!important}
+body.my-page-flow #my-page-gift #proposal .slot{position:static!important;transform:none!important;margin:0!important}
+body.my-page-flow #my-page-gift #proposal .btn{font-size:13px!important;padding:17px 30px!important}
+body.my-page-flow #my-page-quote .split{display:flex!important;flex-direction:column!important;align-items:center!important;gap:28px!important}
+body.my-page-flow #my-page-quote .art-col{width:min(88vw,430px)!important;margin:0 auto!important}
+body.my-page-flow #my-page-quote .art-card{width:100%!important;padding:12px 12px 18px!important}
+body.my-page-flow #my-page-quote .art-frame{aspect-ratio:291/348!important}
+body.my-page-flow #my-page-quote .art-frame img{width:100%!important;height:100%!important;object-fit:cover!important}
+body.my-page-flow #my-page-quote .stack{width:100%!important;max-width:760px!important;text-align:center!important}
+body.my-page-flow #my-page-quote .big-quote{font-size:clamp(34px,6vw,64px)!important;line-height:1.25!important}
+body.my-page-flow #my-page-deep .h-serif{font-size:clamp(34px,6vw,64px)!important}
+body.my-page-flow #my-page-deep .body-copy,body.my-page-flow #my-page-final .body-copy{font-size:clamp(16px,1.25vw,20px)!important}
+body.my-page-flow #my-page-final .h-serif{font-size:clamp(40px,8vw,94px)!important}
 @media(max-width:720px){
- body.my-flow-fix #world>section.my-fix-active{padding:28px 0 70px!important}
- body.my-flow-fix #world>section#hero.my-fix-active{padding:0!important;min-height:100svh!important;height:100svh!important}
- body.my-flow-fix #my-fix-hero{width:100%;padding:24px 18px 30px!important}
- .my-fix-inner{width:min(92vw,560px)!important}
- .my-fix-back{min-height:48px;padding:13px 25px;margin-bottom:22px!important}
- .my-fix-next{min-height:54px;padding:16px 34px;margin-top:38px!important}
- body.my-flow-fix #my-fix-love .art-col{width:min(88vw,410px)!important}
- body.my-flow-fix #my-fix-love #giftBlock,body.my-flow-fix #my-fix-love #memory,body.my-flow-fix #my-fix-love #proposal{margin-top:58px!important;padding-top:34px!important}
- body.my-flow-fix #my-fix-hero:after{bottom:5%;letter-spacing:.5em;font-size:12px}
+ body.my-page-flow #world>section.my-page-active{padding:26px 0 70px!important}
+ body.my-page-flow #world>section#hero.my-page-active{padding:0!important}
+ .my-page-inner{width:min(92vw,560px)!important}
+ .my-page-back{min-height:48px;padding:13px 25px;margin-bottom:22px!important}
+ .my-page-next{min-height:54px;padding:16px 34px;margin-top:34px!important}
+ body.my-page-flow #my-page-love .art-col{width:min(88vw,410px)!important}
+ body.my-page-flow #my-page-gift #memory,body.my-page-flow #my-page-gift #proposal{margin-top:40px!important;padding-top:30px!important}
 }
 </style>`;
 
-    const script = String.raw`<script id="myyellow-flow-fix-script">
+    const script = String.raw`<script id="myyellow-page-flow-script">
 (function(){
   'use strict';
   var world=document.getElementById('world');
   if(!world)return;
   var sections=[].slice.call(world.children).filter(function(el){return el.tagName==='SECTION';});
-  var hero=document.getElementById('hero'),giftSection=document.getElementById('giftSection'),deep=document.getElementById('deep'),final=document.getElementById('final');
+  var hero=document.getElementById('hero');
+  var giftSection=document.getElementById('giftSection');
+  var deep=document.getElementById('deep');
+  var final=document.getElementById('final');
   var love=sections.find(function(s){return !s.id&&s.querySelector('.pull-quote')&&s.querySelector('.art-card');});
   var quote=sections.find(function(s){return !s.id&&s.querySelector('.big-quote');});
   if(!hero||!giftSection||!deep||!final||!love||!quote)return;
 
-  /* Move the gift content INSIDE the love section. This makes the whole
-     love -> gift -> image -> proposal experience literally one part. */
-  var giftBlock=document.getElementById('giftBlock');
-  var memory=document.getElementById('memory');
-  var proposal=document.getElementById('proposal');
-  var giftWrap=giftSection.querySelector('.wrap');
-  var loveWrap=love.querySelector('.wrap');
-  if(giftWrap&&loveWrap){
-    if(giftBlock)loveWrap.appendChild(giftBlock);
-    if(memory)loveWrap.appendChild(memory);
-    if(proposal)loveWrap.appendChild(proposal);
-    giftSection.style.display='none';
+  function makeInner(section,id){
+    var old=section.querySelector(':scope > .my-page-inner');
+    if(old)return old;
+    var inner=document.createElement('div');
+    inner.className='my-page-inner';inner.id=id;
+    while(section.firstChild)inner.appendChild(section.firstChild);
+    section.appendChild(inner);
+    return inner;
   }
 
-  function makeInner(section,id){
-    var old=section.querySelector(':scope > .my-fix-inner');
-    if(old)return old;
-    var inner=document.createElement('div');inner.className='my-fix-inner';inner.id=id;
-    while(section.firstChild)inner.appendChild(section.firstChild);
-    section.appendChild(inner);return inner;
-  }
-  var heroInner=makeInner(hero,'my-fix-hero');
-  var loveInner=makeInner(love,'my-fix-love');
-  var quoteInner=makeInner(quote,'my-fix-quote');
-  var deepInner=makeInner(deep,'my-fix-deep');
-  var finalInner=makeInner(final,'my-fix-final');
+  var heroInner=makeInner(hero,'my-page-hero');
+  var loveInner=makeInner(love,'my-page-love');
+  var giftInner=makeInner(giftSection,'my-page-gift');
+  var quoteInner=makeInner(quote,'my-page-quote');
+  var deepInner=makeInner(deep,'my-page-deep');
+  var finalInner=makeInner(final,'my-page-final');
 
   var cue=heroInner.querySelector('.scroll-cue');if(cue)cue.remove();
   var divider=heroInner.querySelector('.hero-divider');if(divider)divider.remove();
 
-  /* Opening-only interactive atmosphere. */
-  var magicLayer=document.createElement('div');
-  magicLayer.className='myyellow-hero-magic';
-  magicLayer.setAttribute('aria-hidden','true');
-  for(var i=0;i<10;i++){
-    var s=document.createElement('span');
-    s.className='myyellow-magic-dot';
-    s.textContent=i%3===0?'♡':'✦';
-    s.style.setProperty('--x',(8+Math.random()*84)+'%');
-    s.style.setProperty('--y',(8+Math.random()*84)+'%');
-    s.style.setProperty('--d',(2.8+Math.random()*3.6)+'s');
-    s.style.setProperty('--delay',(-Math.random()*4)+'s');
-    magicLayer.appendChild(s);
-  }
-  heroInner.appendChild(magicLayer);
-
-  /* A tap/click anywhere on the opening creates a tiny heart burst. */
-  hero.addEventListener('pointerdown',function(e){
-    if(e.target.closest('button'))return;
-    var burst=document.createElement('div');
-    burst.className='myyellow-heart-burst';
-    burst.style.left=e.clientX+'px';
-    burst.style.top=e.clientY+'px';
-    burst.innerHTML='<span>♡</span><span>✦</span><span>♡</span><span>✦</span>';
-    hero.appendChild(burst);
-    setTimeout(function(){burst.remove()},900);
-  },{passive:true});
-
-  /* Add an explicit Continue button to the birthday opening screen. */
-  function addHeroNext(){
-    var b=document.createElement('button');b.type='button';b.className='my-fix-next';b.textContent='Continue ♡';
-    b.addEventListener('click',function(){show(1)});
-    heroInner.appendChild(b);
-  }
-  addHeroNext();
-
-  /* Keep the original couple photo from the repository. */
+  /* LOVE PAGE: use the requested repository scratch-card image in the card. */
   var loveFrame=loveInner.querySelector('.art-frame');
   if(loveFrame){
     loveFrame.querySelectorAll('svg').forEach(function(n){n.remove()});
     var img=loveFrame.querySelector('img');
     if(!img){img=document.createElement('img');loveFrame.insertBefore(img,loveFrame.firstChild)}
-    img.src='/assets/couple-photo.svg';img.alt='My favorite person';img.draggable=false;
+    img.src='/assets/scratch-photo.jpg';
+    img.alt='Our special memory';
+    img.draggable=false;
   }
 
-  /* Replace the old illustrated memory with the repository scratch-card photo. */
+  /* Keep gift, memory and proposal together on the GIFT page. */
+  var giftBlock=document.getElementById('giftBlock');
+  var memory=document.getElementById('memory');
+  var proposal=document.getElementById('proposal');
+  var giftWrap=giftInner.querySelector('.wrap');
+  if(giftWrap){
+    if(giftBlock)giftWrap.appendChild(giftBlock);
+    if(memory)giftWrap.appendChild(memory);
+    if(proposal)giftWrap.appendChild(proposal);
+  }
+
+  /* The gift-page image card also uses the same repository image. */
   if(memory){
-    var frame=memory.querySelector('.memory-frame');
-    if(frame){
-      frame.querySelectorAll('svg').forEach(function(n){n.remove()});
-      var scratch=document.createElement('img');
-      scratch.id='my-scratch-photo';scratch.src='/assets/scratch-photo.jpg';
-      scratch.alt='Our special memory';scratch.draggable=false;frame.appendChild(scratch);
+    var memoryFrame=memory.querySelector('.memory-frame');
+    if(memoryFrame){
+      memoryFrame.querySelectorAll('svg').forEach(function(n){n.remove()});
+      var oldPhoto=memoryFrame.querySelector('#my-scratch-photo');
+      if(!oldPhoto){oldPhoto=document.createElement('img');oldPhoto.id='my-scratch-photo';memoryFrame.appendChild(oldPhoto)}
+      oldPhoto.src='/assets/scratch-photo.jpg';
+      oldPhoto.alt='Our special memory';
+      oldPhoto.draggable=false;
     }
   }
 
-  /* Only ONE navigation pair for this entire combined part. */
-  function addBack(){
-    var b=document.createElement('button');b.type='button';b.className='my-fix-back';b.textContent='← Go Back';
-    b.addEventListener('click',function(){show(0)});loveInner.insertBefore(b,loveInner.firstChild);
-  }
-  function addNext(){
-    var b=document.createElement('button');b.type='button';b.className='my-fix-next';b.textContent='Continue ♡';
-    b.addEventListener('click',function(){show(2)});loveInner.appendChild(b);
-  }
-  addBack();addNext();
+  var stages=[hero,love,giftSection,quote,deep,final];
+  var inners=[heroInner,loveInner,giftInner,quoteInner,deepInner,finalInner];
 
-  var stages=[{section:hero},{section:love},{section:quote},{section:deep},{section:final}];
-  var unique=[hero,love,quote,deep,final];
-  function innerFor(i){return i===0?heroInner:i===1?loveInner:i===2?quoteInner:i===3?deepInner:finalInner}
+  function button(cls,text,handler){
+    var b=document.createElement('button');
+    b.type='button';b.className=cls;b.textContent=text;b.addEventListener('click',handler);return b;
+  }
+  heroInner.appendChild(button('my-page-next','Continue ♡',function(){show(1)}));
+  loveInner.insertBefore(button('my-page-back','← Go Back',function(){show(0)}),loveInner.firstChild);
+  loveInner.appendChild(button('my-page-next','Continue ♡',function(){show(2)}));
+  giftInner.insertBefore(button('my-page-back','← Go Back',function(){show(1)}),giftInner.firstChild);
+  giftInner.appendChild(button('my-page-next','Continue ♡',function(){show(3)}));
+  quoteInner.insertBefore(button('my-page-back','← Go Back',function(){show(2)}),quoteInner.firstChild);
+  quoteInner.appendChild(button('my-page-next','Continue ♡',function(){show(4)}));
+  deepInner.insertBefore(button('my-page-back','← Go Back',function(){show(3)}),deepInner.firstChild);
+  deepInner.appendChild(button('my-page-next','Continue ♡',function(){show(5)}));
+  finalInner.insertBefore(button('my-page-back','← Go Back',function(){show(4)}),finalInner.firstChild);
+
   function show(i){
     i=Math.max(0,Math.min(stages.length-1,i));
-    var active=stages[i].section;
-    unique.forEach(function(s){
-      var on=s===active;s.classList.toggle('my-fix-active',on);s.style.display=on?'flex':'none';
+    stages.forEach(function(section,index){
+      var active=index===i;
+      section.classList.toggle('my-page-active',active);
+      section.style.display=active?'flex':'none';
     });
-    innerFor(i).querySelectorAll('.rv').forEach(function(n){n.classList.add('rv-in')});
+    inners[i].querySelectorAll('.rv').forEach(function(n){n.classList.add('rv-in')});
     window.scrollTo({top:0,left:0,behavior:'instant'});
   }
-  document.body.classList.add('my-flow-fix');show(0);
+
+  document.body.classList.add('my-page-flow');
+  show(0);
 })();
 </script>`;
 
-    html = html.replace('</head>', css + '\n</head>');
-    html = html.replace('</body>', script + '\n</body>');
-    res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    res.setHeader('Cache-Control', 'no-store, max-age=0, must-revalidate');
+    html=html.replace('</head>',css+'\n</head>');
+    html=html.replace('</body>',script+'\n</body>');
+    res.setHeader('Content-Type','text/html; charset=utf-8');
+    res.setHeader('Cache-Control','no-store, max-age=0, must-revalidate');
     res.status(200).send(html);
-  } catch (err) { res.status(500).send('Website error'); }
+  } catch(err) {
+    res.status(500).send('Website error');
+  }
 };
