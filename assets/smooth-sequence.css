@@ -3,18 +3,12 @@
   :root{--myyellow-ease:cubic-bezier(.22,1,.36,1)}
   #world>section.my-page-active{animation:mySection 1800ms var(--myyellow-ease) both!important}
   #world>section.my-page-active .my-page-inner{animation:myInner 1500ms var(--myyellow-ease) 250ms both!important}
-
-  /* Every meaningful text block is hidden first, then revealed separately. */
   #world>section.my-page-active .my-page-inner>:is(h1,h2,h3,h4,p,.eyebrow,.kicker,.signature,.body-copy,.pull-quote,.message,.big-quote,.gold-script,.q-script,.title,.name,.subtitle,.caption,.label){opacity:0!important;animation:myText 1900ms var(--myyellow-ease) both!important}
-
-  /* 1 HERO — each text beat follows the previous beat. */
   #hero.my-page-active .my-page-inner>:nth-child(1){animation-delay:900ms!important}
   #hero.my-page-active .my-page-inner>:nth-child(2){animation-delay:2100ms!important}
   #hero.my-page-active .my-page-inner>:nth-child(3){animation-delay:3300ms!important}
   #hero.my-page-active .my-page-inner>:nth-child(4){animation-delay:4500ms!important}
   #hero.my-page-active .my-page-next{animation:myButton 1900ms var(--myyellow-ease) 5700ms both!important}
-
-  /* 2 LOVE — photo first, then each text block one by one. */
   #my-page-love.my-page-active .art-col{opacity:0!important;animation:myPhoto 2100ms var(--myyellow-ease) 700ms both!important}
   #my-page-love.my-page-active .stack>*{opacity:0!important;animation:myText 1900ms var(--myyellow-ease) both!important}
   #my-page-love.my-page-active .stack>*:nth-child(1){animation-delay:3000ms!important}
@@ -22,8 +16,6 @@
   #my-page-love.my-page-active .stack>*:nth-child(3){animation-delay:5400ms!important}
   #my-page-love.my-page-active .stack>*:nth-child(4){animation-delay:6600ms!important}
   #my-page-love.my-page-active .my-page-next{animation:myButton 1900ms var(--myyellow-ease) 8000ms both!important}
-
-  /* 3 GIFT — do not force hidden interaction states visible. */
   #giftSection.my-page-active #giftStage{animation:myPhoto 2100ms var(--myyellow-ease) 700ms both!important}
   #giftSection.my-page-active #gift{animation:myPhoto 1900ms var(--myyellow-ease) 1200ms both!important}
   #giftSection.my-page-active #giftBlock h1,#giftSection.my-page-active #giftBlock h2,#giftSection.my-page-active #giftBlock p,#giftSection.my-page-active #giftBlock .eyebrow,#giftSection.my-page-active #giftBlock .kicker{opacity:0!important;animation:myText 1900ms var(--myyellow-ease) both!important}
@@ -32,35 +24,52 @@
   #giftSection.my-page-active #giftBlock p{animation-delay:2900ms!important}
   #giftSection.my-page-active #giftBlock .eyebrow{animation-delay:4100ms!important}
   #giftSection.my-page-active #giftBlock .kicker{animation-delay:5300ms!important}
-
-  /* 4 QUOTE — image then each text block. */
   #my-page-quote.my-page-active .art-col{opacity:0!important;animation:myPhoto 2200ms var(--myyellow-ease) 700ms both!important}
   #my-page-quote.my-page-active .stack>*{opacity:0!important;animation:myText 1900ms var(--myyellow-ease) both!important}
   #my-page-quote.my-page-active .stack>*:nth-child(1){animation-delay:3200ms!important}
   #my-page-quote.my-page-active .stack>*:nth-child(2){animation-delay:4400ms!important}
   #my-page-quote.my-page-active .stack>*:nth-child(3){animation-delay:5600ms!important}
   #my-page-quote.my-page-active .my-page-next{animation:myButton 1900ms var(--myyellow-ease) 7000ms both!important}
-
-  /* 5 DEEP — each text/card child gets its own beat. */
   #my-page-deep.my-page-active>*{opacity:0!important;animation:myText 1900ms var(--myyellow-ease) both!important}
   #my-page-deep.my-page-active>*:nth-child(1){animation-delay:700ms!important}
   #my-page-deep.my-page-active>*:nth-child(2){animation-delay:1900ms!important}
   #my-page-deep.my-page-active>*:nth-child(3){animation-delay:3100ms!important}
   #my-page-deep.my-page-active>*:nth-child(4){animation-delay:4300ms!important}
   #my-page-deep.my-page-active .my-page-next{animation:myButton 1900ms var(--myyellow-ease) 5500ms both!important}
-
-  /* 6 FINAL — title, message, supporting copy, then Celebrate. */
   #my-page-final.my-page-active>*:not(.my-page-back){opacity:0!important;animation:myText 2000ms var(--myyellow-ease) both!important}
   #my-page-final.my-page-active>*:nth-child(2){animation-delay:700ms!important}
   #my-page-final.my-page-active>*:nth-child(3){animation-delay:2000ms!important}
   #my-page-final.my-page-active>*:nth-child(4){animation-delay:3300ms!important}
   #my-page-final.my-page-active .my-page-next{animation:myButton 2000ms var(--myyellow-ease) 4700ms both!important}
-
-  /* Gentle image settling only; no crop or layout changes. */
   #world>section.my-page-active img{animation:myImage 2200ms var(--myyellow-ease) both!important}
   #world>section.my-page-active .art-card,#world>section.my-page-active .memory-card{transition:transform 1200ms var(--myyellow-ease),box-shadow 1200ms var(--myyellow-ease)!important}
   #world>section.my-page-active .my-page-next:hover,#world>section.my-page-active button:hover{transform:translateY(-2px) scale(1.018)!important}
 }
+
+/* DEEP MESSAGE: larger, centered, and vertically centered on the page. */
+#deep .wrap{
+  min-height:calc(100svh - clamp(56px,9vw,130px));
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+#deep .h-serif{
+  font-size:clamp(31px,4.8vw,58px)!important;
+  line-height:1.16!important;
+  margin-bottom:clamp(24px,3vw,38px)!important;
+  max-width:18ch;
+}
+#deep .body-copy{
+  font-size:clamp(17px,1.35vw,20px)!important;
+  line-height:1.72!important;
+  max-width:58ch!important;
+}
+#deep .body-copy + .body-copy{margin-top:1.25em!important}
+#deep .gold-script{font-size:clamp(32px,4.2vw,58px)!important}
+#deep .gold-heart{width:clamp(34px,3.5vw,46px)!important;margin-bottom:clamp(22px,2.8vw,38px)!important}
+
 @keyframes mySection{from{opacity:0;transform:translate3d(0,30px,0);filter:blur(9px)}to{opacity:1;transform:none;filter:blur(0)}}
 @keyframes myInner{from{opacity:0;transform:translate3d(0,20px,0);filter:blur(6px)}to{opacity:1;transform:none;filter:blur(0)}}
 @keyframes myText{0%{opacity:0;transform:translate3d(0,34px,0) scale(.985);filter:blur(9px)}55%{opacity:.78;transform:translate3d(0,7px,0) scale(.998);filter:blur(2px)}78%{opacity:1;transform:translate3d(0,-2px,0) scale(1.002);filter:blur(0)}100%{opacity:1;transform:none;filter:blur(0)}}
