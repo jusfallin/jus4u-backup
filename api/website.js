@@ -50,8 +50,8 @@ body.my-page-flow #my-page-quote .split{display:flex!important;flex-direction:co
 body.my-page-flow #my-page-quote .art-col{width:min(92vw,540px)!important;margin:0 auto!important}
 body.my-page-flow #my-page-quote .art-card{width:100%!important;padding:14px 14px 20px!important;box-shadow:0 24px 50px -28px rgba(110,55,70,.42)!important;transform:rotate(-1deg)!important;transition:transform .35s ease,box-shadow .35s ease!important}
 body.my-page-flow #my-page-quote .art-card:hover{transform:rotate(0deg) translateY(-5px)!important;box-shadow:0 30px 60px -25px rgba(110,55,70,.5)!important}
-body.my-page-flow #my-page-quote .art-frame{aspect-ratio:291/348!important;overflow:hidden!important}
-body.my-page-flow #my-page-quote .art-frame img{display:block!important;width:100%!important;height:100%!important;object-fit:cover!important;border-radius:5px!important}
+body.my-page-flow #my-page-quote .art-frame{aspect-ratio:4/3!important;overflow:hidden!important;display:flex!important;align-items:center!important;justify-content:center!important;background:rgba(255,249,246,.5)!important}
+body.my-page-flow #my-page-quote .art-frame img{display:block!important;width:100%!important;height:100%!important;object-fit:contain!important;border-radius:5px!important}
 body.my-page-flow #my-page-quote .stack{width:100%!important;max-width:860px!important;text-align:center!important}
 body.my-page-flow #my-page-quote .big-quote{font-size:clamp(38px,6.4vw,68px)!important;line-height:1.18!important;max-width:850px!important;margin-left:auto!important;margin-right:auto!important}
 body.my-page-flow #my-page-quote .quote-tap-hint{margin:13px auto 0!important;font:500 9px var(--sans)!important;letter-spacing:.25em!important;text-transform:uppercase!important;color:rgba(150,80,95,.72)!important;opacity:.9!important}
