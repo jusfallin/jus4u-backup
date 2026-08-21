@@ -7,16 +7,10 @@
       "permanent": false
     }
   ],
-  "rewrites": [
-    {
-      "source": "/website file.html",
-      "destination": "/api/website"
-    }
-  ],
   "routes": [
     {
       "src": "^/$",
-      "dest": "/main-final.html"
+      "dest": "/api/website"
     },
     {
       "src": "^/website%20file\\.html$",
