@@ -15,6 +15,16 @@ html body.my-page-flow #world>section#giftSection #my-page-gift #gift{
   transform-origin:center center!important;
 }
 
+/* The unwrap instruction must sit below the gift, never on top of the box. */
+html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage .gift-hint,
+html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage .unwrap-hint,
+html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage [class*="unwrap"],
+html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage [class*="hint"]{
+  position:relative!important;
+  top:265px!important;
+  z-index:6!important;
+}
+
 /* Keep the reveal section itself centered on the same page axis as the gift. */
 html body.my-page-flow #world>section#giftSection #my-page-gift #memory{
   width:100%!important;
@@ -25,15 +35,39 @@ html body.my-page-flow #world>section#giftSection #my-page-gift #memory{
   align-items:center!important;
   justify-content:center!important;
 }
-html body.my-page-flow #world>section#giftSection #my-page-gift #memory .memory-frame{
+
+html body.my-page-flow #world>section#giftSection #my-page-gift #memory .memory-wrap{
+  width:min(90vw,520px)!important;
   margin-left:auto!important;
   margin-right:auto!important;
-  background:#FFF9F6 url('/assets/file_000000004ab482088a7d776c072c4951.png') center center / cover no-repeat!important;
 }
 
-/* Use the requested repository photo for the revealed memory card. */
-html body.my-page-flow #world>section#giftSection #my-page-gift #memory .memory-frame > svg,
+html body.my-page-flow #world>section#giftSection #my-page-gift #memory .memory-frame{
+  width:100%!important;
+  aspect-ratio:4/5!important;
+  min-height:0!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+  overflow:hidden!important;
+  background:#FFF9F6!important;
+  background-image:none!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+
+/* Show the exact requested repository image after the gift is opened. */
 html body.my-page-flow #world>section#giftSection #my-page-gift #memory #my-scratch-photo{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  max-height:none!important;
+  object-fit:contain!important;
+  border-radius:5px!important;
+}
+
+html body.my-page-flow #world>section#giftSection #my-page-gift #memory .memory-frame > svg{
   display:none!important;
 }
 
@@ -46,8 +80,13 @@ html body.my-page-flow #world>section#giftSection #my-page-gift #memory #my-scra
     top:245px!important;
     transform:scale(1.28)!important;
   }
+  html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage .gift-hint,
+  html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage .unwrap-hint,
+  html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage [class*="unwrap"],
+  html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage [class*="hint"]{
+    top:255px!important;
+  }
   html body.my-page-flow #world>section#giftSection #my-page-gift #memory .memory-frame{
-    background-size:contain!important;
-    background-color:#FFF9F6!important;
+    aspect-ratio:4/5!important;
   }
 }
