@@ -46,23 +46,32 @@ body.my-page-flow #my-page-gift #proposal .btn{font-size:13px!important;padding:
 body.my-page-flow #my-page-gift #proposal.my-proposal-hidden{display:none!important}
 body.my-page-flow #my-page-gift #proposal.my-proposal-revealed{display:block!important;animation:giftProposalReveal .75s ease both}
 @keyframes giftProposalReveal{from{opacity:0;transform:translateY(28px);filter:blur(7px)}to{opacity:1;transform:none;filter:none}}
-body.my-page-flow #my-page-quote .split{display:flex!important;flex-direction:column!important;align-items:center!important;gap:28px!important}
-body.my-page-flow #my-page-quote .art-col{width:min(88vw,430px)!important;margin:0 auto!important}
-body.my-page-flow #my-page-quote .art-card{width:100%!important;padding:12px 12px 18px!important}
+body.my-page-flow #my-page-quote .split{display:flex!important;flex-direction:column!important;align-items:center!important;gap:38px!important;width:100%!important}
+body.my-page-flow #my-page-quote .art-col{width:min(92vw,540px)!important;margin:0 auto!important}
+body.my-page-flow #my-page-quote .art-card{width:100%!important;padding:14px 14px 20px!important;box-shadow:0 24px 50px -28px rgba(110,55,70,.42)!important;transform:rotate(-1deg)!important;transition:transform .35s ease,box-shadow .35s ease!important}
+body.my-page-flow #my-page-quote .art-card:hover{transform:rotate(0deg) translateY(-5px)!important;box-shadow:0 30px 60px -25px rgba(110,55,70,.5)!important}
 body.my-page-flow #my-page-quote .art-frame{aspect-ratio:291/348!important;overflow:hidden!important}
 body.my-page-flow #my-page-quote .art-frame img{display:block!important;width:100%!important;height:100%!important;object-fit:cover!important;border-radius:5px!important}
-body.my-page-flow #my-page-quote .stack{width:100%!important;max-width:760px!important;text-align:center!important}
-body.my-page-flow #my-page-quote .big-quote{font-size:clamp(34px,6vw,64px)!important;line-height:1.25!important}
+body.my-page-flow #my-page-quote .stack{width:100%!important;max-width:860px!important;text-align:center!important}
+body.my-page-flow #my-page-quote .big-quote{font-size:clamp(38px,6.4vw,68px)!important;line-height:1.18!important;max-width:850px!important;margin-left:auto!important;margin-right:auto!important}
+body.my-page-flow #my-page-quote .quote-tap-hint{margin:13px auto 0!important;font:500 9px var(--sans)!important;letter-spacing:.25em!important;text-transform:uppercase!important;color:rgba(150,80,95,.72)!important;opacity:.9!important}
+body.my-page-flow #my-page-quote .quote-tap-hint::before{content:'♡  ';font-size:13px!important}
+body.my-page-flow #my-page-quote .quote-spark{position:fixed!important;z-index:9999!important;pointer-events:none!important;font-size:18px!important;animation:quoteSpark 900ms ease-out forwards!important}
+@keyframes quoteSpark{0%{opacity:0;transform:translate(-50%,-20%) scale(.5) rotate(0deg)}20%{opacity:1}100%{opacity:0;transform:translate(calc(-50% + var(--sx)),calc(-20% - 90px)) scale(1.35) rotate(18deg)}}
 body.my-page-flow #my-page-deep .h-serif{font-size:clamp(34px,6vw,64px)!important}
 body.my-page-flow #my-page-deep .body-copy,body.my-page-flow #my-page-final .body-copy{font-size:clamp(16px,1.25vw,20px)!important}
 body.my-page-flow #my-page-final .h-serif{font-size:clamp(40px,8vw,94px)!important}
 @media(max-width:720px){
- body.my-page-flow #world>section.my-page-active{padding:26px 0 70px!important}
+ body.my-page-flow #world>section.my-page-active{padding:24px 0 62px!important}
  body.my-page-flow #world>section#hero.my-page-active{padding:0!important}
  .my-page-inner{width:min(92vw,560px)!important}
- .my-page-back{min-height:48px;padding:13px 25px;margin-bottom:22px!important}
- .my-page-next{min-height:54px;padding:16px 34px;margin-top:34px!important}
- body.my-page-flow #my-page-love .art-col,body.my-page-flow #my-page-quote .art-col{width:min(88vw,410px)!important}
+ .my-page-back{min-height:48px;padding:13px 25px;margin-bottom:20px!important}
+ .my-page-next{min-height:54px;padding:16px 34px;margin-top:32px!important}
+ body.my-page-flow #my-page-love .art-col{width:min(88vw,410px)!important}
+ body.my-page-flow #my-page-quote .split{gap:28px!important}
+ body.my-page-flow #my-page-quote .art-col{width:min(94vw,500px)!important}
+ body.my-page-flow #my-page-quote .art-card{padding:12px 12px 18px!important}
+ body.my-page-flow #my-page-quote .big-quote{font-size:clamp(34px,8vw,58px)!important;line-height:1.2!important}
  body.my-page-flow #my-page-gift #memory,body.my-page-flow #my-page-gift #proposal{margin-top:40px!important;padding-top:30px!important}
 }
 </style>`;
@@ -122,6 +131,33 @@ body.my-page-flow #my-page-final .h-serif{font-size:clamp(40px,8vw,94px)!importa
     quoteImg.src='/assets/her%20image.png';
     quoteImg.alt='Her beautiful photo';
     quoteImg.draggable=false;
+
+    var hint=document.createElement('div');
+    hint.className='quote-tap-hint';
+    hint.textContent='tap the photo';
+    quoteFrame.parentElement.appendChild(hint);
+
+    function makeSpark(x,y,delay){
+      var s=document.createElement('span');
+      s.className='quote-spark';
+      s.textContent=delay%2?'✦':'♡';
+      s.style.left=x+'px';
+      s.style.top=y+'px';
+      s.style.setProperty('--sx',(delay%2?34:-34)+'px');
+      s.style.animationDelay=(delay*45)+'ms';
+      document.body.appendChild(s);
+      setTimeout(function(){s.remove()},1050+delay*45);
+    }
+    function photoSpark(e){
+      var r=quoteFrame.getBoundingClientRect();
+      var x=e.clientX||(r.left+r.width/2), y=e.clientY||(r.top+r.height/2);
+      for(var i=0;i<7;i++)makeSpark(x+(i-3)*12,y+(i%3)*8,i);
+    }
+    quoteFrame.addEventListener('click',photoSpark);
+    quoteFrame.addEventListener('touchend',function(e){
+      var t=e.changedTouches&&e.changedTouches[0];
+      photoSpark(t||{clientX:window.innerWidth/2,clientY:window.innerHeight/2});
+    },{passive:true});
   }
 
   var giftBlock=document.getElementById('giftBlock');
