@@ -5,6 +5,7 @@ html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage{
   display:flex!important;
   align-items:center!important;
   justify-content:center!important;
+  overflow:visible!important;
 }
 
 /* Move ONLY the giftbox down into the marked area. */
@@ -15,7 +16,15 @@ html body.my-page-flow #world>section#giftSection #my-page-gift #gift{
   transform-origin:center center!important;
 }
 
-/* Keep every unwrap cue clearly below the box. */
+/* Keep the heading above the gift, never on top of the box. */
+html body.my-page-flow #world>section#giftSection #my-page-gift #giftBlock > .eyebrow{
+  position:relative!important;
+  z-index:20!important;
+  margin-bottom:8px!important;
+  white-space:nowrap!important;
+}
+
+/* Keep every existing unwrap cue clearly below the box. */
 html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage .gift-hint,
 html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage .unwrap-hint,
 html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage .gift-cue,
@@ -29,6 +38,25 @@ html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage [clas
   top:265px!important;
   z-index:10!important;
   text-shadow:0 2px 8px rgba(255,249,246,.95)!important;
+}
+
+/* The actual "🎁 Tap to unwrap…" caption sits OUTSIDE the stage, so move it down too. */
+html body.my-page-flow #world>section#giftSection #my-page-gift #giftCap{
+  position:relative!important;
+  z-index:30!important;
+  display:block!important;
+  width:max-content!important;
+  max-width:90vw!important;
+  margin:0 auto!important;
+  transform:translateY(120px)!important;
+  padding:9px 18px!important;
+  border-radius:999px!important;
+  background:rgba(255,249,246,.95)!important;
+  border:1px solid rgba(150,80,95,.18)!important;
+  box-shadow:0 10px 24px -18px rgba(74,39,50,.45)!important;
+  color:#96505F!important;
+  text-shadow:none!important;
+  letter-spacing:.24em!important;
 }
 
 /* Keep the reveal section centered on the same axis as the gift. */
@@ -70,6 +98,54 @@ html body.my-page-flow #world>section#giftSection #my-page-gift #memory #my-scra
   display:none!important;
 }
 
+/* FULL "Will you be my love?" block — centered as its own viewport. */
+html body.my-page-flow #world>section#giftSection #my-page-gift #proposal{
+  width:100%!important;
+  min-height:100svh!important;
+  min-height:100vh!important;
+  margin:0!important;
+  padding:0 20px!important;
+  border:0!important;
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  position:relative!important;
+  top:0!important;
+}
+html body.my-page-flow #world>section#giftSection #my-page-gift #proposal .eyebrow{
+  margin:0 0 16px!important;
+}
+html body.my-page-flow #world>section#giftSection #my-page-gift #proposal .q-script{
+  width:100%!important;
+  margin:0!important;
+  font-size:clamp(46px,8vw,94px)!important;
+  line-height:1.08!important;
+  text-align:center!important;
+}
+html body.my-page-flow #world>section#giftSection #my-page-gift #proposal .arena{
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:22px!important;
+  margin:30px auto 0!important;
+  position:relative!important;
+}
+html body.my-page-flow #world>section#giftSection #my-page-gift #proposal .slot{
+  position:static!important;
+  transform:none!important;
+  margin:0!important;
+}
+html body.my-page-flow #world>section#giftSection #my-page-gift #proposal .btn{
+  font-size:13px!important;
+  padding:17px 30px!important;
+}
+
 @media(max-width:720px){
   html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage{
     height:clamp(410px,55vh,500px)!important;
@@ -90,10 +166,29 @@ html body.my-page-flow #world>section#giftSection #my-page-gift #memory #my-scra
   html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage [class*="cue"]{
     top:255px!important;
   }
+  html body.my-page-flow #world>section#giftSection #my-page-gift #giftCap{
+    transform:translateY(105px)!important;
+    padding:8px 15px!important;
+    font-size:10px!important;
+    letter-spacing:.20em!important;
+  }
   html body.my-page-flow #world>section#giftSection #my-page-gift #memory .memory-frame{
     height:clamp(360px,58vh,520px)!important;
     min-height:360px!important;
     aspect-ratio:4/5!important;
     background-size:contain!important;
+  }
+  html body.my-page-flow #world>section#giftSection #my-page-gift #proposal{
+    min-height:100svh!important;
+    min-height:100vh!important;
+    padding:0 16px!important;
+  }
+  html body.my-page-flow #world>section#giftSection #my-page-gift #proposal .q-script{
+    font-size:clamp(43px,11vw,72px)!important;
+    line-height:1.12!important;
+  }
+  html body.my-page-flow #world>section#giftSection #my-page-gift #proposal .arena{
+    gap:16px!important;
+    margin-top:26px!important;
   }
 }
