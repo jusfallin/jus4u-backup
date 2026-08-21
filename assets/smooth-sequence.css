@@ -1,95 +1,70 @@
-/* Cinematic slow sequence — layout/content untouched. */
+/* Cinematic, text-by-text entrance — layout/content untouched. */
 @media (prefers-reduced-motion: no-preference) {
-  :root { --myyellow-ease: cubic-bezier(.22,1,.36,1); }
+  :root{--myyellow-ease:cubic-bezier(.22,1,.36,1)}
+  #world>section.my-page-active{animation:mySection 1800ms var(--myyellow-ease) both!important}
+  #world>section.my-page-active .my-page-inner{animation:myInner 1500ms var(--myyellow-ease) 250ms both!important}
 
-  #world > section.my-page-active { animation: myYellowSection 2600ms var(--myyellow-ease) both !important; will-change: opacity,transform,filter; }
-  #world > section.my-page-active .my-page-inner { animation: myYellowInner 2100ms var(--myyellow-ease) 250ms both !important; }
+  /* Every meaningful text block is hidden first, then revealed separately. */
+  #world>section.my-page-active .my-page-inner>:is(h1,h2,h3,h4,p,.eyebrow,.kicker,.signature,.body-copy,.pull-quote,.message,.big-quote,.gold-script,.q-script,.title,.name,.subtitle,.caption,.label){opacity:0!important;animation:myText 1900ms var(--myyellow-ease) both!important}
 
-  /* Base text is hidden so it can be revealed by the explicit per-section sequence below. */
-  #world > section.my-page-active .eyebrow,
-  #world > section.my-page-active .kicker,
-  #world > section.my-page-active .signature,
-  #world > section.my-page-active h1,
-  #world > section.my-page-active h2,
-  #world > section.my-page-active h3,
-  #world > section.my-page-active .h-serif,
-  #world > section.my-page-active .q-script,
-  #world > section.my-page-active .gold-script,
-  #world > section.my-page-active .title,
-  #world > section.my-page-active .name,
-  #world > section.my-page-active .body-copy,
-  #world > section.my-page-active .pull-quote,
-  #world > section.my-page-active .message { opacity:0 !important; }
+  /* 1 HERO — each text beat follows the previous beat. */
+  #hero.my-page-active .my-page-inner>:nth-child(1){animation-delay:900ms!important}
+  #hero.my-page-active .my-page-inner>:nth-child(2){animation-delay:2100ms!important}
+  #hero.my-page-active .my-page-inner>:nth-child(3){animation-delay:3300ms!important}
+  #hero.my-page-active .my-page-inner>:nth-child(4){animation-delay:4500ms!important}
+  #hero.my-page-active .my-page-next{animation:myButton 1900ms var(--myyellow-ease) 5700ms both!important}
 
-  /* 1 — HERO: each visible text block waits for the previous one to finish. */
-  #world > section#hero.my-page-active .my-page-inner > * { opacity:0!important; animation:myYellowText 2100ms var(--myyellow-ease) both!important; }
-  #world > section#hero.my-page-active .my-page-inner > *:nth-child(1){animation-delay:900ms!important}
-  #world > section#hero.my-page-active .my-page-inner > *:nth-child(2){animation-delay:3300ms!important}
-  #world > section#hero.my-page-active .my-page-inner > *:nth-child(3){animation-delay:5700ms!important}
-  #world > section#hero.my-page-active .my-page-inner > *:nth-child(4){animation-delay:8100ms!important}
-  #world > section#hero.my-page-active .my-page-next{animation-delay:10500ms!important}
+  /* 2 LOVE — photo first, then each text block one by one. */
+  #my-page-love.my-page-active .art-col{opacity:0!important;animation:myPhoto 2100ms var(--myyellow-ease) 700ms both!important}
+  #my-page-love.my-page-active .stack>*{opacity:0!important;animation:myText 1900ms var(--myyellow-ease) both!important}
+  #my-page-love.my-page-active .stack>*:nth-child(1){animation-delay:3000ms!important}
+  #my-page-love.my-page-active .stack>*:nth-child(2){animation-delay:4200ms!important}
+  #my-page-love.my-page-active .stack>*:nth-child(3){animation-delay:5400ms!important}
+  #my-page-love.my-page-active .stack>*:nth-child(4){animation-delay:6600ms!important}
+  #my-page-love.my-page-active .my-page-next{animation:myButton 1900ms var(--myyellow-ease) 8000ms both!important}
 
-  /* 2 — LOVE: photo, heading, paragraph, quote, then button. */
-  #world > section.my-page-active #my-page-love .art-col { opacity:0!important; animation:myYellowPhoto 2600ms var(--myyellow-ease) 900ms both!important; }
-  #world > section.my-page-active #my-page-love .stack > * { opacity:0!important; animation:myYellowText 2100ms var(--myyellow-ease) both!important; }
-  #world > section.my-page-active #my-page-love .stack > *:nth-child(1){animation-delay:3900ms!important}
-  #world > section.my-page-active #my-page-love .stack > *:nth-child(2){animation-delay:6300ms!important}
-  #world > section.my-page-active #my-page-love .stack > *:nth-child(3){animation-delay:8700ms!important}
-  #world > section.my-page-active #my-page-love .stack > *:nth-child(4){animation-delay:11100ms!important}
-  #world > section.my-page-active #my-page-love .my-page-next{animation-delay:13500ms!important}
+  /* 3 GIFT — do not force hidden interaction states visible. */
+  #giftSection.my-page-active #giftStage{animation:myPhoto 2100ms var(--myyellow-ease) 700ms both!important}
+  #giftSection.my-page-active #gift{animation:myPhoto 1900ms var(--myyellow-ease) 1200ms both!important}
+  #giftSection.my-page-active #giftBlock h1,#giftSection.my-page-active #giftBlock h2,#giftSection.my-page-active #giftBlock p,#giftSection.my-page-active #giftBlock .eyebrow,#giftSection.my-page-active #giftBlock .kicker{opacity:0!important;animation:myText 1900ms var(--myyellow-ease) both!important}
+  #giftSection.my-page-active #giftBlock h1{animation-delay:500ms!important}
+  #giftSection.my-page-active #giftBlock h2{animation-delay:1700ms!important}
+  #giftSection.my-page-active #giftBlock p{animation-delay:2900ms!important}
+  #giftSection.my-page-active #giftBlock .eyebrow{animation-delay:4100ms!important}
+  #giftSection.my-page-active #giftBlock .kicker{animation-delay:5300ms!important}
 
-  /* 3 — GIFT: never force hidden interaction states visible. Visible gift text is sequential. */
-  #world > section#giftSection.my-page-active #giftStage{animation-duration:2600ms!important;animation-delay:1000ms!important;animation-timing-function:var(--myyellow-ease)!important}
-  #world > section#giftSection.my-page-active #gift{animation-delay:1400ms!important}
-  #world > section#giftSection.my-page-active #giftBlock h1,
-  #world > section#giftSection.my-page-active #giftBlock h2,
-  #world > section#giftSection.my-page-active #giftBlock p,
-  #world > section#giftSection.my-page-active #giftBlock .eyebrow,
-  #world > section#giftSection.my-page-active #giftBlock .kicker { opacity:0!important;animation:myYellowText 2100ms var(--myyellow-ease) both!important; }
-  #world > section#giftSection.my-page-active #giftBlock h1{animation-delay:700ms!important}
-  #world > section#giftSection.my-page-active #giftBlock h2{animation-delay:3100ms!important}
-  #world > section#giftSection.my-page-active #giftBlock p{animation-delay:5500ms!important}
-  #world > section#giftSection.my-page-active #giftBlock .eyebrow{animation-delay:7900ms!important}
-  #world > section#giftSection.my-page-active #giftBlock .kicker{animation-delay:10300ms!important}
-  #world > section#giftSection.my-page-active #memory .memory-card{animation-delay:900ms!important}
-  #world > section#giftSection.my-page-active #proposal .q-script{animation-delay:900ms!important}
-  #world > section#giftSection.my-page-active #proposal .arena{animation:myYellowText 2100ms var(--myyellow-ease) 3300ms both!important}
+  /* 4 QUOTE — image then each text block. */
+  #my-page-quote.my-page-active .art-col{opacity:0!important;animation:myPhoto 2200ms var(--myyellow-ease) 700ms both!important}
+  #my-page-quote.my-page-active .stack>*{opacity:0!important;animation:myText 1900ms var(--myyellow-ease) both!important}
+  #my-page-quote.my-page-active .stack>*:nth-child(1){animation-delay:3200ms!important}
+  #my-page-quote.my-page-active .stack>*:nth-child(2){animation-delay:4400ms!important}
+  #my-page-quote.my-page-active .stack>*:nth-child(3){animation-delay:5600ms!important}
+  #my-page-quote.my-page-active .my-page-next{animation:myButton 1900ms var(--myyellow-ease) 7000ms both!important}
 
-  /* 4 — QUOTE: photo, first text, second text, third text. */
-  #world > section.my-page-active #my-page-quote .art-col { opacity:0!important; animation:myYellowPhoto 2700ms var(--myyellow-ease) 900ms both!important; }
-  #world > section.my-page-active #my-page-quote .stack > * { opacity:0!important; animation:myYellowText 2200ms var(--myyellow-ease) both!important; }
-  #world > section.my-page-active #my-page-quote .stack > *:nth-child(1){animation-delay:4200ms!important}
-  #world > section.my-page-active #my-page-quote .stack > *:nth-child(2){animation-delay:6700ms!important}
-  #world > section.my-page-active #my-page-quote .stack > *:nth-child(3){animation-delay:9200ms!important}
-  #world > section.my-page-active #my-page-quote .my-page-next{animation-delay:11700ms!important}
+  /* 5 DEEP — each text/card child gets its own beat. */
+  #my-page-deep.my-page-active>*{opacity:0!important;animation:myText 1900ms var(--myyellow-ease) both!important}
+  #my-page-deep.my-page-active>*:nth-child(1){animation-delay:700ms!important}
+  #my-page-deep.my-page-active>*:nth-child(2){animation-delay:1900ms!important}
+  #my-page-deep.my-page-active>*:nth-child(3){animation-delay:3100ms!important}
+  #my-page-deep.my-page-active>*:nth-child(4){animation-delay:4300ms!important}
+  #my-page-deep.my-page-active .my-page-next{animation:myButton 1900ms var(--myyellow-ease) 5500ms both!important}
 
-  /* 5 — DEEP: each text block gets its own entrance, never as a group. */
-  #world > section#deep.my-page-active #my-page-deep > * { opacity:0!important; animation:myYellowText 2200ms var(--myyellow-ease) both!important; }
-  #world > section#deep.my-page-active #my-page-deep > *:nth-child(1){animation-delay:900ms!important}
-  #world > section#deep.my-page-active #my-page-deep > *:nth-child(2){animation-delay:3400ms!important}
-  #world > section#deep.my-page-active #my-page-deep > *:nth-child(3){animation-delay:5900ms!important}
-  #world > section#deep.my-page-active #my-page-deep > *:nth-child(4){animation-delay:8400ms!important}
-  #world > section#deep.my-page-active #my-page-deep .my-page-next{animation-delay:10900ms!important}
+  /* 6 FINAL — title, message, supporting copy, then Celebrate. */
+  #my-page-final.my-page-active>*:not(.my-page-back){opacity:0!important;animation:myText 2000ms var(--myyellow-ease) both!important}
+  #my-page-final.my-page-active>*:nth-child(2){animation-delay:700ms!important}
+  #my-page-final.my-page-active>*:nth-child(3){animation-delay:2000ms!important}
+  #my-page-final.my-page-active>*:nth-child(4){animation-delay:3300ms!important}
+  #my-page-final.my-page-active .my-page-next{animation:myButton 2000ms var(--myyellow-ease) 4700ms both!important}
 
-  /* 6 — FINAL: title → message → supporting text → celebration button. */
-  #world > section#final.my-page-active #my-page-final > *:not(.my-page-back) { opacity:0!important; animation:myYellowText 2300ms var(--myyellow-ease) both!important; }
-  #world > section#final.my-page-active #my-page-final > *:nth-child(2){animation-delay:1000ms!important}
-  #world > section#final.my-page-active #my-page-final > *:nth-child(3){animation-delay:3600ms!important}
-  #world > section#final.my-page-active #my-page-final > *:nth-child(4){animation-delay:6200ms!important}
-  #world > section#final.my-page-active .my-page-next{animation-delay:8800ms!important}
-
-  /* Images also arrive independently and settle slowly. */
-  #world > section.my-page-active img { animation:myYellowImage 2700ms var(--myyellow-ease) both!important; }
-  #world > section.my-page-active .art-card,#world > section.my-page-active .memory-card,#world > section.my-page-active .memory-wrap { transition:transform 1200ms var(--myyellow-ease),box-shadow 1200ms var(--myyellow-ease),filter 1200ms ease!important; }
-  #world > section.my-page-active .art-card:hover,#world > section.my-page-active .memory-card:hover,#world > section.my-page-active .memory-wrap:hover { transform:translateY(-4px) scale(1.008)!important; }
-  #world > section.my-page-active .my-page-next:hover,#world > section.my-page-active button:hover,#world > section.my-page-active .enter:hover { transform:translateY(-2px) scale(1.018)!important; }
+  /* Gentle image settling only; no crop or layout changes. */
+  #world>section.my-page-active img{animation:myImage 2200ms var(--myyellow-ease) both!important}
+  #world>section.my-page-active .art-card,#world>section.my-page-active .memory-card{transition:transform 1200ms var(--myyellow-ease),box-shadow 1200ms var(--myyellow-ease)!important}
+  #world>section.my-page-active .my-page-next:hover,#world>section.my-page-active button:hover{transform:translateY(-2px) scale(1.018)!important}
 }
-
-@keyframes myYellowSection { 0%{opacity:0;transform:translate3d(0,34px,0);filter:blur(11px)} 60%{opacity:1;transform:translate3d(0,-2px,0);filter:blur(1px)} 100%{opacity:1;transform:none;filter:blur(0)} }
-@keyframes myYellowInner { 0%{opacity:0;transform:translate3d(0,24px,0) scale(.99);filter:blur(7px)} 100%{opacity:1;transform:none;filter:blur(0)} }
-@keyframes myYellowText { 0%{opacity:0;transform:translate3d(0,42px,0) scale(.98);filter:blur(10px)} 52%{opacity:.8;transform:translate3d(0,8px,0) scale(.996);filter:blur(3px)} 78%{opacity:1;transform:translate3d(0,-2px,0) scale(1.002);filter:blur(0)} 100%{opacity:1;transform:none;filter:blur(0)} }
-@keyframes myYellowPhoto { 0%{opacity:0;transform:translate3d(0,54px,0) scale(.92) rotate(-1deg);filter:blur(13px) saturate(.84)} 55%{opacity:.9;transform:translate3d(0,-5px,0) scale(1.012) rotate(.2deg);filter:blur(1px) saturate(.98)} 82%{opacity:1;transform:translate3d(0,1px,0) scale(1.002);filter:blur(0) saturate(1)} 100%{opacity:1;transform:none;filter:blur(0) saturate(1)} }
-@keyframes myYellowImage { 0%{opacity:0;transform:scale(.95);filter:blur(11px)} 65%{opacity:1;transform:scale(1.006);filter:blur(0)} 100%{opacity:1;transform:scale(1);filter:blur(0)} }
-@keyframes myYellowButton { 0%{opacity:0;transform:translate3d(0,30px,0) scale(.94);filter:blur(6px)} 65%{opacity:1;transform:translate3d(0,-2px,0) scale(1.018);filter:blur(0)} 100%{opacity:1;transform:none;filter:blur(0)} }
-
-@media (prefers-reduced-motion: reduce) { #world > section,#world > section * { animation-duration:1ms!important;animation-delay:0ms!important;transition-duration:1ms!important;scroll-behavior:auto!important; } }
+@keyframes mySection{from{opacity:0;transform:translate3d(0,30px,0);filter:blur(9px)}to{opacity:1;transform:none;filter:blur(0)}}
+@keyframes myInner{from{opacity:0;transform:translate3d(0,20px,0);filter:blur(6px)}to{opacity:1;transform:none;filter:blur(0)}}
+@keyframes myText{0%{opacity:0;transform:translate3d(0,34px,0) scale(.985);filter:blur(9px)}55%{opacity:.78;transform:translate3d(0,7px,0) scale(.998);filter:blur(2px)}78%{opacity:1;transform:translate3d(0,-2px,0) scale(1.002);filter:blur(0)}100%{opacity:1;transform:none;filter:blur(0)}}
+@keyframes myPhoto{0%{opacity:0;transform:translate3d(0,44px,0) scale(.94);filter:blur(11px)}60%{opacity:1;transform:translate3d(0,-4px,0) scale(1.008);filter:blur(0)}100%{opacity:1;transform:none}}
+@keyframes myImage{0%{opacity:0;transform:scale(.96);filter:blur(10px)}65%{opacity:1;transform:scale(1.006);filter:blur(0)}100%{opacity:1;transform:scale(1)}}
+@keyframes myButton{0%{opacity:0;transform:translate3d(0,25px,0) scale(.95);filter:blur(6px)}65%{opacity:1;transform:translate3d(0,-2px,0) scale(1.015);filter:blur(0)}100%{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){#world>section,#world>section *{animation-duration:1ms!important;animation-delay:0ms!important;transition-duration:1ms!important}}
