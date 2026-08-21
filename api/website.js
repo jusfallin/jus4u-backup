@@ -11,6 +11,13 @@ html,body{background:#FADED2!important;overflow-x:hidden!important}
 body.my-flow-fix{overflow-y:auto!important}
 body.my-flow-fix #world>section{display:none!important}
 body.my-flow-fix #world>section.my-fix-active{display:flex!important;min-height:100svh!important;height:auto!important;align-items:flex-start!important;justify-content:center!important;padding:30px 0 90px!important}
+/* Opening screen only: center the birthday content in the full viewport. */
+body.my-flow-fix #world>section#hero.my-fix-active{align-items:center!important;justify-content:center!important;min-height:100svh!important;height:100svh!important;padding:0!important}
+body.my-flow-fix #my-fix-hero{position:relative;isolation:isolate;width:min(92vw,900px);min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:28px 20px 34px!important;overflow:hidden}
+body.my-flow-fix #my-fix-hero .content{position:relative;z-index:5}
+/* Soft interactive atmosphere in the empty space of the opening only. */
+body.my-flow-fix #my-fix-hero:before{content:"";position:absolute;z-index:0;width:58vw;height:58vw;max-width:560px;max-height:560px;min-width:280px;min-height:280px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.38) 0%,rgba(255,222,230,.2) 38%,rgba(220,151,165,0) 72%);filter:blur(2px);animation:heroGlow 6s ease-in-out infinite;pointer-events:none}
+body.my-flow-fix #my-fix-hero:after{content:"✦  ♡  ✦  ♡  ✦";position:absolute;z-index:1;left:50%;bottom:8%;transform:translateX(-50%);font-size:clamp(12px,2vw,18px);letter-spacing:.8em;color:rgba(150,80,95,.28);white-space:nowrap;animation:heroDrift 4s ease-in-out infinite;pointer-events:none}
 .my-fix-inner{width:min(92vw,900px);margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center}
 .my-fix-inner>*{margin-left:auto!important;margin-right:auto!important}
 .my-fix-back,.my-fix-next{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:999px;cursor:pointer;min-height:50px;padding:14px 28px;font:500 10.5px var(--sans);letter-spacing:.22em;text-transform:uppercase;transition:transform .25s ease,box-shadow .25s ease}
@@ -19,6 +26,8 @@ body.my-flow-fix #world>section.my-fix-active{display:flex!important;min-height:
 .my-fix-next{order:99;margin-top:46px!important;color:#FFF9F6;background:linear-gradient(140deg,#E7A9B4,#DC97A5 48%,#CE8A99);box-shadow:0 18px 38px -16px rgba(220,151,165,.95);animation:myFixPulse 2.2s ease-in-out infinite}
 .my-fix-next:hover{transform:translateY(-2px) scale(1.025)}
 @keyframes myFixPulse{0%,100%{box-shadow:0 18px 38px -16px rgba(220,151,165,.95)}50%{box-shadow:0 24px 48px -14px rgba(220,151,165,1),0 0 0 9px rgba(220,151,165,.08)}}
+@keyframes heroGlow{0%,100%{transform:scale(.92);opacity:.65}50%{transform:scale(1.08);opacity:1}}
+@keyframes heroDrift{0%,100%{opacity:.2;transform:translateX(-50%) translateY(0)}50%{opacity:.5;transform:translateX(-50%) translateY(-7px)}}
 
 /* The first love story, giftbox, revealed image and proposal are ONE part. */
 body.my-flow-fix #my-fix-love .split{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:flex-start!important;width:100%!important;gap:28px!important}
@@ -68,11 +77,14 @@ body.my-flow-fix #my-fix-final .h-serif{font-size:clamp(40px,8vw,94px)!important
 
 @media(max-width:720px){
  body.my-flow-fix #world>section.my-fix-active{padding:28px 0 70px!important}
+ body.my-flow-fix #world>section#hero.my-fix-active{padding:0!important;min-height:100svh!important;height:100svh!important}
+ body.my-flow-fix #my-fix-hero{width:100%;padding:24px 18px 30px!important}
  .my-fix-inner{width:min(92vw,560px)!important}
  .my-fix-back{min-height:48px;padding:13px 25px;margin-bottom:22px!important}
  .my-fix-next{min-height:54px;padding:16px 34px;margin-top:38px!important}
  body.my-flow-fix #my-fix-love .art-col{width:min(88vw,410px)!important}
  body.my-flow-fix #my-fix-love #giftBlock,body.my-flow-fix #my-fix-love #memory,body.my-flow-fix #my-fix-love #proposal{margin-top:58px!important;padding-top:34px!important}
+ body.my-flow-fix #my-fix-hero:after{bottom:5%;letter-spacing:.5em;font-size:12px}
 }
 </style>`;
 
@@ -116,6 +128,34 @@ body.my-flow-fix #my-fix-final .h-serif{font-size:clamp(40px,8vw,94px)!important
 
   var cue=heroInner.querySelector('.scroll-cue');if(cue)cue.remove();
   var divider=heroInner.querySelector('.hero-divider');if(divider)divider.remove();
+
+  /* Opening-only interactive atmosphere. */
+  var magicLayer=document.createElement('div');
+  magicLayer.className='myyellow-hero-magic';
+  magicLayer.setAttribute('aria-hidden','true');
+  for(var i=0;i<10;i++){
+    var s=document.createElement('span');
+    s.className='myyellow-magic-dot';
+    s.textContent=i%3===0?'♡':'✦';
+    s.style.setProperty('--x',(8+Math.random()*84)+'%');
+    s.style.setProperty('--y',(8+Math.random()*84)+'%');
+    s.style.setProperty('--d',(2.8+Math.random()*3.6)+'s');
+    s.style.setProperty('--delay',(-Math.random()*4)+'s');
+    magicLayer.appendChild(s);
+  }
+  heroInner.appendChild(magicLayer);
+
+  /* A tap/click anywhere on the opening creates a tiny heart burst. */
+  hero.addEventListener('pointerdown',function(e){
+    if(e.target.closest('button'))return;
+    var burst=document.createElement('div');
+    burst.className='myyellow-heart-burst';
+    burst.style.left=e.clientX+'px';
+    burst.style.top=e.clientY+'px';
+    burst.innerHTML='<span>♡</span><span>✦</span><span>♡</span><span>✦</span>';
+    hero.appendChild(burst);
+    setTimeout(function(){burst.remove()},900);
+  },{passive:true});
 
   /* Add an explicit Continue button to the birthday opening screen. */
   function addHeroNext(){
