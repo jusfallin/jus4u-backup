@@ -29,7 +29,6 @@ body.my-page-flow #my-page-love .stack{width:100%!important;max-width:760px!impo
 body.my-page-flow .body-copy{font-size:clamp(16px,1.25vw,20px)!important;line-height:1.82!important;max-width:62ch!important}
 body.my-page-flow #my-page-love .h-serif{font-size:clamp(30px,5.4vw,58px)!important;line-height:1.18!important}
 body.my-page-flow #my-page-love .pull-quote{font-size:clamp(16px,1.35vw,21px)!important;line-height:1.7!important;border-left:0!important;border-top:2px solid var(--pink)!important;padding:20px 0 0!important;margin-top:8px!important}
-body.my-page-flow #my-page-love .my-page-next{margin-top:42px!important}
 body.my-page-flow #my-page-gift .wrap{width:100%!important}
 body.my-page-flow #my-page-gift #giftBlock{width:100%!important;margin:0 auto!important;padding-top:12px!important}
 body.my-page-flow #my-page-gift #giftStage{height:clamp(330px,48vh,500px)!important}
@@ -50,8 +49,8 @@ body.my-page-flow #my-page-gift #proposal.my-proposal-revealed{display:block!imp
 body.my-page-flow #my-page-quote .split{display:flex!important;flex-direction:column!important;align-items:center!important;gap:28px!important}
 body.my-page-flow #my-page-quote .art-col{width:min(88vw,430px)!important;margin:0 auto!important}
 body.my-page-flow #my-page-quote .art-card{width:100%!important;padding:12px 12px 18px!important}
-body.my-page-flow #my-page-quote .art-frame{aspect-ratio:291/348!important}
-body.my-page-flow #my-page-quote .art-frame img{width:100%!important;height:100%!important;object-fit:cover!important}
+body.my-page-flow #my-page-quote .art-frame{aspect-ratio:291/348!important;overflow:hidden!important}
+body.my-page-flow #my-page-quote .art-frame img{display:block!important;width:100%!important;height:100%!important;object-fit:cover!important;border-radius:5px!important}
 body.my-page-flow #my-page-quote .stack{width:100%!important;max-width:760px!important;text-align:center!important}
 body.my-page-flow #my-page-quote .big-quote{font-size:clamp(34px,6vw,64px)!important;line-height:1.25!important}
 body.my-page-flow #my-page-deep .h-serif{font-size:clamp(34px,6vw,64px)!important}
@@ -63,7 +62,7 @@ body.my-page-flow #my-page-final .h-serif{font-size:clamp(40px,8vw,94px)!importa
  .my-page-inner{width:min(92vw,560px)!important}
  .my-page-back{min-height:48px;padding:13px 25px;margin-bottom:22px!important}
  .my-page-next{min-height:54px;padding:16px 34px;margin-top:34px!important}
- body.my-page-flow #my-page-love .art-col{width:min(88vw,410px)!important}
+ body.my-page-flow #my-page-love .art-col,body.my-page-flow #my-page-quote .art-col{width:min(88vw,410px)!important}
  body.my-page-flow #my-page-gift #memory,body.my-page-flow #my-page-gift #proposal{margin-top:40px!important;padding-top:30px!important}
 }
 </style>`;
@@ -102,15 +101,27 @@ body.my-page-flow #my-page-final .h-serif{font-size:clamp(40px,8vw,94px)!importa
   var cue=heroInner.querySelector('.scroll-cue');if(cue)cue.remove();
   var divider=heroInner.querySelector('.hero-divider');if(divider)divider.remove();
 
+  /* FIRST memory section: keep the scratch photo here. */
   var loveFrame=loveInner.querySelector('.art-frame');
   if(loveFrame){
     loveFrame.querySelectorAll('svg').forEach(function(n){n.remove()});
-    var img=loveFrame.querySelector('img');
-    if(!img){img=document.createElement('img');loveFrame.insertBefore(img,loveFrame.firstChild)}
-    /* This is the image shown in the exact section with the "You make the world feel..." quote. */
-    img.src='/assets/her%20image.png';
-    img.alt='Her beautiful photo';
-    img.draggable=false;
+    var loveImg=loveFrame.querySelector('img');
+    if(!loveImg){loveImg=document.createElement('img');loveFrame.insertBefore(loveImg,loveFrame.firstChild)}
+    loveImg.src='/assets/scratch-photo.jpg';
+    loveImg.alt='Our special memory';
+    loveImg.draggable=false;
+  }
+
+  /* CORRECT TARGET: this is the section that comes AFTER the completed
+     "Will you be my love?" / proposal sequence. */
+  var quoteFrame=quoteInner.querySelector('.art-frame');
+  if(quoteFrame){
+    quoteFrame.querySelectorAll('svg').forEach(function(n){n.remove()});
+    var quoteImg=quoteFrame.querySelector('img');
+    if(!quoteImg){quoteImg=document.createElement('img');quoteFrame.insertBefore(quoteImg,quoteFrame.firstChild)}
+    quoteImg.src='/assets/her%20image.png';
+    quoteImg.alt='Her beautiful photo';
+    quoteImg.draggable=false;
   }
 
   var giftBlock=document.getElementById('giftBlock');
@@ -144,19 +155,11 @@ body.my-page-flow #my-page-final .h-serif{font-size:clamp(40px,8vw,94px)!importa
     proposalShown=true;
     proposal.classList.remove('my-proposal-hidden');
     proposal.classList.add('my-proposal-revealed');
-    requestAnimationFrame(function(){
-      proposal.scrollIntoView({behavior:'smooth',block:'center'});
-    });
+    requestAnimationFrame(function(){proposal.scrollIntoView({behavior:'smooth',block:'center'});});
   }
   if(memoryFrame){
-    memoryFrame.addEventListener('click',function(e){
-      if(e.target.closest('button,a'))return;
-      revealProposal();
-    });
-    memoryFrame.addEventListener('touchend',function(e){
-      if(e.target.closest('button,a'))return;
-      revealProposal();
-    },{passive:true});
+    memoryFrame.addEventListener('click',function(e){if(e.target.closest('button,a'))return;revealProposal();});
+    memoryFrame.addEventListener('touchend',function(e){if(e.target.closest('button,a'))return;revealProposal();},{passive:true});
   }
   if(memoryPhoto){
     memoryPhoto.addEventListener('click',revealProposal);
@@ -165,7 +168,6 @@ body.my-page-flow #my-page-final .h-serif{font-size:clamp(40px,8vw,94px)!importa
 
   var stages=[hero,love,giftSection,quote,deep,final];
   var inners=[heroInner,loveInner,giftInner,quoteInner,deepInner,finalInner];
-
   function button(cls,text,handler){
     var b=document.createElement('button');
     b.type='button';b.className=cls;b.textContent=text;b.addEventListener('click',handler);return b;
