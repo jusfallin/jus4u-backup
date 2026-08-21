@@ -5,16 +5,15 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>ONLY FOR MY GIRL💛</title>
 <meta name="theme-color" content="#FADED2">
-<style>
-html,body{margin:0;min-height:100%;background:#FADED2}
-body{overflow-x:hidden}
-</style>
+<style>html,body{margin:0;min-height:100%;background:#FADED2}body{overflow-x:hidden}</style>
 </head>
 <body>
 <script>
 (async()=>{
   try{
-    const response=await fetch('/website%20file.html?v=live-fix-2',{cache:'no-store'});
+    // Load the working birthday HTML directly from the Vercel serverless function.
+    // This avoids the encoded-space rewrite path that was producing a blank page.
+    const response=await fetch('/api/website?source=main-v5',{cache:'no-store'});
     if(!response.ok) throw new Error('Birthday page unavailable: '+response.status);
     const html=await response.text();
     if(!html || html.length<500) throw new Error('Birthday page response was empty');
