@@ -1,0 +1,36 @@
+/* Gift page polish */
+body.my-page-flow #my-page-gift #giftStage{
+  height:clamp(430px,58vh,560px)!important;
+  min-height:430px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+
+body.my-page-flow #my-page-gift #gift{
+  transform:scale(1.30)!important;
+  transform-origin:center center!important;
+}
+
+/* Use the requested repository photo for the revealed memory card. */
+body.my-page-flow #my-page-gift #memory .memory-frame{
+  background:#FFF9F6 url('/assets/file_000000004ab482088a7d776c072c4951.png') center center / cover no-repeat!important;
+}
+body.my-page-flow #my-page-gift #memory .memory-frame > svg,
+body.my-page-flow #my-page-gift #memory #my-scratch-photo{
+  display:none!important;
+}
+
+@media(max-width:720px){
+  body.my-page-flow #my-page-gift #giftStage{
+    height:clamp(410px,55vh,500px)!important;
+    min-height:410px!important;
+  }
+  body.my-page-flow #my-page-gift #gift{
+    transform:scale(1.28)!important;
+  }
+  body.my-page-flow #my-page-gift #memory .memory-frame{
+    background-size:contain!important;
+    background-color:#FFF9F6!important;
+  }
+}
