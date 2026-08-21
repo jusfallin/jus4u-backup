@@ -90,9 +90,7 @@ module.exports = (req, res) => {
       },560);
     }
 
-    /* IMPORTANT: the original page listens for clicks on the whole memory card
-       and immediately opens the proposal. Stop that original handler and make
-       ONLY a tap on the actual image advance to the proposal. */
+    /* IMPORTANT: only a tap on the actual image advances to the proposal. */
     memoryCard.addEventListener('click',function(e){
       e.preventDefault();
       e.stopImmediatePropagation();
@@ -105,15 +103,13 @@ module.exports = (req, res) => {
       if(e.target.closest('#my-scratch-photo')) revealProposal();
     },{capture:true,passive:false});
 
-    /* Clicking the "Will you be my love?" proposal (including Yes/No) unlocks
-       Continue. It is intentionally impossible to see Continue before this. */
-    proposal.addEventListener('click',function(){
-      if(proposalShown)showContinue();
-    },true);
-
-    proposal.addEventListener('touchend',function(){
-      if(proposalShown)showContinue();
-    },{passive:true,capture:true});
+    /* Continue appears only after the user actually answers the love question. */
+    function answerFinished(e){
+      if(!proposalShown)return;
+      if(e.target.closest('#btnYes,#btnNo'))showContinue();
+    }
+    proposal.addEventListener('click',answerFinished,true);
+    proposal.addEventListener('touchend',answerFinished,{passive:true,capture:true});
   }
 
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});
