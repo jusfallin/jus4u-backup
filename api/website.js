@@ -17,6 +17,7 @@ body.my-flow-fix #world>section.my-fix-active{display:flex!important;min-height:
 .my-fix-back{order:0;align-self:center!important;margin:0 0 30px!important;color:#96505F;background:rgba(255,249,246,.78);border:1px solid rgba(150,80,95,.25);box-shadow:0 10px 25px -18px rgba(74,39,50,.45)}
 .my-fix-back:hover{transform:translateX(-3px)}
 .my-fix-next{order:99;margin-top:46px!important;color:#FFF9F6;background:linear-gradient(140deg,#E7A9B4,#DC97A5 48%,#CE8A99);box-shadow:0 18px 38px -16px rgba(220,151,165,.95);animation:myFixPulse 2.2s ease-in-out infinite}
+.my-fix-next:hover{transform:translateY(-2px) scale(1.025)}
 @keyframes myFixPulse{0%,100%{box-shadow:0 18px 38px -16px rgba(220,151,165,.95)}50%{box-shadow:0 24px 48px -14px rgba(220,151,165,1),0 0 0 9px rgba(220,151,165,.08)}}
 
 /* The first love story, giftbox, revealed image and proposal are ONE part. */
@@ -115,6 +116,14 @@ body.my-flow-fix #my-fix-final .h-serif{font-size:clamp(40px,8vw,94px)!important
 
   var cue=heroInner.querySelector('.scroll-cue');if(cue)cue.remove();
   var divider=heroInner.querySelector('.hero-divider');if(divider)divider.remove();
+
+  /* Add an explicit Continue button to the birthday opening screen. */
+  function addHeroNext(){
+    var b=document.createElement('button');b.type='button';b.className='my-fix-next';b.textContent='Continue ♡';
+    b.addEventListener('click',function(){show(1)});
+    heroInner.appendChild(b);
+  }
+  addHeroNext();
 
   /* Keep the original couple photo from the repository. */
   var loveFrame=loveInner.querySelector('.art-frame');
