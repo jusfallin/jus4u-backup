@@ -7,7 +7,7 @@ html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage{
   justify-content:center!important;
 }
 
-/* Move ONLY the giftbox down into the marked area. Using top preserves its opening animation. */
+/* Move ONLY the giftbox down into the marked area. */
 html body.my-page-flow #world>section#giftSection #my-page-gift #gift{
   position:relative!important;
   top:250px!important;
@@ -15,17 +15,23 @@ html body.my-page-flow #world>section#giftSection #my-page-gift #gift{
   transform-origin:center center!important;
 }
 
-/* The unwrap instruction must sit below the gift, never on top of the box. */
+/* Keep every unwrap cue clearly below the box. */
 html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage .gift-hint,
 html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage .unwrap-hint,
+html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage .gift-cue,
+html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage .gift-text,
+html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage [id*="hint"],
+html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage [id*="unwrap"],
 html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage [class*="unwrap"],
-html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage [class*="hint"]{
+html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage [class*="hint"],
+html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage [class*="cue"]{
   position:relative!important;
   top:265px!important;
-  z-index:6!important;
+  z-index:10!important;
+  text-shadow:0 2px 8px rgba(255,249,246,.95)!important;
 }
 
-/* Keep the reveal section itself centered on the same page axis as the gift. */
+/* Keep the reveal section centered on the same axis as the gift. */
 html body.my-page-flow #world>section#giftSection #my-page-gift #memory{
   width:100%!important;
   margin-left:auto!important;
@@ -35,39 +41,32 @@ html body.my-page-flow #world>section#giftSection #my-page-gift #memory{
   align-items:center!important;
   justify-content:center!important;
 }
-
 html body.my-page-flow #world>section#giftSection #my-page-gift #memory .memory-wrap{
   width:min(90vw,520px)!important;
   margin-left:auto!important;
   margin-right:auto!important;
 }
 
+/* The requested image is the actual revealed card image. */
 html body.my-page-flow #world>section#giftSection #my-page-gift #memory .memory-frame{
   width:100%!important;
+  height:clamp(390px,58vh,620px)!important;
   aspect-ratio:4/5!important;
-  min-height:0!important;
+  min-height:390px!important;
   margin-left:auto!important;
   margin-right:auto!important;
   overflow:hidden!important;
-  background:#FFF9F6!important;
-  background-image:none!important;
   display:flex!important;
   align-items:center!important;
   justify-content:center!important;
+  background:#FFF9F6 url('/assets/file_000000004ab482088a7d776c072c4951.png') center center / contain no-repeat!important;
+  color:transparent!important;
+  font-size:0!important;
 }
 
-/* Show the exact requested repository image after the gift is opened. */
+/* Prevent the old placeholder SVG/photo from covering the requested image. */
+html body.my-page-flow #world>section#giftSection #my-page-gift #memory .memory-frame > svg,
 html body.my-page-flow #world>section#giftSection #my-page-gift #memory #my-scratch-photo{
-  display:block!important;
-  width:100%!important;
-  height:100%!important;
-  max-width:none!important;
-  max-height:none!important;
-  object-fit:contain!important;
-  border-radius:5px!important;
-}
-
-html body.my-page-flow #world>section#giftSection #my-page-gift #memory .memory-frame > svg{
   display:none!important;
 }
 
@@ -82,11 +81,19 @@ html body.my-page-flow #world>section#giftSection #my-page-gift #memory .memory-
   }
   html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage .gift-hint,
   html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage .unwrap-hint,
+  html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage .gift-cue,
+  html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage .gift-text,
+  html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage [id*="hint"],
+  html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage [id*="unwrap"],
   html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage [class*="unwrap"],
-  html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage [class*="hint"]{
+  html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage [class*="hint"],
+  html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage [class*="cue"]{
     top:255px!important;
   }
   html body.my-page-flow #world>section#giftSection #my-page-gift #memory .memory-frame{
+    height:clamp(360px,58vh,520px)!important;
+    min-height:360px!important;
     aspect-ratio:4/5!important;
+    background-size:contain!important;
   }
 }
