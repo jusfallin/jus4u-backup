@@ -5,6 +5,11 @@
       "source": "/assets/bhavanika.jpg",
       "destination": "/assets/IMG_20260818_203948.jpg?loader=v2",
       "permanent": false
+    },
+    {
+      "source": "/assets/scratch-photo.jpg",
+      "destination": "/assets/file_000000004ab482088a7d776c072c4951.png",
+      "permanent": false
     }
   ],
   "routes": [
