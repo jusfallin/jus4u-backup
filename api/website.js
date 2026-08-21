@@ -107,8 +107,9 @@ body.my-page-flow #my-page-final .h-serif{font-size:clamp(40px,8vw,94px)!importa
     loveFrame.querySelectorAll('svg').forEach(function(n){n.remove()});
     var img=loveFrame.querySelector('img');
     if(!img){img=document.createElement('img');loveFrame.insertBefore(img,loveFrame.firstChild)}
-    img.src='/assets/scratch-photo.jpg';
-    img.alt='Our special memory';
+    /* This is the image shown in the exact section with the "You make the world feel..." quote. */
+    img.src='/assets/her%20image.png';
+    img.alt='Her beautiful photo';
     img.draggable=false;
   }
 
@@ -136,9 +137,6 @@ body.my-page-flow #my-page-final .h-serif{font-size:clamp(40px,8vw,94px)!importa
     }
   }
 
-  /* The proposal is the next part of the gift sequence. It stays hidden until
-     the revealed memory image is tapped/clicked, so the gift interaction has
-     one clear progression: open box -> image -> tap image -> proposal. */
   if(proposal)proposal.classList.add('my-proposal-hidden');
   var proposalShown=false;
   function revealProposal(){
