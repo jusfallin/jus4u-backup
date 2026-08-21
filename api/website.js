@@ -158,7 +158,7 @@ body.my-flow-mode #world #endnote{display:none!important}
   /* 4 — memory: exact repository asset, larger and centered. */
   var memory=document.getElementById('memory');
   var memoryCard=document.getElementById('memoryCard');
-  var memoryInner=inner('memory-flow-inner');
+  var memoryInner=inner('my-flow-memory');
   if(memory){memory.style.display='block';memoryInner.appendChild(memory)}
   gift.appendChild(memoryInner);
   var memoryFrame=memory&&memory.querySelector('.memory-frame');
@@ -167,7 +167,7 @@ body.my-flow-mode #world #endnote{display:none!important}
 
   /* 5 — proposal: centered, with one shared Continue. */
   var proposal=document.getElementById('proposal');
-  var proposalInner=inner('proposal-flow-inner');
+  var proposalInner=inner('my-flow-proposal');
   if(proposal){proposal.style.display='block';proposalInner.appendChild(proposal)}
   gift.appendChild(proposalInner);
   var arena=document.getElementById('arena');if(arena)arena.style.display='flex';
