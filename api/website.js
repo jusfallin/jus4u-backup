@@ -6,143 +6,239 @@ module.exports = (req, res) => {
     const file = path.join(process.cwd(), 'website file.html');
     let html = fs.readFileSync(file, 'utf8');
 
-    const css = String.raw`<style id="myyellow-final-polish">
+    const css = String.raw`<style id="myyellow-page-polish">
+/* MyYellow 10-change layout polish */
 html,body{background:#FADED2!important;overflow-x:hidden!important}
-body.my-page-mode{overflow-y:auto!important}
-body.my-page-mode #backdrop{position:fixed!important;inset:0!important}
-body.my-page-mode #world{min-height:100svh}
-body.my-page-mode #world>section{display:none!important}
-body.my-page-mode #world>section.my-active-page{display:flex!important;min-height:100svh!important;height:auto!important;align-items:center!important;justify-content:center!important;padding:72px 0 112px!important;margin:0!important}
-body.my-page-mode #world>#giftSection.my-active-page{display:flex!important;padding-top:76px!important;padding-bottom:112px!important}
-body.my-page-mode #world>#deep.my-active-page{display:flex!important;min-height:100svh!important;background:#4A2732!important;padding:76px 0 112px!important;margin:0!important}
-body.my-page-mode #world>#final.my-active-page{display:flex!important}
-body.my-page-mode #endnote{display:none!important}
-.my-page-inner{width:min(94vw,860px);margin:0 auto;text-align:center;position:relative;z-index:3}
-.my-page-back{position:fixed;left:12px;top:max(12px,env(safe-area-inset-top));z-index:120;display:inline-flex;align-items:center;gap:8px;min-height:38px;padding:9px 15px;border-radius:999px;background:rgba(255,249,246,.94);border:1px solid rgba(220,151,165,.35);box-shadow:0 12px 28px -18px rgba(74,39,50,.5);font:500 10px var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--rose-ink);cursor:pointer}
-.my-page-next{display:inline-flex!important;align-items:center;justify-content:center;min-height:58px!important;padding:18px 42px!important;margin:34px auto 0!important;border:0!important;border-radius:999px!important;color:var(--cream)!important;background:linear-gradient(140deg,#E7A9B4,#DC97A5 48%,#CE8A99)!important;box-shadow:0 18px 38px -16px rgba(220,151,165,.95)!important;font:500 11px var(--sans)!important;letter-spacing:.24em!important;text-transform:uppercase!important;cursor:pointer!important;animation:myNextPulse 2s ease-in-out infinite!important;transition:transform .35s ease!important}
-.my-page-next:active{transform:scale(.96)!important}
-@keyframes myNextPulse{0%,100%{transform:translateY(0);box-shadow:0 18px 38px -16px rgba(220,151,165,.9)}50%{transform:translateY(-4px);box-shadow:0 25px 48px -13px rgba(220,151,165,1),0 0 0 10px rgba(220,151,165,.09)}}
-.my-page-anim{opacity:0;transform:translateY(24px) scale(.985);filter:blur(8px)}
-.my-page-anim.my-in{opacity:1;transform:none;filter:none;transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1),filter .75s ease}
-body.my-page-mode #hero .hero-divider,body.my-page-mode #hero .scroll-cue{display:none!important}
-body.my-page-mode #hero .hero-name{margin-bottom:24px}
-body.my-page-mode #hero .heart-badge{margin-bottom:28px}
-#myLovePage .my-photo-card,#myQuotePage .my-photo-card{width:min(82vw,440px);margin:0 auto 28px;padding:12px 12px 18px;background:#FFF9F6;border-radius:14px;box-shadow:0 30px 70px -34px rgba(74,39,50,.45);transform:rotate(-1.6deg);overflow:hidden}
-#myLovePage .my-photo-card img,#myQuotePage .my-photo-card img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:5px}
-#myLovePage .my-photo-caption,#myQuotePage .my-photo-caption{font-family:var(--script);font-size:28px;color:var(--rose-ink);line-height:1;margin-top:12px}
-#myLovePage .my-copy{max-width:720px;margin:0 auto}
-#myLovePage .my-copy .eyebrow{margin-bottom:10px}
-#myLovePage .my-copy .h-serif{font-size:clamp(29px,5vw,48px)}
-#myLovePage .my-copy .body-copy{max-width:60ch;margin-left:auto;margin-right:auto}
-#myLovePage .my-copy .pull-quote{max-width:60ch;margin:24px auto 0;text-align:left}
-#myGiftPage .giftStageClone{display:flex;justify-content:center;align-items:center;height:clamp(330px,48vh,500px);margin-top:-10px}
-#myGiftPage .giftClone{transform:scale(1.22);transform-origin:center;animation:myGiftFloat 3.2s ease-in-out infinite}
-@keyframes myGiftFloat{0%,100%{transform:scale(1.22) translateY(0) rotate(0)}50%{transform:scale(1.22) translateY(-8px) rotate(.8deg)}}
-#myGiftPage .giftClone .gift{cursor:pointer}
-#myGiftPage .my-tap{margin-top:-6px}
-#myGiftPage .my-page-next{margin-top:24px!important}
-#myMemoryPage .my-memory-card{width:min(86vw,480px);margin:0 auto 18px;padding:13px 13px 19px;background:#FFF9F6;border-radius:14px;box-shadow:0 34px 76px -36px rgba(74,39,50,.48);transform:rotate(1.5deg)}
-#myMemoryPage .my-memory-card img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:5px}
-#myMemoryPage .my-memory-caption{font-family:var(--script);font-size:28px;color:var(--rose-ink);margin-top:12px}
-#myProposalPage .q-script{font-size:clamp(44px,9vw,94px);margin-bottom:18px}
-#myProposalPage .proposal-buttons{display:flex;justify-content:center;align-items:center;gap:30px;flex-wrap:wrap;margin:20px auto 0}
-#myProposalPage .proposal-buttons .btn{min-width:110px}
-#myProposalPage .proposal-message{min-height:110px;margin:30px auto 0;display:grid;place-items:center}
-#myProposalPage .proposal-message .my-result{display:none;width:min(92vw,520px);padding:24px 26px;border-radius:24px;background:rgba(255,249,246,.94);border:1px solid rgba(220,151,165,.45);box-shadow:0 28px 60px -30px rgba(74,39,50,.5)}
-#myProposalPage .proposal-message .my-result h3{font-family:var(--script);font-size:clamp(40px,8vw,74px);font-weight:400;color:var(--pink);margin:0}
-#myProposalPage .proposal-message .my-result p{margin:7px 0 0;color:rgba(74,39,50,.82);font-size:14px}
-#myProposalPage .my-cat{display:none;width:132px;margin:0 auto -12px;animation:myCatPop .8s cubic-bezier(.2,.9,.2,1) both}
-@keyframes myCatPop{0%{opacity:0;transform:translateY(30px) scale(.65)}70%{opacity:1;transform:translateY(-6px) scale(1.06)}100%{opacity:1;transform:none}}
-#myProposalPage .my-cat.my-show{display:block}
-#myQuotePage .my-quote-text{max-width:720px;margin:0 auto}
-#myQuotePage .my-quote-text .qmark{margin-bottom:6px}
-#myQuotePage .big-quote{font-size:clamp(30px,5vw,52px)}
-body.my-page-mode #deep.my-active-page{background:#4A2732!important;color:#FADED2!important}
-body.my-page-mode #deep.my-active-page::before,body.my-page-mode #deep.my-active-page::after{display:none!important}
-#myDeepPage .deep-grid{display:grid;grid-template-columns:repeat(2,minmax(110px,1fr));gap:22px;align-items:center;margin:34px auto 34px;max-width:760px}
-#myDeepPage .deep-polaroid{background:#FFF9F6;padding:9px 9px 14px;border-radius:7px;box-shadow:0 22px 45px -28px rgba(0,0,0,.55);will-change:transform}
-#myDeepPage .deep-polaroid:nth-child(1){transform:rotate(-4deg)}
-#myDeepPage .deep-polaroid:nth-child(2){transform:rotate(3deg)}
-#myDeepPage .deep-polaroid:nth-child(3){transform:rotate(2.5deg)}
-#myDeepPage .deep-polaroid:nth-child(4){transform:rotate(-3deg)}
-#myDeepPage .deep-polaroid img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:3px}
-#myDeepPage .deep-polaroid span{display:block;font-family:var(--script);font-size:18px;color:#96505F;text-align:center;padding-top:7px;line-height:1}
-#myDeepPage .deep-copy{max-width:720px;margin:0 auto}
-#myDeepPage .deep-copy .h-serif{color:#FADED2!important;font-size:clamp(32px,6vw,58px)}
-#myDeepPage .deep-copy .body-copy{color:rgba(250,222,210,.95)!important;max-width:58ch;margin-left:auto;margin-right:auto}
-#myDeepPage .deep-copy .gold-script{color:#E8C66A!important}
-#myFinalPage .my-page-next{display:none!important}
+body.my-flow-mode{overflow-y:auto!important}
+body.my-flow-mode #world{min-height:100svh}
+body.my-flow-mode #world>section{display:none!important}
+body.my-flow-mode #world>section.my-flow-active{display:flex!important;min-height:100svh!important;height:auto!important;align-items:center!important;justify-content:center!important;margin:0!important;padding:70px 0 116px!important}
+body.my-flow-mode #world>#giftSection.my-flow-active{padding:72px 0 116px!important}
+body.my-flow-mode #world>#deep.my-flow-active{background:#4A2732!important;padding:70px 0 116px!important}
+body.my-flow-mode #world>#final.my-flow-active{padding-bottom:72px!important}
+body.my-flow-mode #backdrop{position:fixed!important;inset:0!important}
+body.my-flow-mode #world #endnote{display:none!important}
+#my-flow-continue{display:inline-flex;align-items:center;justify-content:center;min-height:58px;padding:18px 42px;margin:30px auto 0;border:0;border-radius:999px;color:var(--cream);background:linear-gradient(140deg,#E7A9B4,#DC97A5 48%,#CE8A99);box-shadow:0 18px 38px -16px rgba(220,151,165,.95);font:500 11px var(--sans);letter-spacing:.24em;text-transform:uppercase;cursor:pointer;animation:myFlowPulse 2.2s ease-in-out infinite;transition:transform .3s ease}
+#my-flow-continue:active{transform:scale(.96)}
+@keyframes myFlowPulse{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px);box-shadow:0 24px 44px -14px rgba(220,151,165,1),0 0 0 9px rgba(220,151,165,.08)}}
+.my-flow-content{width:min(92vw,820px);margin:0 auto;text-align:center}
+.my-flow-content>*{margin-left:auto;margin-right:auto}
+.my-flow-reveal{opacity:0;transform:translateY(24px) scale(.985);filter:blur(8px)}
+.my-flow-reveal.my-flow-in{opacity:1;transform:none;filter:none;transition:opacity .8s cubic-bezier(.2,.8,.2,1),transform .9s cubic-bezier(.2,.8,.2,1),filter .75s ease}
+#hero .hero-divider,#hero .scroll-cue{display:none!important}
+#hero .hero-name{margin-bottom:24px}
+#hero .heart-badge{margin-bottom:28px}
+#hero .my-flow-content{display:flex;flex-direction:column;align-items:center}
+#hero .my-flow-content .body-copy{text-align:center!important;max-width:44ch}
+#hero .my-flow-content .sig{text-align:center!important}
+#my-flow-love .art-card,#my-flow-quote .art-card{width:min(84vw,430px);margin:0 auto;padding:12px 12px 18px;background:#FFF9F6;border-radius:14px;box-shadow:0 30px 70px -34px rgba(74,39,50,.45)}
+#my-flow-love .art-card .art-frame,#my-flow-quote .art-card .art-frame{aspect-ratio:4/5}
+#my-flow-love .art-card svg,#my-flow-quote .art-card svg{width:100%;height:100%}
+#my-flow-love .art-cap,#my-flow-quote .art-cap{font-size:28px;margin-top:12px}
+#my-flow-love .stack,#my-flow-quote .stack{max-width:720px;margin:28px auto 0;text-align:center}
+#my-flow-love .stack>*{margin-left:auto;margin-right:auto}
+#my-flow-love .pull-quote{max-width:62ch;text-align:center;border-left:0;border-top:2px solid var(--pink);padding:18px 0 0}
+#my-flow-love .my-flow-content,#my-flow-quote .my-flow-content{display:flex;flex-direction:column;align-items:center}
+#my-flow-gift #giftStage{height:clamp(350px,48vh,510px);display:flex;align-items:center;justify-content:center;margin-top:-8px}
+#my-flow-gift #gift{transform:scale(1.22);transform-origin:center}
+#my-flow-gift #giftFloat{transform-origin:center}
+#my-flow-gift #giftCap{margin-top:-4px}
+#my-flow-gift #my-flow-continue{margin-top:18px}
+#my-flow-memory #memory{display:block!important;opacity:1!important;filter:none!important;transform:none!important}
+#my-flow-memory #memory .eyebrow{margin-bottom:18px}
+#my-flow-memory .memory-wrap{width:min(88vw,500px);margin:0 auto}
+#my-flow-memory .memory-card{width:100%;padding:14px 14px 20px;background:#FFF9F6;border:0;border-radius:16px;box-shadow:0 34px 76px -36px rgba(74,39,50,.48);transform:rotate(1.2deg)}
+#my-flow-memory .memory-frame{aspect-ratio:4/5}
+#my-flow-memory .memory-frame img{width:100%;height:100%;object-fit:cover}
+#my-flow-memory .memory-card .art-cap{font-size:29px;margin-top:12px}
+#my-flow-memory #memoryCard{cursor:default}
+#my-flow-memory #my-flow-continue{margin-top:24px}
+#my-flow-proposal .q-script{font-size:clamp(42px,8vw,92px);margin-bottom:18px}
+#my-flow-proposal .arena{height:auto;min-height:190px;display:flex;align-items:center;justify-content:center;gap:28px;margin:18px auto 0}
+#my-flow-proposal .slot{position:static!important;transform:none!important;margin:0!important}
+#my-flow-proposal .proposal-message{display:none!important}
+#my-flow-proposal #my-yes-result{display:none;margin:30px auto 0}
+#my-flow-proposal .my-result-card{width:min(92vw,560px);margin:0 auto;padding:24px 24px 28px;border-radius:26px;background:rgba(255,249,246,.95);border:1px solid rgba(220,151,165,.45);box-shadow:0 28px 60px -30px rgba(74,39,50,.5)}
+#my-flow-proposal .my-result-card h3{font-family:var(--script);font-weight:400;font-size:clamp(46px,8vw,82px);color:var(--pink);margin:0}
+#my-flow-proposal .my-result-card p{margin:7px 0 0;color:rgba(74,39,50,.82);font-size:14px}
+#my-flow-proposal .my-result-cat{display:block;width:132px;margin:0 auto -8px;animation:myCatPop .75s cubic-bezier(.2,.9,.2,1) both}
+@keyframes myCatPop{0%{opacity:0;transform:translateY(24px) scale(.6)}70%{opacity:1;transform:translateY(-5px) scale(1.06)}100%{opacity:1;transform:none}}
+#my-flow-quote .art-card{transform:rotate(1.4deg)}
+#my-flow-quote .stack{max-width:720px}
+#my-flow-quote .big-quote{font-size:clamp(30px,5vw,52px)}
+#my-flow-deep{background:#4A2732!important;color:#FADED2!important;min-height:100svh!important}
+#my-flow-deep .deep-layout{width:min(92vw,900px);margin:0 auto;text-align:center}
+#my-flow-deep .deep-grid{display:grid;grid-template-columns:repeat(2,minmax(120px,1fr));gap:18px;max-width:700px;margin:0 auto 34px}
+#my-flow-deep .deep-polaroid{background:#FFF9F6;padding:9px 9px 14px;border-radius:7px;box-shadow:0 22px 45px -28px rgba(0,0,0,.55)}
+#my-flow-deep .deep-polaroid:nth-child(1){transform:rotate(-4deg)}
+#my-flow-deep .deep-polaroid:nth-child(2){transform:rotate(3deg)}
+#my-flow-deep .deep-polaroid:nth-child(3){transform:rotate(2.5deg)}
+#my-flow-deep .deep-polaroid:nth-child(4){transform:rotate(-3deg)}
+#my-flow-deep .deep-polaroid img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:3px}
+#my-flow-deep .deep-polaroid span{display:block;font-family:var(--script);font-size:18px;color:#96505F;padding-top:7px;line-height:1}
+#my-flow-deep .deep-copy{max-width:720px;margin:0 auto}
+#my-flow-deep .deep-copy .h-serif{color:#FADED2!important;font-size:clamp(32px,6vw,58px)}
+#my-flow-deep .deep-copy .body-copy{color:rgba(250,222,210,.95)!important;max-width:58ch;margin-left:auto;margin-right:auto}
+#my-flow-deep .deep-copy .gold-script{color:#E8C66A!important}
+#my-flow-deep #my-flow-continue{margin-top:34px}
+#my-flow-final .final-wrap{width:min(92vw,820px);margin:0 auto;text-align:center}
+#my-flow-final #btnCelebrate{margin-top:34px}
 @media(max-width:720px){
-  body.my-page-mode #world>section.my-active-page{padding:62px 0 108px!important}
-  #myLovePage .my-photo-card,#myQuotePage .my-photo-card{width:min(84vw,390px)}
-  #myLovePage .my-copy .pull-quote{font-size:16px}
-  #myGiftPage .giftStageClone{height:350px}
-  #myGiftPage .giftClone{transform:scale(1.12)}
-  @keyframes myGiftFloat{0%,100%{transform:scale(1.12) translateY(0)}50%{transform:scale(1.12) translateY(-7px)}}
-  #myDeepPage .deep-grid{gap:16px;max-width:92vw}
-  #myDeepPage .deep-polaroid{padding:7px 7px 11px}
-  #myDeepPage .deep-polaroid span{font-size:15px}
-  #myProposalPage .proposal-buttons{gap:18px}
-  #myProposalPage .proposal-buttons .btn{min-width:96px;padding-inline:25px}
+  body.my-flow-mode #world>section.my-flow-active{padding:62px 0 108px!important}
+  #my-flow-love .art-card,#my-flow-quote .art-card{width:min(86vw,390px)}
+  #my-flow-gift #giftStage{height:360px}
+  #my-flow-gift #gift{transform:scale(1.12)}
+  #my-flow-memory .memory-wrap{width:min(88vw,430px)}
+  #my-flow-proposal .arena{gap:18px;min-height:170px}
+  #my-flow-deep .deep-grid{gap:14px;max-width:92vw}
+  #my-flow-deep .deep-polaroid{padding:7px 7px 11px}
+  #my-flow-deep .deep-polaroid span{font-size:15px}
+  #my-flow-continue{min-height:54px;padding:16px 34px}
 }
-@media(prefers-reduced-motion:reduce){.my-page-next,.giftClone{animation:none!important}.my-page-anim{filter:none!important;transform:none!important;opacity:1!important}}
+@media(prefers-reduced-motion:reduce){#my-flow-continue{animation:none!important}.my-flow-reveal{opacity:1!important;transform:none!important;filter:none!important}}
 </style>`;
 
-    const script = String.raw`<script id="myyellow-final-router">
+    const script = String.raw`<script id="myyellow-flow-script">
 (function(){
   'use strict';
-  var root=document.getElementById('world'); if(!root)return;
-  var sections=[].slice.call(root.children).filter(function(el){return el.tagName==='SECTION'&&el.id!=='endnote';});
-  var hero=document.getElementById('hero'),love=sections.find(function(s){return !s.id&&s.querySelector('.split')&&s.querySelector('.pull-quote')&&s.querySelector('.art-card')&&s.querySelector('.stack');});
-  var gift= document.getElementById('giftSection'),quote=sections.find(function(s){return !s.id&&s.querySelector('.big-quote');});
-  var deep=document.getElementById('deep'),final=document.getElementById('final');
-  var giftStage=document.getElementById('giftStage'),originalGift=giftStage&&giftStage.querySelector('#gift');
-  var current=0,yesDone=false,pages=[];
-  function mkPage(id){var s=document.createElement('section');s.id=id;s.className='sec';return s}
-  function inner(s){var d=document.createElement('div');d.className='my-page-inner';s.appendChild(d);return d}
-  function back(){var b=document.createElement('button');b.className='my-page-back';b.type='button';b.textContent='← Go back';b.onclick=function(){go(current-1)};return b}
-  function next(label){var b=document.createElement('button');b.className='my-page-next';b.type='button';b.textContent=label||'Continue ♡';return b}
-  function animateIn(s){[].slice.call(s.querySelectorAll('.my-page-anim')).forEach(function(e,i){e.classList.remove('my-in');setTimeout(function(){e.classList.add('my-in')},Math.min(i*90,420))})}
+  var root=document.getElementById('world');
+  if(!root)return;
+  var sections=[].slice.call(root.children).filter(function(el){return el.tagName==='SECTION';});
+  var hero=document.getElementById('hero');
+  var love=sections.find(function(s){return !s.id&&s.querySelector('.split')&&s.querySelector('.pull-quote')&&s.querySelector('.art-card');});
+  var gift=document.getElementById('giftSection');
+  var quote=sections.find(function(s){return !s.id&&s.querySelector('.big-quote');});
+  var deep=document.getElementById('deep');
+  var final=document.getElementById('final');
+  if(!hero||!love||!gift||!quote||!deep||!final)return;
 
-  /* 1 — opening */
-  var hc=inner(hero);hc.innerHTML='';var h=document.createElement('div');h.className='my-page-anim';h.innerHTML='<p class="eyebrow">A little celebration for you 🌸</p><h1 class="h-display">Happy Birthday</h1><p class="script hero-name">Bhavanika</p><div class="heart-badge"><svg viewBox="0 0 32 30" fill="#FFF9F6"><use href="#ic-heart"/></svg></div><p class="body-copy" style="margin:0 auto;max-width:44ch">You make every ordinary day feel beautiful. Today is all about celebrating the beautiful person you are.</p><p class="sig" style="margin-top:24px">With all my love, always</p>';hc.appendChild(h);var hn=next('Continue ♡');hn.onclick=function(){go(1)};hc.appendChild(hn);
+  var stages=[{el:hero,id:'hero'},{el:love,id:'love'},{el:gift,id:'gift'},{el:gift,id:'memory'},{el:gift,id:'proposal'},{el:quote,id:'quote'},{el:deep,id:'deep'},{el:final,id:'final'}];
+  var current=0;
+  var sharedNext=document.createElement('button');
+  sharedNext.id='my-flow-continue';
+  sharedNext.type='button';
+  sharedNext.textContent='Continue ♡';
 
-  /* 2 — love/photo */
-  love.id='myLovePage';var lc=inner(love);lc.appendChild(back());var lp=document.createElement('div');lp.className='my-photo-card my-page-anim';lp.innerHTML='<img src="/assets/scratch-photo.jpg" alt="A favorite memory"><div class="my-photo-caption">my favorite person 💗</div>';lc.appendChild(lp);var copy=document.createElement('div');copy.className='my-copy my-page-anim';copy.innerHTML='<p class="eyebrow">To my love 💗</p><h2 class="h-serif">I didn\'t know what I was looking for —</h2><p><span class="script" style="font-size:clamp(30px,4.2vw,56px)">until I found you.</span></p><p class="body-copy">I could write a thousand beautiful sentences about you and still feel like I haven\'t said enough. Somewhere between our conversations, our favorite songs, your little ways of caring, and all those moments that are just ours, you became someone incredibly special to me.</p><p class="body-copy" style="margin-top:18px">I love your voice, your eyes, your positivity, your heart, and even the tiny things you probably don\'t realize I notice. You make me feel understood, cared for, and ridiculously lucky to call you my girl.</p><blockquote class="pull-quote">So this isn\'t just a birthday page. I made it because I wanted you to feel what I sometimes struggle to put into words: I choose you, I cherish you, and I keep falling for you in all the little moments.</blockquote>';lc.appendChild(copy);var ln=next('Continue ♡');ln.onclick=function(){go(2)};lc.appendChild(ln);
+  function inner(id){var d=document.createElement('div');d.id=id;d.className='my-flow-content';return d}
+  function reveal(container){var nodes=container.querySelectorAll('.my-flow-reveal');Array.prototype.forEach.call(nodes,function(n,i){n.classList.remove('my-flow-in');setTimeout(function(){n.classList.add('my-flow-in')},Math.min(i*80,360))})}
+  function hideOriginalControls(){['giftBlock','memory','proposal'].forEach(function(id){var el=document.getElementById(id);if(el)el.style.display='none'});var old=document.getElementById('my-flow-continue');if(old&&old.parentNode)old.parentNode.removeChild(old)}
+  hideOriginalControls();
 
-  /* 3 — gift */
-  var giftPage=mkPage('myGiftPage'),gc=inner(giftPage);gc.appendChild(back());var gt=document.createElement('p');gt.className='eyebrow my-page-anim';gt.textContent="Something I've been holding onto 🎀";gc.appendChild(gt);var gs=document.createElement('div');gs.className='giftStageClone my-page-anim';var gclone=originalGift?originalGift.cloneNode(true):null;if(gclone){gclone.removeAttribute('id');gclone.classList.add('giftClone');gs.appendChild(gclone)}gc.appendChild(gs);var tap=document.createElement('p');tap.className='sig my-tap my-page-anim';tap.textContent='🎁 Tap to unwrap…';gc.appendChild(tap);var gn=next('Continue ♡');gn.onclick=function(){go(3)};gc.appendChild(gn);root.appendChild(giftPage);
+  /* 1 — opening: centered, no scroll cue, one shared Continue. */
+  hero.id='my-flow-hero';
+  var hc=inner('hero-flow-inner');
+  while(hero.firstChild)hc.appendChild(hero.firstChild);
+  hero.appendChild(hc);
+  var scrollCue=hc.querySelector('.scroll-cue');if(scrollCue)scrollCue.remove();
+  var divider=hc.querySelector('.hero-divider');if(divider)divider.remove();
+  hc.appendChild(sharedNext);
 
-  /* 4 — memory */
-  var memoryPage=mkPage('myMemoryPage'),mc=inner(memoryPage);mc.appendChild(back());var me=document.createElement('p');me.className='eyebrow my-page-anim';me.textContent='My favorite memory 📷';mc.appendChild(me);var card=document.createElement('div');card.className='my-memory-card my-page-anim';card.innerHTML='<img src="/assets/file_000000004ab482088a7d776c072c4951.png" alt="My favorite memory"><div class="my-memory-caption">Tap this, my love ❤️</div>';mc.appendChild(card);var mn=next('Continue ♡');mn.onclick=function(){go(4)};mc.appendChild(mn);root.appendChild(memoryPage);
+  /* 2 — photo/text section: scratch-photo first, text second, Continue third. */
+  love.id='my-flow-love';
+  var lc=inner('love-flow-inner');
+  while(love.firstChild)lc.appendChild(love.firstChild);
+  love.appendChild(lc);
+  var loveSplit=lc.querySelector('.split');
+  if(loveSplit){var art=loveSplit.querySelector('.art-col');var stack=loveSplit.querySelector('.stack');if(art)lc.appendChild(art);if(stack)lc.appendChild(stack)}
+  var loveImg=lc.querySelector('.art-frame');
+  if(loveImg){var img=document.createElement('img');img.src='/assets/scratch-photo.jpg';img.alt='A favorite memory';img.loading='eager';img.style.cssText='width:100%;height:100%;object-fit:cover;border-radius:5px';loveImg.innerHTML='';loveImg.appendChild(img)}
+  lc.appendChild(sharedNext);
 
-  /* 5 — proposal */
-  var propPage=mkPage('myProposalPage'),pc=inner(propPage);pc.appendChild(back());var pt=document.createElement('div');pt.className='my-page-anim';pt.innerHTML='<p class="eyebrow">And one more thing ✨</p><h2 class="script q-script">Will you be my love?</h2>';pc.appendChild(pt);var pb=document.createElement('div');pb.className='proposal-buttons my-page-anim';var yes=document.createElement('button');yes.type='button';yes.className='btn';yes.textContent='Yes 💗';var no=document.createElement('button');no.type='button';no.className='btn btn--ghost';no.textContent='No';pb.appendChild(yes);pb.appendChild(no);pc.appendChild(pb);var out=document.createElement('div');out.className='proposal-message';out.innerHTML='<div class="my-cat" id="myCat"><div style="font-size:76px;line-height:1">🐈‍⬛</div></div><div class="my-result" id="myResult"><h3>Forever it is.</h3><p>You just made me the happiest person alive, Bhavanika.</p></div>';pc.appendChild(out);var pn=next('Continue ♡');pn.onclick=function(){go(5)};pc.appendChild(pn);root.appendChild(propPage);
+  /* 3 — gift: larger, centered, Continue slightly higher. */
+  gift.id='my-flow-gift';
+  var giftStage=document.getElementById('giftStage');
+  var giftBlock=document.getElementById('giftBlock');
+  var giftCap=document.getElementById('giftCap');
+  var giftBtn=document.getElementById('gift');
+  var giftInner=inner('gift-flow-inner');
+  if(giftBlock){giftBlock.style.display='block';giftInner.appendChild(giftBlock)}
+  gift.appendChild(giftInner);
+  giftInner.appendChild(sharedNext);
 
-  /* 6 — quote */
-  quote.id='myQuotePage';var qc=inner(quote);qc.appendChild(back());var qp=document.createElement('div');qp.className='my-photo-card my-page-anim';qp.innerHTML='<img src="/assets/scratch-photo.jpg" alt="Just because"><div class="my-photo-caption">just because 🌸</div>';qc.appendChild(qp);var qt=document.createElement('div');qt.className='my-quote-text my-page-anim';qt.innerHTML='<span class="qmark">&ldquo;</span><p class="big-quote">You make the world feel a little more colorful just by being in it.</p><p class="sig" style="margin-top:22px">— Someone who thinks you\'re pretty great</p>';qc.appendChild(qt);var qn=next('Continue ♡');qn.onclick=function(){go(6)};qc.appendChild(qn);
+  /* 4 — memory: exact repository asset, larger and centered. */
+  var memory=document.getElementById('memory');
+  var memoryCard=document.getElementById('memoryCard');
+  var memoryInner=inner('memory-flow-inner');
+  if(memory){memory.style.display='block';memoryInner.appendChild(memory)}
+  gift.appendChild(memoryInner);
+  var memoryFrame=memory&&memory.querySelector('.memory-frame');
+  if(memoryFrame){var mimg=document.createElement('img');mimg.src='/assets/file_000000004ab482088a7d776c072c4951.png';mimg.alt='My favorite memory';mimg.loading='eager';mimg.style.cssText='width:100%;height:100%;object-fit:cover;border-radius:5px';memoryFrame.innerHTML='';memoryFrame.appendChild(mimg)}
+  memoryInner.appendChild(sharedNext);
 
-  /* 7 — deep */
-  deep.id='myDeepPage';var dc=inner(deep);dc.appendChild(back());var grid=document.createElement('div');grid.className='deep-grid my-page-anim';['/assets/03.jpg','/assets/07.jpg','/assets/08.jpg','/assets/her%20image.png'].forEach(function(src){var p=document.createElement('figure');p.className='deep-polaroid';p.innerHTML='<img src="'+src+'" alt="A favorite memory"><span>♡</span>';grid.appendChild(p)});dc.appendChild(grid);var dcopy=document.createElement('div');dcopy.className='deep-copy my-page-anim';dcopy.innerHTML='<div class="gold-heart"><svg viewBox="0 0 32 30" fill="#E8C66A"><use href="#ic-heart"/></svg></div><h2 class="h-serif">Beyond the jokes and the chaos,</h2><p class="body-copy" style="margin-top:24px">I just wanted to take a moment to say how incredibly proud I am of the person you are.</p><p class="body-copy" style="margin-top:16px">You carry this rare, beautiful energy with you — a mix of fierce independence and soft, genuine kindness.</p><p class="body-copy" style="margin-top:16px">Life throws a lot at us, but watching you navigate it with your signature humor and grace is nothing short of inspiring.</p><p class="body-copy" style="margin-top:16px">You don\'t just exist in the world; you curate it, you elevate it, you make it fiercely your own.</p><p class="body-copy" style="margin-top:16px">Never lose that spark. Never settle for ordinary. You deserve every ounce of joy, love, and magic this year has to offer.</p><p class="gold-script" style="margin-top:30px">— always in your corner</p>';dc.appendChild(dcopy);var dn=next('Continue ♡');dn.onclick=function(){go(7)};dc.appendChild(dn);
+  /* 5 — proposal: centered, with one shared Continue. */
+  var proposal=document.getElementById('proposal');
+  var proposalInner=inner('proposal-flow-inner');
+  if(proposal){proposal.style.display='block';proposalInner.appendChild(proposal)}
+  gift.appendChild(proposalInner);
+  var arena=document.getElementById('arena');if(arena)arena.style.display='flex';
+  var oldYesCard=document.getElementById('yesCard');if(oldYesCard)oldYesCard.style.display='none';
 
-  /* 8 — final: preserve Let's celebrate, no Continue */
-  final.id='myFinalPage';var fc=inner(final);fc.innerHTML='';var fw=document.createElement('div');fw.className='my-page-anim';fw.innerHTML='<p class="eyebrow">One last time, out loud 🎂</p><p class="script final-script">Happy Birthday,</p><h2 class="h-serif" style="font-size:clamp(34px,7.4vw,88px);margin-top:-.08em">Bhavanika.</h2><p class="body-copy" style="margin:24px auto 0;max-width:40ch">Here\'s to a year that treats you as gently and as generously as you treat everyone else.</p>';fc.appendChild(fw);var celebrate=document.createElement('button');celebrate.type='button';celebrate.className='btn btn--lg';celebrate.textContent='Let\'s celebrate 🎉';celebrate.style.marginTop='34px';fw.appendChild(celebrate);var originalCelebrate=document.getElementById('btnCelebrate');var originalGateway=document.getElementById('gateway');var letterGateway=document.createElement('button');letterGateway.type='button';letterGateway.className='gateway';letterGateway.innerHTML='<span class="gateway-inner"><span class="gateway-seal">💌</span><span class="gateway-art"><div style="font-size:72px;text-align:center;padding:52px 0 26px">💌</div></span><span class="gateway-label"><span class="script">Kaadhal Kaditham</span><span class="sig">Open the letters · kavithaigal ✍️</span></span></span>';letterGateway.style.display='none';fw.appendChild(letterGateway);letterGateway.addEventListener('click',function(){if(originalGateway)originalGateway.click()});celebrate.addEventListener('click',function(){if(originalCelebrate)originalCelebrate.click();setTimeout(function(){letterGateway.style.display='block';letterGateway.animate([{opacity:0,transform:'translateY(28px) scale(.94)'},{opacity:1,transform:'none'}],{duration:900,easing:'cubic-bezier(.2,.8,.2,1)',fill:'forwards'})},3600)});
+  /* 6 — YES result: cat above Forever it is, one combined outcome. */
+  var result=document.createElement('div');
+  result.id='my-yes-result';
+  result.innerHTML='<div class="my-result-card"><div class="my-result-cat" aria-hidden="true">🐈‍⬛</div><h3>Forever it is.</h3><p>You just made me the happiest person alive, Bhavanika.</p></div>';
+  proposalInner.appendChild(result);
+  proposalInner.appendChild(sharedNext);
 
-  pages=[hero,love,giftPage,memoryPage,propPage,quote,deep,final].filter(Boolean);pages.forEach(function(p){p.classList.remove('my-active-page');p.style.display='none'});document.body.classList.add('my-page-mode');
-  function show(i){i=Math.max(0,Math.min(pages.length-1,i));current=i;pages.forEach(function(p,j){p.classList.toggle('my-active-page',j===i);p.style.display=j===i?'flex':'none'});window.scrollTo(0,0);animateIn(pages[i])}
-  function go(i){if(i<0)return;show(i)}
+  /* 7 — quote/photo: same centered image → text → Continue treatment as change #2. */
+  quote.id='my-flow-quote';
+  var qc=inner('quote-flow-inner');
+  while(quote.firstChild)qc.appendChild(quote.firstChild);
+  quote.appendChild(qc);
+  var qsplit=qc.querySelector('.split');
+  if(qsplit){var qart=qsplit.querySelector('.art-col');var qstack=qsplit.querySelector('.stack');if(qart)qc.appendChild(qart);if(qstack)qc.appendChild(qstack)}
+  var qframe=qc.querySelector('.art-frame');
+  if(qframe){var qimg=document.createElement('img');qimg.src='/assets/scratch-photo.jpg';qimg.alt='Just because';qimg.loading='eager';qimg.style.cssText='width:100%;height:100%;object-fit:cover;border-radius:5px';qframe.innerHTML='';qframe.appendChild(qimg)}
+  qc.appendChild(sharedNext);
+
+  /* 8 — deep: four real images as Polaroids, never over the text, full maroon background. */
+  deep.id='my-flow-deep';
+  var dc=inner('deep-flow-inner');
+  while(deep.firstChild)dc.appendChild(deep.firstChild);
+  deep.appendChild(dc);
+  var originalDeepChildren=[].slice.call(dc.children);
+  var deepLayout=document.createElement('div');deepLayout.className='deep-layout';
+  var grid=document.createElement('div');grid.className='deep-grid';
+  ['/assets/03.jpg','/assets/07.jpg','/assets/08.jpg','/assets/her%20image.png'].forEach(function(src){var p=document.createElement('figure');p.className='deep-polaroid';p.innerHTML='<img src="'+src+'" alt="A favorite memory"><span>♡</span>';grid.appendChild(p)});
+  var deepCopy=document.createElement('div');deepCopy.className='deep-copy';
+  originalDeepChildren.forEach(function(ch){deepCopy.appendChild(ch)});
+  deepLayout.appendChild(grid);deepLayout.appendChild(deepCopy);dc.appendChild(deepLayout);dc.appendChild(sharedNext);
+
+  /* 9 — final: preserve the existing final navigation into Kathal Kaditham; do not add/move another Continue. */
+  final.id='my-flow-final';
+  var fc=inner('final-flow-inner');while(final.firstChild)fc.appendChild(final.firstChild);final.appendChild(fc);fc.classList.add('final-wrap');
+  var finalButton=document.getElementById('btnCelebrate');
+
+  function placeNext(i){if(i===7){sharedNext.remove();return}var target=stages[i].el.querySelector('.my-flow-content');if(target)target.appendChild(sharedNext);sharedNext.style.display='inline-flex'}
+  function stageSetup(i){
+    if(i<7){sharedNext.onclick=function(){show(i+1)};placeNext(i)}else{sharedNext.remove()}
+    if(i===4&&window.NoButton&&typeof window.NoButton.init==='function')window.NoButton.init();
+  }
+  function show(i){
+    i=Math.max(0,Math.min(stages.length-1,i));current=i;
+    stages.forEach(function(s,j){s.el.classList.toggle('my-flow-active',j===i);s.el.style.display=j===i?'flex':'none'});
+    if(i===2){if(giftBlock)giftBlock.style.display='block';if(memory)memory.style.display='none';if(proposal)proposal.style.display='none'}
+    if(i===3){if(giftBlock)giftBlock.style.display='none';if(memory)memory.style.display='block';if(proposal)proposal.style.display='none'}
+    if(i===4){if(giftBlock)giftBlock.style.display='none';if(memory)memory.style.display='none';if(proposal)proposal.style.display='block'}
+    stageSetup(i);window.scrollTo(0,0);reveal(stages[i].el.querySelector('.my-flow-content')||stages[i].el);
+  }
+
+  /* Gift stays tappable; the existing gift animation is replaced by a lightweight local animation so page flow is not duplicated. */
+  if(giftBtn){giftBtn.addEventListener('click',function(e){e.stopImmediatePropagation();if(giftBtn.dataset.myUnwrapped)return;giftBtn.dataset.myUnwrapped='1';giftBtn.animate([{transform:'scale(1.12)'},{transform:'scale(1.25)'},{transform:'scale(1.16)'}],{duration:900,easing:'cubic-bezier(.2,.9,.2,1)'});var bow=giftBtn.querySelector('#giftBow');if(bow)bow.animate([{transform:'rotate(0deg)'},{transform:'rotate(-10deg)'},{transform:'rotate(10deg)'},{transform:'rotate(0deg)'}],{duration:900,easing:'ease-in-out'})},true)}
+  if(memoryCard){memoryCard.addEventListener('click',function(e){e.stopImmediatePropagation();memoryCard.animate([{transform:'rotate(1.2deg) scale(1)'},{transform:'rotate(-1deg) scale(1.035)'},{transform:'rotate(1.2deg) scale(1)'}],{duration:700,easing:'cubic-bezier(.2,.8,.2,1)'})},true)}
+
+  /* YES outcome: both elements animate into the same center composition and settle within about 4–6 seconds. */
+  var yes=document.getElementById('btnYes'),no=document.getElementById('btnNo'),yesLocked=false;
+  if(yes){yes.addEventListener('click',function(e){e.stopImmediatePropagation();if(yesLocked)return;yesLocked=true;if(no)no.disabled=true;yes.disabled=true;if(result)result.style.display='block';var card=result.querySelector('.my-result-card'),cat=result.querySelector('.my-result-cat');if(card){card.style.opacity='0';card.style.transform='translateY(18px) scale(.94)'}if(cat){cat.style.opacity='0';cat.style.transform='translateY(22px) scale(.62)';setTimeout(function(){cat.animate([{opacity:0,transform:'translateY(22px) scale(.62)'},{opacity:1,transform:'translateY(-4px) scale(1.06)'},{opacity:1,transform:'none'}],{duration:850,easing:'cubic-bezier(.2,.9,.2,1)',fill:'forwards'})},300)}setTimeout(function(){if(card)card.animate([{opacity:0,transform:'translateY(18px) scale(.94)'},{opacity:1,transform:'none'}],{duration:900,easing:'cubic-bezier(.2,.9,.2,1)',fill:'forwards'})},650);if(window.Confetti&&Confetti.burst)setTimeout(function(){Confetti.burst({x:innerWidth/2,y:innerHeight*.42,count:110,spread:360,startVelocity:13,ticks:240,shapes:['heart','circle','rect']})},1150);setTimeout(function(){if(card)card.animate([{transform:'scale(1)'},{transform:'scale(1.025)'},{transform:'scale(1)'}],{duration:900,easing:'ease-in-out'})},3200);setTimeout(function(){sharedNext.style.display='inline-flex'},4500)},true)}
+  var originalProposalMessage=document.querySelector('#proposal .proposal-message');if(originalProposalMessage)originalProposalMessage.style.display='none';
+
+  document.body.classList.add('my-flow-mode');
   show(0);
-
-  if(gclone){gclone.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();gclone.animate([{transform:'scale(1.12)'},{transform:'scale(1.28)'},{transform:'scale(1.18)'}],{duration:680,easing:'cubic-bezier(.2,.9,.2,1)'});setTimeout(function(){go(3)},720)},true)}
-  card.addEventListener('click',function(){card.animate([{transform:'rotate(1.5deg) scale(1)'},{transform:'rotate(-1deg) scale(1.035)'},{transform:'rotate(1.5deg) scale(1)'}],{duration:700,easing:'cubic-bezier(.2,.8,.2,1)'})});
-
-  yes.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();if(yesDone)return;yesDone=true;yes.disabled=true;no.disabled=true;var cat=document.getElementById('myCat'),result=document.getElementById('myResult');setTimeout(function(){cat.classList.add('my-show')},900);setTimeout(function(){result.style.display='block';result.animate([{opacity:0,transform:'translateY(20px) scale(.94)'},{opacity:1,transform:'none'}],{duration:850,easing:'cubic-bezier(.2,.9,.2,1)',fill:'forwards'})},1200);setTimeout(function(){if(window.Confetti&&Confetti.burst)Confetti.burst({x:innerWidth/2,y:innerHeight*.48,count:100,spread:360,startVelocity:13,ticks:260,shapes:['heart','circle','rect']})},1500);setTimeout(function(){result.animate([{transform:'scale(1)'},{transform:'scale(1.025)'},{transform:'scale(1)'}],{duration:900,easing:'ease-in-out'});cat.animate([{transform:'scale(1)'},{transform:'scale(1.05)'},{transform:'scale(1)'}],{duration:900,easing:'ease-in-out'})},4200)},true);
-  no.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();no.animate([{transform:'translateX(0)'},{transform:'translateX(24px)'},{transform:'translateX(-20px)'},{transform:'translateX(0)'}],{duration:550,easing:'ease-out'})},true);
 })();
 </script>`;
 
-    html = html.replace('</head>', css + '\n</head>');
-    html = html.replace('</body>', script + '\n</body>');
+    html = html.replace('</head>', css + '</head>');
+    html = html.replace('</body>', script + '</body>');
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.setHeader('Cache-Control', 'no-store, max-age=0, must-revalidate');
     res.status(200).send(html);
