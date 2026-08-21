@@ -36,3 +36,83 @@ html body.my-page-flow #world>section#giftSection #my-page-gift #proposal .slot{
   html body.my-page-flow #world>section#giftSection #my-page-gift #proposal .q-script{font-size:clamp(43px,11vw,72px)!important}
   html body.my-page-flow #world>section#giftSection #my-page-gift #proposal .arena{gap:14px!important;margin-top:24px!important}
 }
+
+/* ============================================================
+   FINAL GIFT SEQUENCE — one state at a time
+   Box -> image -> love question -> Continue after answer.
+   The page-flow script supplies the proposal class after the image tap;
+   these rules also override the original gift script's inline display styles.
+   ============================================================ */
+html body.my-page-flow #world>section#giftSection #my-page-gift #memory,
+html body.my-page-flow #world>section#giftSection #my-page-gift #proposal{
+  display:none!important;
+}
+
+/* Opening state: keep only the giftbox visible and center it. */
+html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage{
+  height:clamp(500px,64vh,650px)!important;
+  min-height:500px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+}
+html body.my-page-flow #world>section#giftSection #my-page-gift #gift{
+  transform:scale(1.32)!important;
+  transform-origin:center center!important;
+}
+
+/* Once the original gift animation marks giftBlock as display:none,
+   reveal the requested image and keep it centered until it is tapped. */
+html body.my-page-flow #world>section#giftSection #my-page-gift #giftBlock[style*="display: none"] ~ #memory{
+  display:block!important;
+  width:100%!important;
+  margin:0 auto!important;
+  padding:0!important;
+  border-top:0!important;
+}
+html body.my-page-flow #world>section#giftSection #my-page-gift #giftBlock[style*="display: none"] ~ #memory .memory-wrap{
+  width:min(88vw,560px)!important;
+  margin:0 auto!important;
+}
+html body.my-page-flow #world>section#giftSection #my-page-gift #giftBlock[style*="display: none"] ~ #memory .memory-card{
+  margin:0 auto!important;
+}
+
+/* The page-flow click handler adds this class after the image is tapped. */
+html body.my-page-flow #world>section#giftSection #my-page-gift #proposal.my-proposal-revealed{
+  display:block!important;
+  width:100%!important;
+  margin:0 auto!important;
+  padding:0!important;
+  border-top:0!important;
+}
+html body.my-page-flow #world>section#giftSection #my-page-gift .wrap:has(#proposal.my-proposal-revealed) #memory{
+  display:none!important;
+}
+
+/* Continue belongs to the gift page itself. Hide it until an answer has
+   actually been selected. The existing Yes button becomes disabled in the
+   completed-answer state, which is our stable visual state marker. */
+html body.my-page-flow #world>section#giftSection #my-page-gift > .my-page-next{
+  display:none!important;
+}
+html body.my-page-flow #world>section#giftSection #my-page-gift:has(#proposal.my-proposal-revealed) > .my-page-next{
+  display:none!important;
+}
+html body.my-page-flow #world>section#giftSection #my-page-gift:has(#proposal.my-proposal-revealed #btnYes:disabled) > .my-page-next{
+  display:inline-flex!important;
+  margin-top:42px!important;
+}
+
+@media(max-width:720px){
+  html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage{
+    height:clamp(520px,68vh,680px)!important;
+    min-height:520px!important;
+  }
+  html body.my-page-flow #world>section#giftSection #my-page-gift #gift{
+    transform:scale(1.24)!important;
+  }
+  html body.my-page-flow #world>section#giftSection #my-page-gift #memory .memory-wrap{
+    width:min(88vw,540px)!important;
+  }
+}
