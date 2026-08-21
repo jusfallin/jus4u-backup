@@ -13,14 +13,14 @@
       "headers": {
         "Link": "</assets/gift-page-overrides.css>; rel=stylesheet"
       },
-      "dest": "/api/website"
+      "dest": "/api/website-flow-fix"
     },
     {
       "src": "^/website%20file\\.html$",
       "headers": {
         "Link": "</assets/gift-page-overrides.css>; rel=stylesheet"
       },
-      "dest": "/api/website"
+      "dest": "/api/website-flow-fix"
     },
     {
       "handle": "filesystem"
