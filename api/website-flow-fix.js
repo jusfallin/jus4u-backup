@@ -21,7 +21,7 @@ module.exports = (req, res) => {
     var giftInner=document.getElementById('my-page-gift');
     if(!memory||!memoryCard||!proposal||!giftInner)return;
 
-    /* Keep the exact requested image. */
+    /* The requested gift image stays exactly in the gift flow. */
     if(memoryPhoto){
       memoryPhoto.src='/assets/file_000000004ab482088a7d776c072c4951.png';
       memoryPhoto.alt='Our special memory';
@@ -30,12 +30,73 @@ module.exports = (req, res) => {
       memoryPhoto.style.pointerEvents='auto';
     }
 
-    /* Proposal appears only after the actual image is tapped. */
+    /* Replace the generic flower artwork in the next love/memory section with
+       the actual repository photo the user requested. */
+    var loveSection=document.getElementById('my-page-love');
+    var loveFrame=loveSection && loveSection.querySelector('.art-frame');
+    var lovePhoto=loveFrame && loveFrame.querySelector('img');
+    if(lovePhoto){
+      lovePhoto.src='/assets/her%20image.png';
+      lovePhoto.alt='Her beautiful photo';
+      lovePhoto.draggable=false;
+      lovePhoto.loading='eager';
+      lovePhoto.decoding='async';
+      lovePhoto.style.cursor='pointer';
+      lovePhoto.style.transition='transform .55s cubic-bezier(.2,.8,.2,1),filter .55s ease';
+    }
+    if(loveFrame){
+      loveFrame.style.position='relative';
+      loveFrame.style.overflow='hidden';
+      loveFrame.style.borderRadius='8px';
+      loveFrame.style.boxShadow='0 20px 55px rgba(120,65,78,.16), 0 0 0 1px rgba(255,255,255,.75)';
+      loveFrame.style.transition='transform .35s ease,box-shadow .35s ease';
+      loveFrame.addEventListener('pointerdown',function(){
+        loveFrame.style.transform='scale(.985) rotate(-.4deg)';
+        if(lovePhoto)lovePhoto.style.filter='brightness(1.04) saturate(1.06)';
+      });
+      loveFrame.addEventListener('pointerup',function(){
+        loveFrame.style.transform='scale(1.012) rotate(.25deg)';
+        if(lovePhoto)lovePhoto.style.filter='none';
+      });
+      loveFrame.addEventListener('pointerleave',function(){
+        loveFrame.style.transform='none';
+        if(lovePhoto)lovePhoto.style.filter='none';
+      });
+      loveFrame.addEventListener('click',function(){
+        if(lovePhoto){
+          lovePhoto.style.transform='scale(1.035)';
+          setTimeout(function(){lovePhoto.style.transform='scale(1)';},420);
+        }
+        var spark=document.createElement('span');
+        spark.textContent='♥';
+        spark.style.position='absolute';
+        spark.style.left=(45+Math.random()*10)+'%';
+        spark.style.top='48%';
+        spark.style.zIndex='5';
+        spark.style.pointerEvents='none';
+        spark.style.fontSize='22px';
+        spark.style.color='#df8fa2';
+        spark.style.textShadow='0 5px 18px rgba(180,90,115,.35)';
+        spark.style.animation='myLoveHeartFloat 1.15s ease-out forwards';
+        loveFrame.appendChild(spark);
+        setTimeout(function(){spark.remove();},1200);
+      });
+    }
+
+    /* One tiny interaction animation for the photo card. */
+    if(!document.getElementById('my-love-photo-style')){
+      var style=document.createElement('style');
+      style.id='my-love-photo-style';
+      style.textContent='@keyframes myLoveHeartFloat{0%{opacity:0;transform:translate(-50%,10px) scale(.55)}20%{opacity:1}100%{opacity:0;transform:translate(-50%,-75px) scale(1.25)}}';
+      document.head.appendChild(style);
+    }
+
+    /* Proposal appears only after the actual gift image is tapped. */
     proposal.style.setProperty('display','none','important');
     proposal.style.opacity='0';
     proposal.style.filter='blur(10px)';
 
-    /* Generic page-flow Continue is hidden until the complete YES outcome ends. */
+    /* Continue is hidden until the complete YES outcome ends. */
     var continueBtn=giftInner.querySelector('.my-page-next');
     if(!continueBtn)return;
     var proposalShown=false,continueShown=false;
@@ -59,8 +120,7 @@ module.exports = (req, res) => {
     }
     hideContinue();
 
-    /* Put the proposal in the actual center of the viewport; the back button
-       stays at the top and no longer pushes the question upward. */
+    /* Center the complete gift experience. */
     giftSection.style.minHeight='100svh';
     giftSection.style.height='100svh';
     giftSection.style.padding='0';
@@ -116,7 +176,7 @@ module.exports = (req, res) => {
       },560);
     }
 
-    /* Only the image itself advances to the proposal. */
+    /* Only the gift image itself advances to the proposal. */
     memoryCard.addEventListener('click',function(e){
       e.preventDefault();
       e.stopImmediatePropagation();
@@ -133,7 +193,6 @@ module.exports = (req, res) => {
     function finishYesOutcome(){
       if(yesFinished)return;
       yesFinished=true;
-      /* Cat: 5900ms. Forever card: 6720ms. Small paint buffer: 350ms. */
       var completeMs=5900+6720+350;
       setTimeout(showContinue,completeMs);
     }
