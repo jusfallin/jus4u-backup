@@ -16,14 +16,14 @@
     {
       "src": "^/$",
       "headers": {
-        "Link": "</assets/gift-page-overrides.css>; rel=stylesheet"
+        "Link": "</assets/gift-page-overrides.css>; rel=stylesheet, </assets/smooth-sequence.css>; rel=stylesheet"
       },
       "dest": "/api/website-flow-fix"
     },
     {
       "src": "^/website%20file\\.html$",
       "headers": {
-        "Link": "</assets/gift-page-overrides.css>; rel=stylesheet"
+        "Link": "</assets/gift-page-overrides.css>; rel=stylesheet, </assets/smooth-sequence.css>; rel=stylesheet"
       },
       "dest": "/api/website-flow-fix"
     },
