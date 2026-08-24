@@ -1,184 +1,87 @@
-/* Gift page — keep the original gift interaction intact and only fix layout/sequence. */
-html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage{
-  height:clamp(390px,52vh,500px)!important;min-height:390px!important;display:flex!important;align-items:center!important;justify-content:center!important;overflow:visible!important;
-}
-html body.my-page-flow #world>section#giftSection #my-page-gift #gift{
-  position:relative!important;top:0!important;transform:scale(1.12)!important;transform-origin:center center!important;z-index:5!important;
-}
-html body.my-page-flow #world>section#giftSection #my-page-gift #giftBlock > .eyebrow{
-  position:relative!important;z-index:20!important;margin-bottom:4px!important;white-space:nowrap!important;
-}
-html body.my-page-flow #world>section#giftSection #my-page-gift #giftCap{
-  position:relative!important;z-index:30!important;display:block!important;width:max-content!important;max-width:90vw!important;margin:0 auto!important;transform:none!important;padding:8px 16px!important;border-radius:999px!important;background:rgba(255,249,246,.95)!important;border:1px solid rgba(150,80,95,.18)!important;box-shadow:0 10px 24px -18px rgba(74,39,50,.45)!important;color:#96505F!important;text-shadow:none!important;letter-spacing:.20em!important;
-}
-html body.my-page-flow #world>section#giftSection #my-page-gift #memory{
-  width:100%!important;margin:40px auto 0!important;padding:30px 0 0!important;border-top:1px solid rgba(220,151,165,.22)!important;display:block!important;
-}
-html body.my-page-flow #world>section#giftSection #my-page-gift #memory .memory-wrap{width:min(90vw,520px)!important;margin:18px auto 0!important}
-html body.my-page-flow #world>section#giftSection #my-page-gift #memory .memory-card{width:100%!important;padding:15px 15px 22px!important;cursor:pointer!important;touch-action:manipulation!important}
-html body.my-page-flow #world>section#giftSection #my-page-gift #memory .memory-frame{width:100%!important;height:auto!important;min-height:0!important;aspect-ratio:auto!important;overflow:hidden!important;cursor:pointer!important;touch-action:manipulation!important;background:#FFF9F6!important;display:block!important}
-html body.my-page-flow #world>section#giftSection #my-page-gift #memory #my-scratch-photo{display:block!important;position:relative!important;width:100%!important;height:auto!important;max-height:none!important;object-fit:contain!important;border-radius:5px!important;cursor:pointer!important;pointer-events:auto!important}
-html body.my-page-flow #world>section#giftSection #my-page-gift #memory .memory-frame > svg{display:none!important}
-html body.my-page-flow #world>section#giftSection #my-page-gift #proposal{width:100%!important;margin:40px auto 0!important;padding:30px 0 0!important;border-top:1px solid rgba(220,151,165,.22)!important}
-html body.my-page-flow #world>section#giftSection #my-page-gift #proposal.my-proposal-hidden{display:none!important}
-html body.my-page-flow #world>section#giftSection #my-page-gift #proposal.my-proposal-revealed{display:block!important;animation:giftProposalReveal .75s ease both}
-@keyframes giftProposalReveal{from{opacity:0;transform:translateY(28px);filter:blur(7px)}to{opacity:1;transform:none;filter:none}}
-html body.my-page-flow #world>section#giftSection #my-page-gift #proposal .q-script{width:100%!important;margin:0!important;text-align:center!important;font-size:clamp(43px,8vw,94px)!important;line-height:1.1!important}
-html body.my-page-flow #world>section#giftSection #my-page-gift #proposal .arena{width:100%!important;height:auto!important;min-height:0!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:18px!important;margin:28px auto 0!important}
-html body.my-page-flow #world>section#giftSection #my-page-gift #proposal .slot{position:static!important;transform:none!important;margin:0!important}
-@media(max-width:720px){
-  html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage{height:clamp(350px,48vh,450px)!important;min-height:350px!important}
-  html body.my-page-flow #world>section#giftSection #my-page-gift #gift{top:0!important;transform:scale(1.02)!important}
-  html body.my-page-flow #world>section#giftSection #my-page-gift #giftCap{margin-top:2px!important;padding:8px 14px!important;font-size:10px!important;letter-spacing:.18em!important}
-  html body.my-page-flow #world>section#giftSection #my-page-gift #memory{margin-top:34px!important;padding-top:26px!important}
-  html body.my-page-flow #world>section#giftSection #my-page-gift #memory .memory-wrap{width:min(92vw,500px)!important}
-  html body.my-page-flow #world>section#giftSection #my-page-gift #proposal{margin-top:34px!important;padding-top:26px!important}
-  html body.my-page-flow #world>section#giftSection #my-page-gift #proposal .q-script{font-size:clamp(43px,11vw,72px)!important}
-  html body.my-page-flow #world>section#giftSection #my-page-gift #proposal .arena{gap:14px!important;margin-top:24px!important}
-}
-
-/* ============================================================
-   FINAL GIFT SEQUENCE — one state at a time
-   Box -> image -> love question -> Continue after answer.
-   The page-flow script supplies the proposal class after the image tap;
-   these rules also override the original gift script's inline display styles.
-   ============================================================ */
-html body.my-page-flow #world>section#giftSection #my-page-gift #memory,
-html body.my-page-flow #world>section#giftSection #my-page-gift #proposal{
-  display:none!important;
+/* Cinematic, text-by-text entrance — layout/content untouched. */
+@media (prefers-reduced-motion: no-preference) {
+  :root{--myyellow-ease:cubic-bezier(.22,1,.36,1)}
+  #world>section.my-page-active{animation:mySection 1800ms var(--myyellow-ease) both!important}
+  #world>section.my-page-active .my-page-inner{animation:myInner 1500ms var(--myyellow-ease) 250ms both!important}
+  #world>section.my-page-active .my-page-inner>:is(h1,h2,h3,h4,p,.eyebrow,.kicker,.signature,.body-copy,.pull-quote,.message,.big-quote,.gold-script,.q-script,.title,.name,.subtitle,.caption,.label){opacity:0!important;animation:myText 1900ms var(--myyellow-ease) both!important}
+  #hero.my-page-active .my-page-inner>:nth-child(1){animation-delay:900ms!important}
+  #hero.my-page-active .my-page-inner>:nth-child(2){animation-delay:2100ms!important}
+  #hero.my-page-active .my-page-inner>:nth-child(3){animation-delay:3300ms!important}
+  #hero.my-page-active .my-page-inner>:nth-child(4){animation-delay:4500ms!important}
+  #hero.my-page-active .my-page-next{animation:myButton 1900ms var(--myyellow-ease) 5700ms both!important}
+  #my-page-love.my-page-active .art-col{opacity:0!important;animation:myPhoto 2100ms var(--myyellow-ease) 700ms both!important}
+  #my-page-love.my-page-active .stack>*{opacity:0!important;animation:myText 1900ms var(--myyellow-ease) both!important}
+  #my-page-love.my-page-active .stack>*:nth-child(1){animation-delay:3000ms!important}
+  #my-page-love.my-page-active .stack>*:nth-child(2){animation-delay:4200ms!important}
+  #my-page-love.my-page-active .stack>*:nth-child(3){animation-delay:5400ms!important}
+  #my-page-love.my-page-active .stack>*:nth-child(4){animation-delay:6600ms!important}
+  #my-page-love.my-page-active .my-page-next{animation:myButton 1900ms var(--myyellow-ease) 8000ms both!important}
+  #giftSection.my-page-active #giftStage{animation:myPhoto 2100ms var(--myyellow-ease) 700ms both!important}
+  #giftSection.my-page-active #gift{animation:myPhoto 1900ms var(--myyellow-ease) 1200ms both!important}
+  #giftSection.my-page-active #giftBlock h1,#giftSection.my-page-active #giftBlock h2,#giftSection.my-page-active #giftBlock p,#giftSection.my-page-active #giftBlock .eyebrow,#giftSection.my-page-active #giftBlock .kicker{opacity:0!important;animation:myText 1900ms var(--myyellow-ease) both!important}
+  #giftSection.my-page-active #giftBlock h1{animation-delay:500ms!important}
+  #giftSection.my-page-active #giftBlock h2{animation-delay:1700ms!important}
+  #giftSection.my-page-active #giftBlock p{animation-delay:2900ms!important}
+  #giftSection.my-page-active #giftBlock .eyebrow{animation-delay:4100ms!important}
+  #giftSection.my-page-active #giftBlock .kicker{animation-delay:5300ms!important}
+  #my-page-quote.my-page-active .art-col{opacity:0!important;animation:myPhoto 2200ms var(--myyellow-ease) 700ms both!important}
+  #my-page-quote.my-page-active .stack>*{opacity:0!important;animation:myText 1900ms var(--myyellow-ease) both!important}
+  #my-page-quote.my-page-active .stack>*:nth-child(1){animation-delay:3200ms!important}
+  #my-page-quote.my-page-active .stack>*:nth-child(2){animation-delay:4400ms!important}
+  #my-page-quote.my-page-active .stack>*:nth-child(3){animation-delay:5600ms!important}
+  #my-page-quote.my-page-active .my-page-next{animation:myButton 1900ms var(--myyellow-ease) 7000ms both!important}
+  #my-page-deep.my-page-active>*{opacity:0!important;animation:myText 1900ms var(--myyellow-ease) both!important}
+  #my-page-deep.my-page-active>*:nth-child(1){animation-delay:700ms!important}
+  #my-page-deep.my-page-active>*:nth-child(2){animation-delay:1900ms!important}
+  #my-page-deep.my-page-active>*:nth-child(3){animation-delay:3100ms!important}
+  #my-page-deep.my-page-active>*:nth-child(4){animation-delay:4300ms!important}
+  #my-page-deep.my-page-active .my-page-next{animation:myButton 1900ms var(--myyellow-ease) 5500ms both!important}
+  #my-page-final.my-page-active>*:not(.my-page-back){opacity:0!important;animation:myText 2000ms var(--myyellow-ease) both!important}
+  #my-page-final.my-page-active>*:nth-child(2){animation-delay:700ms!important}
+  #my-page-final.my-page-active>*:nth-child(3){animation-delay:2000ms!important}
+  #my-page-final.my-page-active>*:nth-child(4){animation-delay:3300ms!important}
+  #my-page-final.my-page-active .my-page-next{animation:myButton 2000ms var(--myyellow-ease) 4700ms both!important}
+  #world>section.my-page-active img{animation:myImage 2200ms var(--myyellow-ease) both!important}
+  #world>section.my-page-active .art-card,#world>section.my-page-active .memory-card{transition:transform 1200ms var(--myyellow-ease),box-shadow 1200ms var(--myyellow-ease)!important}
+  #world>section.my-page-active .my-page-next:hover,#world>section.my-page-active button:hover{transform:translateY(-2px) scale(1.018)!important}
 }
 
-/* Opening state: keep only the giftbox visible and center it. */
-html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage{
-  height:clamp(500px,64vh,650px)!important;
-  min-height:500px!important;
-  display:flex!important;
-  align-items:center!important;
-  justify-content:center!important;
+/* DEEP MESSAGE: larger, centered, and vertically centered on the page. */
+#deep .wrap{
+  min-height:calc(100svh - clamp(56px,9vw,130px));
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
 }
-html body.my-page-flow #world>section#giftSection #my-page-gift #gift{
-  transform:scale(1.32)!important;
-  transform-origin:center center!important;
+#deep .h-serif{
+  font-size:clamp(31px,4.8vw,58px)!important;
+  line-height:1.16!important;
+  margin-bottom:clamp(24px,3vw,38px)!important;
+  max-width:18ch;
 }
+#deep .body-copy{
+  font-size:clamp(17px,1.35vw,20px)!important;
+  line-height:1.72!important;
+  max-width:58ch!important;
+}
+#deep .body-copy + .body-copy{margin-top:1.25em!important}
+#deep .gold-script{font-size:clamp(32px,4.2vw,58px)!important}
+#deep .gold-heart{width:clamp(34px,3.5vw,46px)!important;margin-bottom:clamp(22px,2.8vw,38px)!important}
 
-/* Once the original gift animation marks giftBlock as display:none,
-   reveal the requested image and keep it centered until it is tapped. */
-html body.my-page-flow #world>section#giftSection #my-page-gift #giftBlock[style*="display: none"] ~ #memory{
-  display:block!important;
-  width:100%!important;
-  margin:0 auto!important;
-  padding:0!important;
-  border-top:0!important;
-}
-html body.my-page-flow #world>section#giftSection #my-page-gift #giftBlock[style*="display: none"] ~ #memory .memory-wrap{
-  width:min(88vw,560px)!important;
-  margin:0 auto!important;
-}
-html body.my-page-flow #world>section#giftSection #my-page-gift #giftBlock[style*="display: none"] ~ #memory .memory-card{
-  margin:0 auto!important;
-}
+@keyframes mySection{from{opacity:0;transform:translate3d(0,30px,0);filter:blur(9px)}to{opacity:1;transform:none;filter:blur(0)}}
+@keyframes myInner{from{opacity:0;transform:translate3d(0,20px,0);filter:blur(6px)}to{opacity:1;transform:none;filter:blur(0)}}
+@keyframes myText{0%{opacity:0;transform:translate3d(0,34px,0) scale(.985);filter:blur(9px)}55%{opacity:.78;transform:translate3d(0,7px,0) scale(.998);filter:blur(2px)}78%{opacity:1;transform:translate3d(0,-2px,0) scale(1.002);filter:blur(0)}100%{opacity:1;transform:none;filter:blur(0)}}
+@keyframes myPhoto{0%{opacity:0;transform:translate3d(0,44px,0) scale(.94);filter:blur(11px)}60%{opacity:1;transform:translate3d(0,-4px,0) scale(1.008);filter:blur(0)}100%{opacity:1;transform:none}}
+@keyframes myImage{0%{opacity:0;transform:scale(.96);filter:blur(10px)}65%{opacity:1;transform:scale(1.006);filter:blur(0)}100%{opacity:1;transform:scale(1)}}
+@keyframes myButton{0%{opacity:0;transform:translate3d(0,25px,0) scale(.95);filter:blur(6px)}65%{opacity:1;transform:translate3d(0,-2px,0) scale(1.015);filter:blur(0)}100%{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){#world>section,#world>section *{animation-duration:1ms!important;animation-delay:0ms!important;transition-duration:1ms!important}}
 
-/* The page-flow click handler adds this class after the image is tapped. */
-html body.my-page-flow #world>section#giftSection #my-page-gift #proposal.my-proposal-revealed{
-  display:block!important;
-  width:100%!important;
-  margin:0 auto!important;
-  padding:0!important;
-  border-top:0!important;
-}
-html body.my-page-flow #world>section#giftSection #my-page-gift .wrap:has(#proposal.my-proposal-revealed) #memory{
-  display:none!important;
-}
-
-/* Continue belongs to the gift page itself. Hide it until an answer has
-   actually been selected. The existing Yes button becomes disabled in the
-   completed-answer state, which is our stable visual state marker. */
-html body.my-page-flow #world>section#giftSection #my-page-gift > .my-page-next{
-  display:none!important;
-}
-html body.my-page-flow #world>section#giftSection #my-page-gift:has(#proposal.my-proposal-revealed) > .my-page-next{
-  display:none!important;
-}
-html body.my-page-flow #world>section#giftSection #my-page-gift:has(#proposal.my-proposal-revealed #btnYes:disabled) > .my-page-next{
-  display:inline-flex!important;
-  margin-top:42px!important;
-}
-
-@media(max-width:720px){
-  html body.my-page-flow #world>section#giftSection #my-page-gift #giftStage{
-    height:clamp(520px,68vh,680px)!important;
-    min-height:520px!important;
-  }
-  html body.my-page-flow #world>section#giftSection #my-page-gift #gift{
-    transform:scale(1.24)!important;
-  }
-  html body.my-page-flow #world>section#giftSection #my-page-gift #memory .memory-wrap{
-    width:min(88vw,540px)!important;
-  }
-}
-
-/* FINAL BIRTHDAY SECTION — center the complete text/button group. */
-html body.my-page-flow #world>section#final.my-page-active{
-  min-height:100svh!important;
-  height:100svh!important;
-  padding:0!important;
-  align-items:center!important;
-  justify-content:center!important;
-}
-html body.my-page-flow #world>section#final.my-page-active #my-page-final{
-  width:min(92vw,900px)!important;
-  min-height:100svh!important;
-  height:100svh!important;
-  box-sizing:border-box!important;
-  display:flex!important;
-  flex-direction:column!important;
-  align-items:center!important;
-  justify-content:center!important;
-  gap:0!important;
-  padding:0 0 8vh!important;
-  margin:0 auto!important;
-  text-align:center!important;
-}
-/* Keep Go Back at the top without affecting the centered birthday group. */
-html body.my-page-flow #world>section#final.my-page-active #my-page-final > .my-page-back{
-  position:absolute!important;
-  top:16px!important;
-  left:50%!important;
-  transform:translateX(-50%)!important;
-  margin:0!important;
-  z-index:30!important;
-}
-html body.my-page-flow #world>section#final.my-page-active #my-page-final > *:not(.my-page-back){
-  margin-left:auto!important;
-  margin-right:auto!important;
-  text-align:center!important;
-}
-html body.my-page-flow #world>section#final.my-page-active #my-page-final .h-serif{
-  margin-top:0!important;
-  margin-bottom:16px!important;
-  line-height:1.08!important;
-}
-html body.my-page-flow #world>section#final.my-page-active #my-page-final .body-copy{
-  margin-top:0!important;
-  margin-bottom:28px!important;
-  max-width:620px!important;
-  line-height:1.7!important;
-}
-html body.my-page-flow #world>section#final.my-page-active #my-page-final .my-page-next,
-html body.my-page-flow #world>section#final.my-page-active #my-page-final .my-page-next:last-child{
-  margin-top:0!important;
-  align-self:center!important;
-}
-@media(max-width:720px){
-  html body.my-page-flow #world>section#final.my-page-active #my-page-final{
-    width:min(92vw,560px)!important;
-    padding:0 0 6vh!important;
-  }
-  html body.my-page-flow #world>section#final.my-page-active #my-page-final .h-serif{
-    margin-bottom:14px!important;
-  }
-  html body.my-page-flow #world>section#final.my-page-active #my-page-final .body-copy{
-    max-width:88vw!important;
-    margin-bottom:24px!important;
-  }
+/* FIX: the sequence-fix script listens in capture phase and calls
+   stopImmediatePropagation() only when the image itself is the event target.
+   Let the click land on the memory button instead, so the original
+   openMemory() handler runs and initializes the NoButton/cat engine. */
+html body.my-page-flow #world>section#giftSection #my-page-gift #memory #my-scratch-photo{
+  pointer-events:none!important;
 }
