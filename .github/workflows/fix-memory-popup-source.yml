@@ -1,0 +1,78 @@
+name: Patch source memory popup and NO
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch website source
+        shell: python
+        run: |
+          from pathlib import Path
+          p = Path('website file.html')
+          s = p.read_text(encoding='utf-8')
+          marker = '<!-- MEMORY-POPUP-NO-SOURCE-V1 -->'
+          if marker in s:
+              print('Patch already present')
+              raise SystemExit(0)
+          block = r'''<!-- MEMORY-POPUP-NO-SOURCE-V1 -->
+<style>
+#myyellow-memory-popup{position:fixed;inset:0;z-index:100000;display:grid;place-items:center;padding:22px;background:rgba(74,39,50,.30);backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);opacity:0;pointer-events:none;transition:opacity .45s ease}
+#myyellow-memory-popup.on{opacity:1;pointer-events:auto}
+#myyellow-memory-popup .mp-card{width:min(92vw,520px);padding:34px 26px 28px;text-align:center;border-radius:28px;background:linear-gradient(160deg,#fffaf7,#f8ded5);border:1px solid rgba(220,151,165,.55);box-shadow:0 35px 90px -35px rgba(74,39,50,.65);transform:translateY(24px) scale(.94);transition:transform .6s cubic-bezier(.16,1,.3,1)}
+#myyellow-memory-popup.on .mp-card{transform:none}
+#myyellow-memory-popup .mp-heart{font-size:42px;line-height:1;margin-bottom:12px}
+#myyellow-memory-popup h3{margin:0;font:400 clamp(30px,6vw,48px) var(--serif);color:#4A2732}
+#myyellow-memory-popup p{margin:14px auto 24px;max-width:38ch;font:400 15.5px/1.75 var(--sans);color:rgba(74,39,50,.84)}
+#myyellow-memory-popup button{min-height:54px;padding:16px 32px;border:0;border-radius:999px;cursor:pointer;color:#FFF9F6;background:linear-gradient(140deg,#E7A9B4,#DC97A5 48%,#CE8A99);box-shadow:0 18px 38px -16px rgba(220,151,165,.95);font:500 11px var(--sans);letter-spacing:.20em;text-transform:uppercase}
+#myyellow-memory-popup button:hover{transform:translateY(-2px) scale(1.03)}
+#myyellow-memory-popup .mp-close{display:block;margin:16px auto 0;background:none;box-shadow:none;color:#96505F;min-height:auto;padding:8px;font-size:10px;letter-spacing:.14em}
+@media(max-width:520px){#myyellow-memory-popup .mp-card{padding:30px 20px 24px}#myyellow-memory-popup p{font-size:14px}}
+</style>
+<div id="myyellow-memory-popup" aria-hidden="true">
+<div class="mp-card" role="dialog" aria-modal="true" aria-labelledby="mp-title">
+<div class="mp-heart">💗</div>
+<h3 id="mp-title">One little memory…</h3>
+<p>I wanted you to pause here for a second. This photo means a little more to me than just a photo. Keep it close, my love. ✨</p>
+<button type="button" id="mp-open">Open the next part 💕</button>
+<button type="button" class="mp-close" id="mp-close">Not yet</button>
+</div>
+</div>
+<script>
+(function(){
+'use strict';
+var popup,openBtn,closeBtn,photo,proposal,memory,opened=false,noClicks=0,noBusy=false;
+function setup(){
+ popup=document.getElementById('myyellow-memory-popup');openBtn=document.getElementById('mp-open');closeBtn=document.getElementById('mp-close');photo=document.getElementById('my-scratch-photo');proposal=document.getElementById('proposal');memory=document.getElementById('memory');
+ if(!popup||!openBtn||!proposal)return;
+ function hide(){popup.classList.remove('on');popup.setAttribute('aria-hidden','true')}
+ function show(){if(opened)return;popup.classList.add('on');popup.setAttribute('aria-hidden','false')}
+ function reveal(){if(opened)return;opened=true;hide();if(memory){memory.style.setProperty('display','none','important');memory.style.opacity='0'}proposal.style.setProperty('display','block','important');proposal.style.opacity='0';proposal.style.filter='blur(8px)';proposal.style.transform='translateY(26px)';requestAnimationFrame(function(){proposal.style.transition='opacity .75s ease,transform .75s ease,filter .75s ease';proposal.style.opacity='1';proposal.style.filter='none';proposal.style.transform='none';setTimeout(function(){proposal.scrollIntoView({behavior:'smooth',block:'center'})},90)});try{if(window.NoButton&&typeof window.NoButton.init==='function')window.NoButton.init()}catch(e){}}
+ openBtn.addEventListener('click',reveal);closeBtn.addEventListener('click',hide);
+ document.addEventListener('click',function(e){var t=e.target;var p=t&&t.closest?t.closest('#my-scratch-photo'):null;if(p){e.preventDefault();e.stopImmediatePropagation();show()}},true);
+ document.addEventListener('touchend',function(e){var t=e.target;var p=t&&t.closest?t.closest('#my-scratch-photo'):null;if(p){e.preventDefault();e.stopImmediatePropagation();show()}},{capture:true,passive:false});
+ function moveNo(no){var arena=document.getElementById('arena');var w=Math.max(120,Math.min(240,(arena&&arena.clientWidth||360)*.42));var h=Math.max(90,Math.min(150,(arena&&arena.clientHeight||260)*.55));var dx=(Math.random()-.5)*w,dy=(Math.random()-.5)*h;no.style.transition='transform .5s cubic-bezier(.16,1,.3,1)';no.style.transform='translate('+dx.toFixed(0)+'px,'+dy.toFixed(0)+'px) rotate('+(Math.random()*20-10).toFixed(1)+'deg)'}
+ function summon(no){if(noBusy)return;noBusy=true;try{if(window.Cat&&typeof window.Cat.appearCenter==='function'){window.Cat.appearCenter().then(function(){return typeof window.Cat.leapTo==='function'?window.Cat.leapTo(no,{arc:190,spin:18,duration:900}):null}).then(function(){if(window.Cat&&typeof window.Cat.setMood==='function')window.Cat.setMood('sad');if(window.Cat&&typeof window.Cat.say==='function')window.Cat.say(["This isn't fair… 😿","Please? For me? 🥺","You're breaking my heart… 💔"]);noBusy=false}).catch(function(){noBusy=false})}else noBusy=false}catch(e){noBusy=false}}
+ document.addEventListener('click',function(e){var no=e.target&&e.target.closest?e.target.closest('#btnNo'):null;if(!no||noBusy)return;e.preventDefault();e.stopImmediatePropagation();noClicks++;moveNo(no);if(noClicks>=2){noClicks=0;summon(no)}},true);
+ document.addEventListener('touchend',function(e){var no=e.target&&e.target.closest?e.target.closest('#btnNo'):null;if(!no||noBusy)return;e.preventDefault();e.stopImmediatePropagation();noClicks++;moveNo(no);if(noClicks>=2){noClicks=0;summon(no)}},{capture:true,passive:false});
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();
+})();
+</script>'''
+          s = s.replace('</body>', block + '\n</body>', 1)
+          p.write_text(s, encoding='utf-8')
+      - name: Commit source patch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add 'website file.html'
+          git diff --cached --quiet || git commit -m 'Add memory popup and reliable NO interaction to source'
+          git push
