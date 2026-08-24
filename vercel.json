@@ -18,14 +18,14 @@
       "headers": {
         "Link": "</assets/gift-page-overrides.css>; rel=stylesheet, </assets/smooth-sequence.css>; rel=stylesheet"
       },
-      "dest": "/api/website-flow-fix"
+      "dest": "/api/final-flow-fix"
     },
     {
       "src": "^/website%20file\\.html$",
       "headers": {
         "Link": "</assets/gift-page-overrides.css>; rel=stylesheet, </assets/smooth-sequence.css>; rel=stylesheet"
       },
-      "dest": "/api/website-flow-fix"
+      "dest": "/api/final-flow-fix"
     },
     {
       "handle": "filesystem"
