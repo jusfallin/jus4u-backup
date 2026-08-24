@@ -1,0 +1,81 @@
+name: Fix NO button fallback v2
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Replace escaped fallback with valid JavaScript
+        shell: python
+        run: |
+          from pathlib import Path
+          p = Path('website file.html')
+          s = p.read_text(encoding='utf-8')
+          marker = '<!-- NO-BUTTON-FALLBACK-V1 -->'
+          if marker not in s:
+              print('Marker not found; nothing to replace')
+              raise SystemExit(0)
+          start = s.index(marker)
+          end = s.index('</script>', start) + len('</script>')
+          block = '''<!-- NO-BUTTON-FALLBACK-V2 -->
+<script>
+(function(){
+  'use strict';
+  var wired=false, attempts=0, timer=null;
+  function catFallback(no){
+    if(!window.Cat || typeof window.Cat.appearCenter!=='function') return;
+    window.Cat.appearCenter().then(function(){
+      if(typeof window.Cat.leapTo==='function') return window.Cat.leapTo(no,{arc:200,spin:16,duration:920});
+    }).then(function(){
+      if(window.Cat && typeof window.Cat.setMood==='function') window.Cat.setMood('sad');
+      if(window.Cat && typeof window.Cat.say==='function') window.Cat.say(["This isn't fair… 😿","Please? For me? 🥺","You're breaking my heart… 💔"]);
+    });
+  }
+  function wire(){
+    var proposal=document.getElementById('proposal');
+    var no=document.getElementById('btnNo');
+    if(!proposal || !no) return false;
+    if(getComputedStyle(proposal).display==='none' || no.getBoundingClientRect().width===0) return false;
+    if(wired) return true;
+    wired=true;
+    try{ if(window.NoButton && typeof window.NoButton.init==='function') window.NoButton.init(); }catch(e){}
+    no.addEventListener('click',function(){
+      attempts++;
+      try{
+        var arena=document.getElementById('arena');
+        var w=(arena&&arena.clientWidth)||Math.min(window.innerWidth-40,620);
+        var h=(arena&&arena.clientHeight)||280;
+        var dx=(Math.random()-.5)*Math.min(220,Math.max(120,w*.55));
+        var dy=(Math.random()-.5)*Math.min(150,Math.max(90,h*.55));
+        no.style.transition='transform .42s cubic-bezier(.2,.8,.2,1)';
+        no.style.transform='translate('+dx.toFixed(0)+'px,'+dy.toFixed(0)+'px) rotate('+(Math.random()*18-9).toFixed(1)+'deg)';
+      }catch(e){}
+      if(attempts>=2){
+        attempts=0;
+        catFallback(no);
+      }
+    },false);
+    return true;
+  }
+  timer=setInterval(function(){ if(wire()){clearInterval(timer);timer=null;} },120);
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',wire,{once:true});
+  else wire();
+})();
+</script>'''
+          s = s[:start] + block + s[end:]
+          p.write_text(s, encoding='utf-8')
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add 'website file.html'
+          git diff --cached --quiet || git commit -m 'Fix NO button fallback JavaScript'
+          git push
