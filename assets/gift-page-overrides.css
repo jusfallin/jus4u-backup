@@ -78,10 +78,10 @@
 @keyframes myButton{0%{opacity:0;transform:translate3d(0,25px,0) scale(.95);filter:blur(6px)}65%{opacity:1;transform:translate3d(0,-2px,0) scale(1.015);filter:blur(0)}100%{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){#world>section,#world>section *{animation-duration:1ms!important;animation-delay:0ms!important;transition-duration:1ms!important}}
 
-/* FIX: the sequence-fix script listens in capture phase and calls
-   stopImmediatePropagation() only when the image itself is the event target.
-   Let the click land on the memory button instead, so the original
-   openMemory() handler runs and initializes the NoButton/cat engine. */
+/* FIX: the memory photo must remain a real pointer/touch target.
+   The earlier pointer-events:none rule made the browser target the
+   parent card, so the image-specific reveal handler never ran. */
 html body.my-page-flow #world>section#giftSection #my-page-gift #memory #my-scratch-photo{
-  pointer-events:none!important;
+  pointer-events:auto!important;
+  cursor:pointer!important;
 }
