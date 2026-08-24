@@ -1,0 +1,38 @@
+name: Fix NO button fallback
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install reliable NO-button fallback
+        shell: python
+        run: |
+          from pathlib import Path
+          p = Path('website file.html')
+          s = p.read_text(encoding='utf-8')
+          marker = '<!-- NO-BUTTON-FALLBACK-V1 -->'
+          if marker in s:
+              print('Fallback already installed')
+              raise SystemExit(0)
+          patch = r'''\n<!-- NO-BUTTON-FALLBACK-V1 -->\n<script>\n(function(){\n  var wired=false, attempts=0, timer=null;\n  function wire(){\n    var proposal=document.getElementById('proposal');\n    var no=document.getElementById('btnNo');\n    if(!proposal||!no) return false;\n    var visible=getComputedStyle(proposal).display!=='none' && no.getBoundingClientRect().width>0;\n    if(!visible) return false;\n    if(wired) return true;\n    wired=true;\n    try{ if(window.NoButton && typeof window.NoButton.init==='function') window.NoButton.init(); }catch(e){}\n    no.addEventListener('click',function(){\n      attempts++;\n      try{\n        var a=no.getBoundingClientRect(), ar=proposal.querySelector('#arena')||document.getElementById('arena');\n        var w=(ar&&ar.clientWidth)||Math.min(window.innerWidth-40,620);\n        var h=(ar&&ar.clientHeight)||280;\n        var dx=(Math.random()-.5)*Math.min(220,Math.max(120,w*.55));\n        var dy=(Math.random()-.5)*Math.min(150,Math.max(90,h*.55));\n        no.style.transition='transform .42s cubic-bezier(.2,.8,.2,1)';\n        no.style.transform='translate('+dx.toFixed(0)+'px,'+dy.toFixed(0)+'px) rotate('+(Math.random()*18-9).toFixed(1)+'deg)';\n      }catch(e){}\n      if(attempts>=2){\n        attempts=0;\n        try{\n          if(window.Cat && typeof window.Cat.appearCenter==='function'){\n            window.Cat.appearCenter().then(function(){\n              if(typeof window.Cat.leapTo==='function') return window.Cat.leapTo(no,{arc:200,spin:16,duration:920});\n            }).then(function(){\n              if(window.Cat && typeof window.Cat.setMood==='function') window.Cat.setMood('sad');\n              if(window.Cat && typeof window.Cat.say==='function') window.Cat.say(['This isn\'t fair… 😿','Please? For me? 🥺','You\'re breaking my heart… 💔']);\n            });\n          }\n        }catch(e){}\n      }\n    },false);\n    return true;\n  }\n  timer=setInterval(function(){ if(wire()){clearInterval(timer);timer=null;} },120);\n  document.addEventListener('DOMContentLoaded',wire);\n})();\n</script>\n'''
+          idx=s.lower().rfind('</body>')
+          if idx<0:
+              raise SystemExit('No closing body tag')
+          s=s[:idx]+patch+s[idx:]
+          p.write_text(s,encoding='utf-8')
+      - name: Commit patch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add 'website file.html'
+          git diff --cached --quiet || git commit -m 'Add reliable NO button fallback'
+          git push
