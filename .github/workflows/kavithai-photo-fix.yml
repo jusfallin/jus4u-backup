@@ -1,0 +1,57 @@
+name: Kavithai photo fix
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply exact five photos
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p assets
+          for f in 01.jpg 02.jpg 03.jpg 13.jpg IMG_20260730_235824.png; do
+            curl -L --fail --retry 3 -o "assets/$f" "https://raw.githubusercontent.com/jusfallin/jus4u./main/assets/$f"
+          done
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('website file.html')
+          s=p.read_text(encoding='utf-8')
+          if 'var KAVITHAI_IMAGES=' not in s:
+              s=s.replace('</head>','<script>var KAVITHAI_IMAGES=["01.jpg","02.jpg","03.jpg","13.jpg","IMG_20260730_235824.png"];</script>\n</head>',1)
+          replacement='''function lart(i){
+            var src=KAVITHAI_IMAGES[i]||KAVITHAI_IMAGES[0];
+            return '<img class="kavithai-photo" src="assets/'+encodeURIComponent(src)+'" alt="Kavithai '+String(i+1).padStart(2,'0')+' — cherished memory" loading="eager" decoding="async">';
+          }'''
+          pat=re.compile(r'function\s+lart\s*\(\s*i\s*\)\s*\{.*?\n\s*\}',re.S)
+          s,n=pat.subn(replacement,s,count=1)
+          if n!=1:
+              raise SystemExit('lart(i) renderer not found')
+          css='''<style id="kavithai-photo-fix">
+          .poem .art-card{border-width:clamp(10px,1.2vw,17px);border-radius:15px;background:linear-gradient(145deg,#fffdfb,#fff7f2);box-shadow:0 34px 68px -34px rgba(74,39,50,.48),0 8px 20px -12px rgba(74,39,50,.22)}
+          .poem .art-frame{aspect-ratio:4/5;border-radius:7px;background:#f2ddd6;isolation:isolate}
+          .poem .art-frame::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(180deg,rgba(255,249,246,.08),rgba(74,39,50,0) 58%,rgba(74,39,50,.10)),linear-gradient(135deg,rgba(255,249,246,.16),transparent 42%)}
+          .kavithai-photo{position:relative!important;z-index:1!important;width:100%!important;height:100%!important;max-width:none!important;object-fit:cover!important;object-position:center!important;filter:saturate(.98) contrast(1.01);transition:transform .8s cubic-bezier(.2,.8,.2,1),filter .6s ease;will-change:transform}
+          .poem .tilt:hover .kavithai-photo{transform:scale(1.035);filter:saturate(1.04) contrast(1.02)}
+          .poem .art-cap{padding:15px 10px 6px;font-size:clamp(20px,2vw,30px);text-shadow:0 1px 0 rgba(255,255,255,.7)}
+          .poem .art-card::before{content:"♡";position:absolute;right:-12px;top:-14px;z-index:5;width:43px;height:43px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#f0b6c0,#dc97a5);color:#fff9f6;font:22px/1 var(--script);border:4px solid var(--cream);box-shadow:0 12px 24px -12px rgba(74,39,50,.45);transform:translateZ(44px)}
+          @media(max-width:719px){.poem .art-card::before{right:-8px;top:-10px;width:38px;height:38px;font-size:20px}.poem .art-cap{padding-top:12px}}
+          </style>'''
+          if 'id="kavithai-photo-fix"' not in s:
+              s=s.replace('</head>',css+'\n</head>',1)
+          p.write_text(s,encoding='utf-8')
+          PY
+          grep -F 'var KAVITHAI_IMAGES=["01.jpg","02.jpg","03.jpg","13.jpg","IMG_20260730_235824.png"];' 'website file.html'
+          grep -F 'class="kavithai-photo"' 'website file.html'
+          test -s assets/01.jpg && test -s assets/02.jpg && test -s assets/03.jpg && test -s assets/13.jpg && test -s assets/IMG_20260730_235824.png
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add 'website file.html' assets/01.jpg assets/02.jpg assets/03.jpg assets/13.jpg assets/IMG_20260730_235824.png
+          git rm '.github/workflows/kavithai-photo-fix.yml'
+          git commit -m 'Apply Kavithai personal photos to myyellow'
+          git push
