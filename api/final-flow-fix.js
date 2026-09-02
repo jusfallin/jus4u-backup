@@ -121,7 +121,15 @@ module.exports = (req, res) => {
     /* Highest-level NO handler: first click moves, second click summons the cat. */
     document.addEventListener('click',function(e){
       var no=e.target&&e.target.closest?e.target.closest('#btnNo'):null;
-      if(!no||noBusy)return;
+      if(!no)return;
+      /* After YES is pressed, NO is intentionally inert so it cannot hide Continue or restart the cat. */
+      var yes=document.getElementById('btnYes');
+      if(yes&&yes.disabled){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        return;
+      }
+      if(noBusy)return;
       e.preventDefault();e.stopImmediatePropagation();
       noCount++;
       moveNo(no);
@@ -129,7 +137,15 @@ module.exports = (req, res) => {
     },true);
     document.addEventListener('touchend',function(e){
       var no=e.target&&e.target.closest?e.target.closest('#btnNo'):null;
-      if(!no||noBusy)return;
+      if(!no)return;
+      /* After YES is pressed, NO is intentionally inert so it cannot hide Continue or restart the cat. */
+      var yes=document.getElementById('btnYes');
+      if(yes&&yes.disabled){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        return;
+      }
+      if(noBusy)return;
       e.preventDefault();e.stopImmediatePropagation();
       noCount++;
       moveNo(no);
