@@ -40,3 +40,4 @@ jobs:
           git rm -f .github/workflows/fix-post-yes-no.yml || true
           git commit -m 'Remove temporary post-YES fix workflow' || true
           git push
+# trigger workflow on merge
