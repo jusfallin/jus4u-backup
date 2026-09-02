@@ -73,6 +73,18 @@ module.exports = (req, res) => {
     proposal.style.opacity='0';
     hidePopup();
 
+    /* This guard runs at WINDOW capture, before the older document-level NO handlers. */
+    function blockNoAfterYes(e){
+      var no=e.target&&e.target.closest?e.target.closest('#btnNo'):null;
+      var yes=document.getElementById('btnYes');
+      if(no&&yes&&yes.disabled){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+      }
+    }
+    window.addEventListener('click',blockNoAfterYes,true);
+    window.addEventListener('touchend',blockNoAfterYes,true);
+
     open.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();revealProposal()});
     close.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();hidePopup()});
 
